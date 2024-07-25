@@ -8,6 +8,7 @@ public class JBlackJack
 	{
 		ModelManager model = ModelManager.getInstance();
 		View view = new View();
+		view.showMenuPanel();
 		model.addObserver(view);
 		
 		model.setUser("a");
