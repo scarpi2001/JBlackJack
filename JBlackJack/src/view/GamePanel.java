@@ -16,7 +16,7 @@ private JButton buttonCreateUser;
 		setLayout(new BorderLayout());
 		
 		buttonCreateUser = new JButton("+2");	
-		buttonCreateUser.addActionListener(new CreateUserActionListener());
+		//buttonCreateUser.addActionListener(new CreateUserActionListener());
 		add(buttonCreateUser,BorderLayout.NORTH);
 	}
 	

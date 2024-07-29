@@ -10,7 +10,6 @@ public class JBlackJack
 		View view = new View();
 		view.showMenuPanel();
 		model.addObserver(view);
-		
-		model.setUser("a");
+
 	}
 }

@@ -5,9 +5,12 @@ import java.util.Observable;
 import java.awt.*;
 import javax.swing.*;
 
+/**
+ * classe che rappresenta la view, implementata tramite un JFrame
+ */
 public class View extends JFrame implements Observer 
 {
-	public static final String TITLE = "JBlackJack";
+	public static final String TITOLO = "JBlackJack";
     private MenuPanel menuPanel;
     private GamePanel gamePanel;
     private JPanel cardPanel;
@@ -15,6 +18,7 @@ public class View extends JFrame implements Observer
 	
 	public View()
 	{
+		setTitle(TITOLO);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(850, 650);
 		setLocationRelativeTo(null);

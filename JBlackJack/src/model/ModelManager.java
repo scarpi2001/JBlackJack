@@ -34,6 +34,7 @@ public class ModelManager extends Observable
 	 */
 	public void setUser(String nomeFile)
 	{
+		utente.setFile(nomeFile);
 		setChanged();
 		notifyObservers();
 	}
