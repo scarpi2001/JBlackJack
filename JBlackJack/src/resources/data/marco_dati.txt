@@ -1,4 +1,4 @@
-username:mario
+username:marco
 chips:1000
 maniGiocate:0
 maniVinte:0
