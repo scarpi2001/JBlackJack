@@ -21,16 +21,18 @@ public class CreateUserActionListener implements ActionListener
 	{           
 		ModelManager model = ModelManager.getInstance();
 		
+		//controlla se c'è un utente con lo stesso nome
 		if (controllaUsername(username)) {
 			JOptionPane.showMessageDialog(null,"Questo username è già stato preso.", "Errore", JOptionPane.ERROR_MESSAGE);
             return;
         }
 		
+		//salva utente in utenti.txt e crea file per il nuovo utente
 		salvaUsername(username);
-        String fileNuovoUtente = "src/resources/data/" + username + "_dati.txt";
-        creaFileUtente(fileNuovoUtente, username);
-
-		model.setUser(fileNuovoUtente);
+        creaFileUtente(username);
+        
+        //setta l'utente appena creato
+		model.setUser("src/resources/data/" + username + "_dati.txt");
 	}
     
     /**
@@ -42,10 +44,10 @@ public class CreateUserActionListener implements ActionListener
 	{
         try (BufferedReader reader = new BufferedReader(new FileReader("src/resources/data/utenti.txt"))) 
         {
-            String line;
-            while ((line = reader.readLine()) != null)
+            String riga;
+            while ((riga = reader.readLine()) != null)
             {
-                if (line.trim().equals(username)) 
+                if (riga.trim().equals(username)) 
                 {
                     return true;
                 }
@@ -84,9 +86,9 @@ public class CreateUserActionListener implements ActionListener
 	 * @param username l'username passato in input
 	 * @return se l'operazione di creazione del file e di inserimento dati va a buon fine restituisce true altrimenti false
 	 */
-	private boolean creaFileUtente(String filename, String username) 
+	private boolean creaFileUtente(String username) 
 	{
-		try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename)))
+		try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/resources/data/" + username + "_dati.txt")))
 		{
 			writer.write("username:" + username);
             writer.newLine();

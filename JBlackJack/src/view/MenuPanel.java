@@ -3,9 +3,6 @@ package view;
 import java.awt.*;
 import javax.swing.*;
 
-
-import controller.CreateUserActionListener;
-
 /**
  * panel che contiene il menu dell'applicazione
  */
@@ -13,7 +10,6 @@ public class MenuPanel extends JPanel
 {
 	private Image backgroundImage;
 	private TopBar topbar;
-	private JButton buttonCreateUser;
 	
 	public MenuPanel()
 	{

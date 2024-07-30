@@ -1,11 +1,16 @@
 package view;
 
 import javax.swing.*;
+import java.awt.*;
+import java.io.*;
+import java.util.ArrayList;
 
 import controller.CreateUserActionListener;
+import controller.JBlackJack;
 
-import java.awt.*;
-
+/**
+ * panel che rappresenta la topBar del menu
+ */
 public class TopBar extends JPanel 
 {
 	private JButton buttonCreateUser;
@@ -35,8 +40,10 @@ public class TopBar extends JPanel
 		add(buttonCreateUser);
 		
 		//select
-        String[] options = {"Opzione 1", "Opzione 2", "Opzione 3"};
-        comboBoxOptions = new JComboBox<>(options);
+        comboBoxOptions = new JComboBox<>(View.leggiUtentiDaFile("src/resources/data/utenti.txt"));
         add(comboBoxOptions);
 	}
+	
+	
+	
 }
