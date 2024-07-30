@@ -5,18 +5,22 @@ import java.util.Observable;
 import java.awt.*;
 import javax.swing.*;
 
+import model.ModelManager;
+import model.Utente;
+
 /**
  * classe che rappresenta la view, implementata tramite un JFrame
  */
 public class View extends JFrame implements Observer 
 {
 	public static final String TITOLO = "JBlackJack";
+	private static View instance;
     private MenuPanel menuPanel;
     private GamePanel gamePanel;
     private JPanel cardPanel;
     private CardLayout cardLayout;
 	
-	public View()
+	private View()
 	{
 		setTitle(TITOLO);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -38,11 +42,18 @@ public class View extends JFrame implements Observer
 		setVisible(true);
 	}
 	
+	public static View getInstance()
+	{
+		if (instance == null) instance = new View();
+		return instance;
+	}
+	
 	@Override
 	public void update(Observable o, Object arg) 
 	{
 		System.out.println("update ricevuto");
 		menuPanel.repaint();
+		gamePanel.repaint();
 	}
 	
 	public void showMenuPanel() 

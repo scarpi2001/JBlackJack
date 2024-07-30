@@ -6,6 +6,9 @@ import javax.swing.*;
 
 import controller.CreateUserActionListener;
 
+/**
+ * in questo panel si svolge la partita
+ */
 public class GamePanel extends JPanel
 {
 private JButton buttonCreateUser;
