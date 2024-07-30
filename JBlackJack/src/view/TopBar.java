@@ -2,11 +2,8 @@ package view;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.*;
-import java.util.ArrayList;
 
 import controller.CreateUserActionListener;
-import controller.JBlackJack;
 
 /**
  * panel che rappresenta la topBar del menu

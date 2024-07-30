@@ -1,16 +1,14 @@
 package view;
 
 import java.util.Observer;
-import java.util.ArrayList;
 import java.util.Observable;
+import java.util.ArrayList;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.*;
 import javax.swing.*;
 
 import controller.CreateUserActionListener;
-import model.ModelManager;
-import model.Utente;
 
 /**
  * classe che rappresenta la view, implementata tramite un JFrame
@@ -28,7 +26,7 @@ public class View extends JFrame implements Observer
 	{
 		setTitle(TITOLO);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setSize(850, 650);
+		setSize(950, 650);
 		setLocationRelativeTo(null);
 		setLayout(new BorderLayout());
 		
@@ -70,17 +68,23 @@ public class View extends JFrame implements Observer
         
         if(leggiUtentiDaFile("src/resources/data/utenti.txt").length == 0)
         {        	
-			String username = JOptionPane.showInputDialog(null, "Inserire un username", "Creazione primo utente", JOptionPane.PLAIN_MESSAGE);
-
-			//se clicco su OK
-			if (username != null) {
-				//controlla la validita dell'input (se il campo non è vuoto fai l'actionPerformed del CreateUserActionListener, altrimenti manda un errore)
-				if (!username.isEmpty()) {
-	                new CreateUserActionListener(username.trim()).actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, null));
-	            } else {	
-	                JOptionPane.showMessageDialog(null, "l'username non può essere vuoto!", "Errore", JOptionPane.ERROR_MESSAGE);
-	            }
-	        } 
+        	boolean isValid = false;
+        	//ripeti finche non viene inserito un username valido
+            while (!isValid) 
+            {
+				String username = JOptionPane.showInputDialog(null, "Per continuare, inserisci un username", "Creazione primo utente", JOptionPane.PLAIN_MESSAGE);
+	
+				//se clicco su OK
+				if (username != null) {
+					//controlla la validita dell'input (se il campo non è vuoto fai l'actionPerformed del CreateUserActionListener, altrimenti manda un errore)
+					if (!username.isEmpty()) {
+		                new CreateUserActionListener(username.trim()).actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, null));
+		                isValid = true;
+		            } else {	
+		                JOptionPane.showMessageDialog(null, "l'username non può essere vuoto!", "Errore", JOptionPane.ERROR_MESSAGE);
+		            }
+		        }
+            }
         }
     }
 
@@ -93,7 +97,7 @@ public class View extends JFrame implements Observer
     }
     
     /**
-     * metodo per leggere gli utenti dal file degli utenti
+     * metodo per leggere gli utenti dal file degli utenti (è public perchè mi torna utile anche al di fuori della classe)
      * @param path path del file
      * @return la lista degli utenti
      */

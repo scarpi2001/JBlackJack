@@ -14,7 +14,7 @@ public class MenuPanel extends JPanel
 	public MenuPanel()
 	{
 		setLayout(new BorderLayout());
-		backgroundImage = new ImageIcon("src/resources/images/menu_background3.jpg").getImage();
+		backgroundImage = new ImageIcon("src/resources/images/menu_background.jpg").getImage();
 		
 		topbar = new TopBar();
 		add(topbar, BorderLayout.NORTH);
@@ -25,7 +25,7 @@ public class MenuPanel extends JPanel
 	{
 		super.paintComponent(g);
 		Graphics2D g2=(Graphics2D)g;
-
+		
 		g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
 	}
 }

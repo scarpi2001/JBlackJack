@@ -93,19 +93,19 @@ public class CreateUserActionListener implements ActionListener
 			writer.write("username:" + username);
             writer.newLine();
             
-            writer.write("chips:" + "1000");
+            writer.write("chips:1000");
             writer.newLine();
             
-            writer.write("maniGiocate:" + "0");
+            writer.write("maniGiocate:0");
             writer.newLine();
             
-            writer.write("maniVinte:" + "0");
+            writer.write("maniVinte:0");
             writer.newLine();
             
-            writer.write("maniPerse:" + "0");
+            writer.write("maniPerse:0");
             writer.newLine();
             
-            writer.write("livello:" + "0");
+            writer.write("livello:0");
             writer.newLine();
             
             return true;
