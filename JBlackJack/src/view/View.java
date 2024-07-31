@@ -8,7 +8,8 @@ import java.awt.event.ActionEvent;
 import java.io.*;
 import javax.swing.*;
 
-import controller.CreateUserActionListener;
+import controller.actionListeners.CreateUserActionListener;
+import view.menuPanel.MenuPanel;
 
 /**
  * classe che rappresenta la view, implementata tramite un JFrame
@@ -85,6 +86,10 @@ public class View extends JFrame implements Observer
 		            }
 		        }
             }
+        }
+        else
+        {
+        	//setta ultimo utente selezionato (file "ultimo_utente.txt")
         }
     }
 

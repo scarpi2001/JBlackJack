@@ -1,9 +1,11 @@
-package view;
+package view.menuPanel;
 
 import javax.swing.*;
 import java.awt.*;
 
-import controller.CreateUserActionListener;
+import controller.actionListeners.CreateUserActionListener;
+import controller.actionListeners.SetUserActionListener;
+import view.View;
 
 /**
  * panel che rappresenta la topBar del menu
@@ -38,6 +40,10 @@ public class TopBar extends JPanel
 		
 		//select
         comboBoxOptions = new JComboBox<>(View.leggiUtentiDaFile("src/resources/data/utenti.txt"));
+        comboBoxOptions.addActionListener(e -> {
+        	 String username = (String) comboBoxOptions.getSelectedItem();
+             new SetUserActionListener(username).actionPerformed(e);
+        });
         add(comboBoxOptions);
 	}
 	

@@ -1,7 +1,9 @@
-package view;
+package view.menuPanel;
 
 import java.awt.*;
 import javax.swing.*;
+
+import model.ModelManager;
 
 /**
  * panel che contiene il menu dell'applicazione
@@ -26,6 +28,10 @@ public class MenuPanel extends JPanel
 		super.paintComponent(g);
 		Graphics2D g2=(Graphics2D)g;
 		
+		//disegna background
 		g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+		
+		//disegna dati utente selezionato
+		if(ModelManager.getInstance().getUtenteUsername() != null) {g.drawString(ModelManager.getInstance().getUtenteUsername(), 50, 50);}
 	}
 }

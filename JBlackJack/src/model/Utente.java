@@ -1,7 +1,11 @@
 package model;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 /**
- * classe che rappresenta l'utente dell'applicazione
+ * classe che rappresenta l'utente che utilizza l'applicazione
  */
 public class Utente 
 {
@@ -55,19 +59,23 @@ public class Utente
 	}
 
 	
-	public String getUsername() {
+	public String getUsername() 
+	{
 		return username;
 	}
 
-	public void setUsername(String username) {
+	public void setUsername(String username) 
+	{
 		this.username = username;
 	}
 
-	public String getFile() {
+	public String getFile() 
+	{
 		return file;
 	}
 
-	public void setFile(String file) {
+	public void setFile(String file)
+	{
 		this.file = file;
 	}
 
@@ -75,39 +83,93 @@ public class Utente
 		return chips;
 	}
 
-	public void setChips(int chips) {
+	public void setChips(int chips)
+	{
 		this.chips = chips;
 	}
 
-	public int getManiGiocate() {
+	public int getManiGiocate() 
+	{
 		return maniGiocate;
 	}
 
-	public void setManiGiocate(int maniGiocate) {
+	public void setManiGiocate(int maniGiocate) 
+	{
 		this.maniGiocate = maniGiocate;
 	}
 
-	public int getManiVinte() {
+	public int getManiVinte() 
+	{
 		return maniVinte;
 	}
 
-	public void setManiVinte(int maniVinte) {
+	public void setManiVinte(int maniVinte) 
+	{
 		this.maniVinte = maniVinte;
 	}
 
-	public int getManiPerse() {
+	public int getManiPerse() 
+	{
 		return maniPerse;
 	}
 
-	public void setManiPerse(int maniPerse) {
+	public void setManiPerse(int maniPerse)
+	{
 		this.maniPerse = maniPerse;
 	}
 
-	public int getLivello() {
+	public int getLivello()
+	{
 		return livello;
 	}
 
-	public void setLivello(int livello) {
+	public void setLivello(int livello) 
+	{
 		this.livello = livello;
 	}
+	
+	/**
+	 * metodo che aggiorna i dati dell’utente prendendoli dal file passato in input
+	 * @param nomeFile nome del file che contiene i dati dell'utente
+	 */
+	public void setDati(String nomeFile)
+	{
+		setFile(nomeFile);
+		try (BufferedReader reader = new BufferedReader(new FileReader(nomeFile))) {
+	        String riga;
+	        while ((riga = reader.readLine()) != null) 
+	        {
+	            String[] keyValue = riga.split(":");
+	            String key = keyValue[0].trim();
+                String value = keyValue[1].trim();
+
+                switch (key) 
+                {
+                    case "username":
+                        setUsername(value);
+                        break;
+                    case "chips":
+                        setChips(Integer.parseInt(value));
+                        break;
+                    case "maniGiocate":
+                        setManiGiocate(Integer.parseInt(value));
+                        break;
+                    case "maniVinte":
+                        setManiVinte(Integer.parseInt(value));
+                        break;
+                    case "maniPerse":
+                        setManiPerse(Integer.parseInt(value));
+                        break;
+                    case "livello":
+                        setLivello(Integer.parseInt(value));
+                        break;	              
+	            }
+	        }
+	    } 
+		catch (IOException e) 
+		{
+	        e.printStackTrace();
+	    }
+	}
+	
 }

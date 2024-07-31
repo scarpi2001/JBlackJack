@@ -1,4 +1,5 @@
 package model;
+import java.io.*;
 import java.util.Observable;
 
 /**
@@ -32,11 +33,16 @@ public class ModelManager extends Observable
 	 * e notifica gli osservatori
 	 * @param nomeFile nome del file che contiene i dati dell'utente
 	 */
-	public void setUser(String nomeFile)
+	public void setUtente(String nomeFile)
 	{
-		utente.setFile(nomeFile);
+		utente.setDati(nomeFile);
 		setChanged();
 		notifyObservers();
+	}
+	
+	public String getUtenteUsername()
+	{
+		return utente.getUsername();
 	}
 }
 

@@ -3,8 +3,7 @@ package view;
 import java.awt.*;
 import javax.swing.*;
 
-
-import controller.CreateUserActionListener;
+import controller.actionListeners.CreateUserActionListener;
 
 /**
  * in questo panel si svolge la partita

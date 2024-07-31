@@ -1,4 +1,4 @@
-package controller;
+package controller.actionListeners;
 
 import java.awt.event.*;
 import javax.swing.*;
@@ -32,7 +32,7 @@ public class CreateUserActionListener implements ActionListener
         creaFileUtente(username);
         
         //setta l'utente appena creato
-		model.setUser("src/resources/data/" + username + "_dati.txt");
+		model.setUtente("src/resources/data/" + username + "_dati.txt");
 	}
     
     /**
@@ -118,9 +118,3 @@ public class CreateUserActionListener implements ActionListener
 	}
    
 }
-
-
-
-
-
-
