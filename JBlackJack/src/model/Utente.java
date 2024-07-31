@@ -1,7 +1,9 @@
 package model;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 /**
@@ -130,6 +132,7 @@ public class Utente
 	
 	/**
 	 * metodo che aggiorna i dati dell’utente prendendoli dal file passato in input
+	 * e scrive l'username dell'utente nel file "ultimo_utente.txt"
 	 * @param nomeFile nome del file che contiene i dati dell'utente
 	 */
 	public void setDati(String nomeFile)
@@ -170,6 +173,16 @@ public class Utente
 		{
 	        e.printStackTrace();
 	    }
+		
+		//scrivo l'username nel file ultimo_utente.txt
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/resources/data/ultimo_utente.txt"))) 
+        {
+            writer.write(username);
+        } 
+        catch (IOException ex) 
+        {
+            ex.printStackTrace();
+        }
 	}
 	
 }

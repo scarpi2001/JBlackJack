@@ -29,15 +29,16 @@ public class ModelManager extends Observable
 	}
 	
 	/**
-	 * metodo che aggiorna i dati dell’utente prendendoli dal file passato in input
+	 * metodo che aggiorna i dati dell’utente prendendoli dal file passato in input,
 	 * e notifica gli osservatori
 	 * @param nomeFile nome del file che contiene i dati dell'utente
 	 */
 	public void setUtente(String nomeFile)
 	{
-		utente.setDati(nomeFile);
+		utente.setDati(nomeFile);        
 		setChanged();
 		notifyObservers();
+		
 	}
 	
 	public String getUtenteUsername()

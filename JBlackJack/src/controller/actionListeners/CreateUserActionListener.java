@@ -32,7 +32,7 @@ public class CreateUserActionListener implements ActionListener
         creaFileUtente(username);
         
         //setta l'utente appena creato
-		model.setUtente("src/resources/data/" + username + "_dati.txt");
+		model.setUtente("src/resources/data/dati_utenti/" + username + "_dati.txt");
 	}
     
     /**
@@ -88,7 +88,7 @@ public class CreateUserActionListener implements ActionListener
 	 */
 	private boolean creaFileUtente(String username) 
 	{
-		try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/resources/data/" + username + "_dati.txt")))
+		try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/resources/data/dati_utenti/" + username + "_dati.txt")))
 		{
 			writer.write("username:" + username);
             writer.newLine();

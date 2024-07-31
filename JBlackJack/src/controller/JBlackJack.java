@@ -9,7 +9,8 @@ public class JBlackJack
 	{
 		ModelManager model = ModelManager.getInstance();
 		View view = View.getInstance();
-		view.showMenuPanel();
 		model.addObserver(view);
+		
+		view.showMenuPanel();
 	}
 }

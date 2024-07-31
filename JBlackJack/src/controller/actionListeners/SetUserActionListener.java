@@ -1,6 +1,8 @@
 package controller.actionListeners;
 
 import java.awt.event.*;
+import java.io.*;
+
 import model.ModelManager;
 
 /**
@@ -18,6 +20,6 @@ public class SetUserActionListener implements ActionListener
 	public void actionPerformed(ActionEvent e) 
 	{           
 		ModelManager model = ModelManager.getInstance();
-		model.setUtente("src/resources/data/" + username + "_dati.txt");
+		model.setUtente("src/resources/data/dati_utenti/" + username + "_dati.txt");
 	}
 }

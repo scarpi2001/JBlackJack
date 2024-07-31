@@ -9,6 +9,7 @@ import java.io.*;
 import javax.swing.*;
 
 import controller.actionListeners.CreateUserActionListener;
+import model.ModelManager;
 import view.menuPanel.MenuPanel;
 
 /**
@@ -58,10 +59,12 @@ public class View extends JFrame implements Observer
 		menuPanel.repaint();
 		gamePanel.repaint();
 	}
+
 	
 	/**
 	 * metodo per mostrare il panel del menu
 	 * controlla anche che ci sia gia un utente creato, se non c'è chiede di crearlo
+	 * se è gia stato creato un utente (quindi non sono al primo avvio) setta l'ultimo utente selezionato
 	 */
 	public void showMenuPanel() 
 	{
@@ -89,7 +92,20 @@ public class View extends JFrame implements Observer
         }
         else
         {
-        	//setta ultimo utente selezionato (file "ultimo_utente.txt")
+        	//setta ultimo utente selezionato 
+        	String username = null;
+
+            try (BufferedReader reader = new BufferedReader(new FileReader("src/resources/data/ultimo_utente.txt"))) {
+                String riga;
+                while ((riga = reader.readLine()) != null) {
+                	username = riga;
+                }
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            
+            ModelManager model = ModelManager.getInstance();
+            model.setUtente("src/resources/data/dati_utenti/" + username + "_dati.txt");
         }
     }
 
@@ -102,7 +118,7 @@ public class View extends JFrame implements Observer
     }
     
     /**
-     * metodo per leggere gli utenti dal file degli utenti (è public perchè mi torna utile anche al di fuori della classe)
+     * metodo per leggere gli utenti dal file degli utenti (è public perchè torna utile anche al di fuori della classe)
      * @param path path del file
      * @return la lista degli utenti
      */
