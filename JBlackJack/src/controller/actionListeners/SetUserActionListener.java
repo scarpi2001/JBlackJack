@@ -3,23 +3,27 @@ package controller.actionListeners;
 import java.awt.event.*;
 import java.io.*;
 
+import javax.swing.JComboBox;
+
 import model.ModelManager;
 
 /**
- * classe che contiene la logica necessaria a selezionare un utente
+ * classe che definisce l'evento di set dell'utente che deve accadere al click di un componente swing
  */
 public class SetUserActionListener implements ActionListener
 {
-	private String username;
+	private JComboBox<String> comboBoxUtenti;
 	
-	public SetUserActionListener(String username) {
-        this.username = username;
+    public SetUserActionListener(JComboBox<String> comboBoxOptions) 
+    {
+        this.comboBoxUtenti = comboBoxOptions;
     }
 	
     @Override
 	public void actionPerformed(ActionEvent e) 
 	{           
 		ModelManager model = ModelManager.getInstance();
+		String username = (String) comboBoxUtenti.getSelectedItem();
 		model.setUtente("src/resources/data/dati_utenti/" + username + "_dati.txt");
 	}
 }

@@ -1,5 +1,6 @@
 package model;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Observable;
 
 /**
@@ -12,14 +13,14 @@ public class ModelManager extends Observable
 	/**
 	 * utente che sta utilizzando l'applicazione
 	 */
-	private static Utente utente;
+	private Utente utente;
 	
 	/**
 	 * il costruttore del model, che istanzia l'utente
 	 */
 	private ModelManager()
 	{
-		ModelManager.utente = Utente.getInstance();
+		utente = Utente.getInstance();
 	}
 	
 	public static ModelManager getInstance()
@@ -27,6 +28,13 @@ public class ModelManager extends Observable
 		if (instance == null) instance = new ModelManager();
 		return instance;
 	}
+	
+	//INIZIO METODI UTENTE
+	public String getUtenteUsername()
+	{
+		return utente.getUsername();
+	}
+	
 	
 	/**
 	 * metodo che aggiorna i dati dell’utente prendendoli dal file passato in input,
@@ -38,12 +46,60 @@ public class ModelManager extends Observable
 		utente.setDati(nomeFile);        
 		setChanged();
 		notifyObservers();
-		
 	}
 	
-	public String getUtenteUsername()
+	/**
+	 * metodo per leggere gli utenti da un file di utenti 
+	 * @param path path del file che contiene gli utenti
+	 * @return la lista degli utenti
+	 */
+	public String[] getUtenti(String path) 
 	{
-		return utente.getUsername();
+		ArrayList<String> utenti = new ArrayList<>();
+		
+		try (BufferedReader reader = new BufferedReader(new FileReader(path))) 
+		{
+			String riga;
+			while ((riga = reader.readLine()) != null)
+			{
+				utenti.add(riga.trim());
+			}
+		} 
+		catch (IOException e) 
+		{
+			e.printStackTrace();
+		}
+		return utenti.toArray(new String[0]);
 	}
+	
+	/**
+	 * metodo per leggere l'utente da un file contenente l'ultimo utente selezionato
+	 * @param path path del file che contiene i dati dell'utente
+	 */
+	public String getUltimoUtenteUsername(String path) {
+        String username = null;
+        try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
+            String riga;
+            while ((riga = reader.readLine()) != null) {
+                username = riga;
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return username;
+    }
+	
+	/**
+	 * metodo per creare l'utente 
+	 * crea l'utente e lo setta
+	 * @param username l'username dell'utente
+	 */
+	public void creaUtente(String username)
+	{
+		utente.creaUtente(username);
+		setUtente("src/resources/data/dati_utenti/" + username + "_dati.txt");
+	}
+	//FINE METODI UTENTE
+	
 }
 

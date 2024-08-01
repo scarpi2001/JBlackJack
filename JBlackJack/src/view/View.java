@@ -2,14 +2,9 @@ package view;
 
 import java.util.Observer;
 import java.util.Observable;
-import java.util.ArrayList;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.io.*;
 import javax.swing.*;
 
-import controller.actionListeners.CreateUserActionListener;
-import model.ModelManager;
 import view.menuPanel.MenuPanel;
 
 /**
@@ -55,7 +50,7 @@ public class View extends JFrame implements Observer
 	@Override
 	public void update(Observable o, Object arg) 
 	{
-		System.out.println("update ricevuto");
+		System.out.println("view: update ricevuto");
 		menuPanel.repaint();
 		gamePanel.repaint();
 	}
@@ -63,50 +58,10 @@ public class View extends JFrame implements Observer
 	
 	/**
 	 * metodo per mostrare il panel del menu
-	 * controlla anche che ci sia gia un utente creato, se non c'è chiede di crearlo
-	 * se è gia stato creato un utente (quindi non sono al primo avvio) setta l'ultimo utente selezionato
 	 */
 	public void showMenuPanel() 
 	{
-        cardLayout.show(cardPanel, "Menu");
-        
-        if(leggiUtentiDaFile("src/resources/data/utenti.txt").length == 0)
-        {        	
-        	boolean isValid = false;
-        	//ripeti finche non viene inserito un username valido
-            while (!isValid) 
-            {
-				String username = JOptionPane.showInputDialog(null, "Per continuare, inserisci un username", "Creazione primo utente", JOptionPane.PLAIN_MESSAGE);
-	
-				//se clicco su OK
-				if (username != null) {
-					//controlla la validita dell'input (se il campo non è vuoto fai l'actionPerformed del CreateUserActionListener, altrimenti manda un errore)
-					if (!username.isEmpty()) {
-		                new CreateUserActionListener(username.trim()).actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, null));
-		                isValid = true;
-		            } else {	
-		                JOptionPane.showMessageDialog(null, "l'username non può essere vuoto!", "Errore", JOptionPane.ERROR_MESSAGE);
-		            }
-		        }
-            }
-        }
-        else
-        {
-        	//setta ultimo utente selezionato 
-        	String username = null;
-
-            try (BufferedReader reader = new BufferedReader(new FileReader("src/resources/data/ultimo_utente.txt"))) {
-                String riga;
-                while ((riga = reader.readLine()) != null) {
-                	username = riga;
-                }
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-            
-            ModelManager model = ModelManager.getInstance();
-            model.setUtente("src/resources/data/dati_utenti/" + username + "_dati.txt");
-        }
+        cardLayout.show(cardPanel, "Menu"); 
     }
 
 	/**
@@ -118,26 +73,27 @@ public class View extends JFrame implements Observer
     }
     
     /**
-     * metodo per leggere gli utenti dal file degli utenti (è public perchè torna utile anche al di fuori della classe)
-     * @param path path del file
-     * @return la lista degli utenti
+     * metodo statico di utilità della view per mostrare un popup nel quale inserire l'username dell'utente che si vuole creare
+     * @param primo booleano che mi informa se sto creando il primo utente 
+     * @return l'username inserito nel prompt
      */
-    public static String[] leggiUtentiDaFile(String path) 
-	{
-        ArrayList<String> utenti = new ArrayList<>();
+    public static String showUsernameInput(boolean primo) {
+    	if(primo) 
+    	{
+    		return JOptionPane.showInputDialog(null, "Per continuare, inserisci un username", "Creazione primo utente", JOptionPane.PLAIN_MESSAGE);
+    	}
+    	else
+    	{
+    		return JOptionPane.showInputDialog(null, "Inserire un username", "Creazione utente", JOptionPane.PLAIN_MESSAGE);
+    	}
         
-        try (BufferedReader reader = new BufferedReader(new FileReader(path))) 
-        {
-            String riga;
-            while ((riga = reader.readLine()) != null)
-            {
-                utenti.add(riga.trim());
-            }
-        } 
-        catch (IOException e) 
-        {
-            e.printStackTrace();
-        }
-        return utenti.toArray(new String[0]);
+    }
+    
+    /**
+     * metodo statico di utilità della view per mostrare un popup con errore
+     * @param message messaggio di errore
+     */
+    public static void showError(String message) {
+        JOptionPane.showMessageDialog(null, message, "Errore", JOptionPane.ERROR_MESSAGE);
     }
 }

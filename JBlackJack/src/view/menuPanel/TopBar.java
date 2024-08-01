@@ -5,6 +5,7 @@ import java.awt.*;
 
 import controller.actionListeners.CreateUserActionListener;
 import controller.actionListeners.SetUserActionListener;
+import model.ModelManager;
 import view.View;
 
 /**
@@ -13,38 +14,23 @@ import view.View;
 public class TopBar extends JPanel 
 {
 	private JButton buttonCreateUser;
-	private JComboBox<String> comboBoxOptions;
+	private JComboBox<String> comboBoxUtenti;
 	
 	public TopBar() 
 	{
+		ModelManager model = ModelManager.getInstance();
 		setLayout(new FlowLayout(FlowLayout.RIGHT, 15,15));
 		setBackground(new Color(0, 0, 0, 0));
 		
 		//bottone crea utente
 		buttonCreateUser = new JButton("Crea nuovo utente");
-		//posso usare una lambda, ActionListener è un interfaccia funzionale
-		buttonCreateUser.addActionListener(e -> {
-			String username = JOptionPane.showInputDialog(null, "Inserire un username", "Creazione utente", JOptionPane.PLAIN_MESSAGE);
-
-			//se clicco su OK
-			if (username != null) {
-				//controlla la validita dell'input (se il campo non è vuoto fai l'actionPerformed del CreateUserActionListener, altrimenti manda un errore)
-				if (!username.isEmpty()) {
-	                new CreateUserActionListener(username.trim()).actionPerformed(e);
-	            } else {	
-	                JOptionPane.showMessageDialog(null, "l'username non può essere vuoto!", "Errore", JOptionPane.ERROR_MESSAGE);
-	            }
-	        } 
-		});
+		buttonCreateUser.addActionListener(new CreateUserActionListener());
 		add(buttonCreateUser);
 		
 		//select
-        comboBoxOptions = new JComboBox<>(View.leggiUtentiDaFile("src/resources/data/utenti.txt"));
-        comboBoxOptions.addActionListener(e -> {
-        	 String username = (String) comboBoxOptions.getSelectedItem();
-             new SetUserActionListener(username).actionPerformed(e);
-        });
-        add(comboBoxOptions);
+        comboBoxUtenti = new JComboBox<>(model.getUtenti("src/resources/data/utenti.txt"));
+        comboBoxUtenti.addActionListener(new SetUserActionListener(comboBoxUtenti));
+        add(comboBoxUtenti);
 	}
 	
 	
