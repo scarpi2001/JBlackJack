@@ -4,15 +4,18 @@ import javax.swing.*;
 import java.awt.*;
 
 import controller.actionListeners.CreateUserActionListener;
+import controller.actionListeners.DeleteUserActionListener;
 import controller.actionListeners.SetUserActionListener;
+
 import model.ModelManager;
-import view.View;
+
 
 /**
  * panel che rappresenta la topBar del menu
  */
 public class TopBar extends JPanel 
 {
+	private JButton buttonDeleteUser;
 	private JButton buttonCreateUser;
 	private JComboBox<String> comboBoxUtenti;
 	
@@ -27,7 +30,12 @@ public class TopBar extends JPanel
 		buttonCreateUser.addActionListener(new CreateUserActionListener());
 		add(buttonCreateUser);
 		
-		//select
+		//bottone elimina utente
+		buttonDeleteUser = new JButton("elimina utente");
+		buttonDeleteUser.addActionListener(new DeleteUserActionListener());
+		add(buttonDeleteUser);
+		
+		//select utenti
         comboBoxUtenti = new JComboBox<>(model.getUtenti("src/resources/data/utenti.txt"));
         comboBoxUtenti.addActionListener(new SetUserActionListener(comboBoxUtenti));
         add(comboBoxUtenti);

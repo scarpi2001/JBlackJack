@@ -1,10 +1,8 @@
 package model;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import view.View;
 
@@ -288,4 +286,53 @@ public class Utente
 		return false;
 	}
 	//FINE CREAZIONE UTENTE
+	
+	//INIZIO ELIMINAZIONE UTENTE
+	/**
+	 * metodo per eliminare l'utente 
+	 * elimina l'utente dal file degli utenti 
+	 * elimina il file dell'utente
+	 * @param username l'username dell'utente da eliminare
+	 */
+	public void eliminaUtente(String username)
+	{
+		//creo una lista di utenti dal file
+        List<String> utenti = new ArrayList<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader("src/resources/data/utenti.txt"))) 
+        {
+            String riga;
+            while ((riga = reader.readLine()) != null) 
+            {
+                utenti.add(riga);
+            }
+        } 
+        catch (IOException e) 
+        {
+            e.printStackTrace();
+            return;
+        }
+        
+        //tolgo l'utente che devo togliere dalla lista
+        utenti.remove(username);
+   
+        //sovrascrivo il file con la lista di utenti aggiornata
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/resources/data/utenti.txt"))) 
+        {
+            for (String utente : utenti) 
+            {
+            	writer.write(utente);
+            	writer.newLine();
+            }
+        } 
+        catch (IOException e) 
+        {
+            e.printStackTrace();
+        }
+        
+        //elimino il file legato all'utente
+        new File("src/resources/data/dati_utenti/" + username + "_dati.txt").delete();
+
+	}
+	//FINE ELIMINAZIONE UTENTE
 }

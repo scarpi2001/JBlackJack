@@ -49,6 +49,29 @@ public class ModelManager extends Observable
 	}
 	
 	/**
+	 * metodo per creare l'utente 
+	 * crea l'utente e lo setta
+	 * @param username l'username dell'utente
+	 */
+	public void creaUtente(String username)
+	{
+		utente.creaUtente(username);
+		setUtente("src/resources/data/dati_utenti/" + username + "_dati.txt");
+	}
+	
+	/**
+	 * metodo per eliminare l'utente 
+	 * elimina l'utente e setta il primo della select degli utenti 
+	 * @param username l'username dell'utente da eliminare
+	 */
+	public void eliminaUtente(String username)
+	{
+		utente.eliminaUtente(username);
+		//setto il primo utente della lista di utenti 
+		setUtente("src/resources/data/dati_utenti/" + getUtenti("src/resources/data/utenti.txt")[0] + "_dati.txt");
+	}
+	
+	/**
 	 * metodo per leggere gli utenti da un file di utenti 
 	 * @param path path del file che contiene gli utenti
 	 * @return la lista degli utenti
@@ -88,17 +111,6 @@ public class ModelManager extends Observable
         }
         return username;
     }
-	
-	/**
-	 * metodo per creare l'utente 
-	 * crea l'utente e lo setta
-	 * @param username l'username dell'utente
-	 */
-	public void creaUtente(String username)
-	{
-		utente.creaUtente(username);
-		setUtente("src/resources/data/dati_utenti/" + username + "_dati.txt");
-	}
 	//FINE METODI UTENTE
 	
 }
