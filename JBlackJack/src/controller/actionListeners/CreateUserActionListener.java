@@ -1,8 +1,6 @@
 package controller.actionListeners;
 
 import java.awt.event.*;
-import javax.swing.*;
-import java.io.*;
 import model.ModelManager;
 import view.View;
 
@@ -21,14 +19,20 @@ public class CreateUserActionListener implements ActionListener
 		if (username != null) 
 		{
 			//controlla la validita dell'input (se il campo non è vuoto fai l'actionPerformed del CreateUserActionListener, altrimenti manda un errore)
-			if (!username.isEmpty()) 
+			if (username.isEmpty()) 
 			{
-				model.creaUtente(username);
+				View.showError("l'username non può essere vuoto!");
+				return;
+				
             } 
-			else 
+			
+			if(username.length() > 20)
 			{
-            	View.showError("l'username non può essere vuoto!");
-            }
+				View.showError("l'username supera la lunghezza massima di 20 caratteri");
+				return;
+			}
+
+			model.creaUtente(username);
         } 
 	}
 }
