@@ -305,7 +305,7 @@ public class Utente
 	public void eliminaUtente(String username)
 	{
 		ModelManager model = ModelManager.getInstance();
-        List<String> utenti = Arrays.asList(model.getUtenti("src/resources/data/utenti.txt"));
+		List<String> utenti = new ArrayList<>(Arrays.asList(model.getUtenti("src/resources/data/utenti.txt")));
         utenti.remove(username);
    
         //sovrascrivo il file con la lista di utenti aggiornata
