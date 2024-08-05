@@ -16,8 +16,8 @@ public class View extends JFrame implements Observer
 	public static final String TITOLO = "JBlackJack";
 	private static View instance;
 	
-    private JPanel menuPanel;
-    private JPanel gamePanel;
+    private MenuPanel menuPanel;
+    private GamePanel gamePanel;
     private JPanel cardPanel;
     private CardLayout cardLayout;
 	
@@ -53,7 +53,7 @@ public class View extends JFrame implements Observer
 	public void update(Observable o, Object arg) 
 	{
 		System.out.println("view: update ricevuto");
-		menuPanel.repaint();
+		menuPanel.updateMenuPanel();	
 		gamePanel.repaint();
 	}
 

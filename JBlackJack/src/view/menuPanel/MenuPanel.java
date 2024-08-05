@@ -21,25 +21,26 @@ public class MenuPanel extends JPanel
 		
 		topbar = new TopBar();
 		bottombar = new BottomBar(); 
+		bottombar.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 		
 		add(topbar, BorderLayout.NORTH);
 		add(bottombar, BorderLayout.SOUTH);
+		
 	}
 	
 	@Override
 	public void paintComponent(Graphics g)
 	{
-		ModelManager model = ModelManager.getInstance();
 		super.paintComponent(g);
 		Graphics2D g2=(Graphics2D)g;
-		
+
 		//disegna background
 		g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
-		
-		//disegna dati utente selezionato
-		bottombar.aggiornaDatiUtente();
-		
-		//aggiorna topBar
-		topbar.refreshComboBox();
 	}
+	
+	public void updateMenuPanel() {
+        bottombar.aggiornaDatiUtente();
+        topbar.refreshComboBox();
+        repaint();
+    }
 }

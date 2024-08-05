@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 import model.ModelManager;
+import view.MyJLabel;
 
 
 /**
@@ -55,9 +56,11 @@ public class BottomBar extends JPanel
 
     }
     
-    public void aggiornaDatiUtente() {
+    public void aggiornaDatiUtente() 
+    {
         ModelManager model = ModelManager.getInstance();
-        if (model.getUtenteUsername() != null) {
+        if (model.getUtenteUsername() != null) 
+        {
             usernameLabel.setText("Username: " + model.getUtenteUsername());
             chipsLabel.setText("Chips: " + model.getUtenteChips());
             maniGiocateLabel.setText("Mani Giocate: " + model.getUtenteManiGiocate());
