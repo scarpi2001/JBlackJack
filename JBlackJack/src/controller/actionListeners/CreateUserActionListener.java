@@ -18,7 +18,7 @@ public class CreateUserActionListener implements ActionListener
 		//se clicco su OK
 		if (username != null) 
 		{
-			//controlla la validita dell'input (se il campo non è vuoto fai l'actionPerformed del CreateUserActionListener, altrimenti manda un errore)
+			//controlla la validita dell'input (se il campo non è vuoto e il nome non è troppo lungo crea l'utente, altrimenti manda un errore)
 			if (username.isEmpty()) 
 			{
 				View.showError("l'username non può essere vuoto!");

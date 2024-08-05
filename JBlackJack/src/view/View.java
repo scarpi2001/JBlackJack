@@ -5,6 +5,7 @@ import java.util.Observable;
 import java.awt.*;
 import javax.swing.*;
 
+import view.gamePanel.GamePanel;
 import view.menuPanel.MenuPanel;
 
 /**
@@ -14,8 +15,9 @@ public class View extends JFrame implements Observer
 {
 	public static final String TITOLO = "JBlackJack";
 	private static View instance;
-    private MenuPanel menuPanel;
-    private GamePanel gamePanel;
+	
+    private JPanel menuPanel;
+    private JPanel gamePanel;
     private JPanel cardPanel;
     private CardLayout cardLayout;
 	
@@ -38,7 +40,7 @@ public class View extends JFrame implements Observer
         
         add(cardPanel, BorderLayout.CENTER);
         
-		setVisible(true);
+        setVisible(true);
 	}
 	
 	public static View getInstance()
@@ -77,7 +79,8 @@ public class View extends JFrame implements Observer
      * @param primo booleano che mi informa se sto creando il primo utente 
      * @return l'username inserito nel prompt
      */
-    public static String showUsernameInput(boolean primo) {
+    public static String showUsernameInput(boolean primo) 
+    {
     	if(primo) 
     	{
     		return JOptionPane.showInputDialog(null, "Per continuare, inserisci un username", "Creazione primo utente", JOptionPane.PLAIN_MESSAGE);
@@ -93,7 +96,8 @@ public class View extends JFrame implements Observer
      * metodo statico di utilità della view per mostrare un popup con errore
      * @param message messaggio di errore
      */
-    public static void showError(String message) {
+    public static void showError(String message) 
+    {
         JOptionPane.showMessageDialog(null, message, "Errore", JOptionPane.ERROR_MESSAGE);
     }
 }

@@ -2,6 +2,7 @@ package model;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import view.View;
@@ -19,9 +20,9 @@ public class Utente
 	private String username;
 	
 	/**
-	 * stringa del file che contiente i dati dell'utente
+	 * path del file che contiente i dati dell'utente
 	 */
-	private String file;
+	private String filePath;
 	
 	/**
 	 * numero di chips possedute dall'utente
@@ -54,6 +55,10 @@ public class Utente
 		
 	}
 	
+	/**
+	 * metodo per ottenere/creare l'istanza dell'utente
+	 * @return l'istanza dell'utente
+	 */
 	public static Utente getInstance()
 	{
 		if (instance == null) instance = new Utente();
@@ -71,14 +76,14 @@ public class Utente
 		this.username = username;
 	}
 
-	public String getFile() 
+	public String getFilePath() 
 	{
-		return file;
+		return filePath;
 	}
 
-	public void setFile(String file)
+	public void setFilePath(String file)
 	{
-		this.file = file;
+		this.filePath = file;
 	}
 
 	public int getChips() {
@@ -131,6 +136,7 @@ public class Utente
 	}
 	//FINE GETTER E SETTER
 	
+	//INIZIO SET UTENTE
 	/**
 	 * metodo che aggiorna i dati dell’utente prendendoli dal file passato in input
 	 * e scrive l'username dell'utente nel file "ultimo_utente.txt"
@@ -138,8 +144,9 @@ public class Utente
 	 */
 	public void setDati(String nomeFile)
 	{
-		setFile(nomeFile);
-		try (BufferedReader reader = new BufferedReader(new FileReader(nomeFile))) {
+		setFilePath(nomeFile);
+		try (BufferedReader reader = new BufferedReader(new FileReader(nomeFile))) 
+		{
 	        String riga;
 	        while ((riga = reader.readLine()) != null) 
 	        {
@@ -185,6 +192,7 @@ public class Utente
             ex.printStackTrace();
         }
 	}
+	//FINE SET UTENTE
 	
 	//INIZIO CREAZIONE UTENTE
 	/**
@@ -296,24 +304,8 @@ public class Utente
 	 */
 	public void eliminaUtente(String username)
 	{
-		//creo una lista di utenti dal file
-        List<String> utenti = new ArrayList<>();
-
-        try (BufferedReader reader = new BufferedReader(new FileReader("src/resources/data/utenti.txt"))) 
-        {
-            String riga;
-            while ((riga = reader.readLine()) != null) 
-            {
-                utenti.add(riga);
-            }
-        } 
-        catch (IOException e) 
-        {
-            e.printStackTrace();
-            return;
-        }
-        
-        //tolgo l'utente che devo togliere dalla lista
+		ModelManager model = ModelManager.getInstance();
+        List<String> utenti = Arrays.asList(model.getUtenti("src/resources/data/utenti.txt"));
         utenti.remove(username);
    
         //sovrascrivo il file con la lista di utenti aggiornata

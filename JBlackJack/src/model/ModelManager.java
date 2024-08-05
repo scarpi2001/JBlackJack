@@ -8,6 +8,9 @@ import java.util.Observable;
  */
 public class ModelManager extends Observable 
 {
+	/**
+	 * istanza del model
+	 */
 	private static ModelManager instance;
 	
 	/**
@@ -23,6 +26,10 @@ public class ModelManager extends Observable
 		utente = Utente.getInstance();
 	}
 	
+	/**
+	 * metodo per ottenere/creare l'istanza del model
+	 * @return l'istanza del model
+	 */
 	public static ModelManager getInstance()
 	{
 		if (instance == null) instance = new ModelManager();
@@ -30,11 +37,43 @@ public class ModelManager extends Observable
 	}
 	
 	//INIZIO METODI UTENTE
+	
+	//inizio getters
 	public String getUtenteUsername()
 	{
 		return utente.getUsername();
 	}
 	
+	public String getUtenteFilePath()
+	{
+		return utente.getFilePath();
+	}
+	
+	public int getUtenteChips()
+	{
+		return utente.getChips();
+	}
+	
+	public int getUtenteManiGiocate()
+	{
+		return utente.getManiGiocate();
+	}
+	
+	public int getUtenteManiVinte()
+	{
+		return utente.getManiVinte();
+	}
+	
+	public int getUtenteManiPerse()
+	{
+		return utente.getManiPerse();
+	}
+	
+	public int getUtenteLivello()
+	{
+		return utente.getLivello();
+	}
+	//inizio getters
 	
 	/**
 	 * metodo che aggiorna i dati dell’utente prendendoli dal file passato in input,

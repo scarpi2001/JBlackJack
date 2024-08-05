@@ -12,23 +12,17 @@ public class JBlackJack
 		model.addObserver(view);
 		
 		//gameloop
-		caricaMenu();
+		avviaMenu(model);	
 	}
 	
 	/**
-	 * metodo per caricare il menu 
-	 * controlla che ci sia gia un utente creato, se non c'è chiede di crearlo
-	 * se è gia stato creato un utente (quindi non sono al primo avvio) setta l'ultimo utente selezionato
+	 * metodo che controlla la presenza di un utente precedentemente creato, se non c'è chiede di crearlo
+	 * se è gia stato creato (quindi non sono al primo avvio) setta l'ultimo utente selezionato
 	 */
-	public static void caricaMenu() 
-	{
-		ModelManager model = ModelManager.getInstance();
-		View view = View.getInstance();
-		
-		view.showMenuPanel();
-		
-        int numeroUtenti = model.getUtenti("src/resources/data/utenti.txt").length;
-        if (numeroUtenti == 0) 
+	public static void avviaMenu(ModelManager model) 
+	{		
+		String ultimoUtente = model.getUltimoUtenteUsername("src/resources/data/ultimo_utente.txt");
+        if (ultimoUtente == null) 
         {
             boolean isValid = false;
             while (!isValid) 
@@ -51,11 +45,7 @@ public class JBlackJack
         } 
         else 
         {
-            String username = model.getUltimoUtenteUsername("src/resources/data/ultimo_utente.txt");
-            if (username != null) 
-            {
-                model.setUtente("src/resources/data/dati_utenti/" + username + "_dati.txt");
-            }
+            model.setUtente("src/resources/data/dati_utenti/" + ultimoUtente + "_dati.txt");
         }
     }
 }

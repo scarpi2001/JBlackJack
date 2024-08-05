@@ -1,25 +1,30 @@
-package view;
+package view.gamePanel;
 
 import java.awt.*;
 import javax.swing.*;
 
 import controller.actionListeners.CreateUserActionListener;
+import controller.actionListeners.SetUserActionListener;
+import model.ModelManager;
 
 /**
  * in questo panel si svolge la partita
  */
 public class GamePanel extends JPanel
 {
-private JButton buttonCreateUser;
+	private JButton buttonCreateUser;
+	private JComboBox<String> comboBoxUtenti;
 	
 	public GamePanel()
 	{
-		//setBackground(Color.WHITE);
-		setLayout(new BorderLayout());
-		
+		setLayout(new BorderLayout());	
 		buttonCreateUser = new JButton("+2");	
-		//buttonCreateUser.addActionListener(new CreateUserActionListener());
 		add(buttonCreateUser,BorderLayout.NORTH);
+		
+		//select utenti
+		ModelManager model = ModelManager.getInstance();
+        comboBoxUtenti = new JComboBox<>(model.getUtenti("src/resources/data/utenti.txt"));
+        add(comboBoxUtenti);
 	}
 	
 	@Override
