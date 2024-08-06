@@ -40,7 +40,7 @@ public class MenuPanel extends JPanel
 	
 	public void updateMenuPanel() {
         bottombar.aggiornaDatiUtente();
-        topbar.refreshComboBox();
+        topbar.aggiornaComboBox();
         repaint();
     }
 }

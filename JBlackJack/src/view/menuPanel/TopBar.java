@@ -26,7 +26,7 @@ public class TopBar extends JPanel
 	{
 		ModelManager model = ModelManager.getInstance();
 		setLayout(new FlowLayout(FlowLayout.LEFT, 15,15));
-		setBackground(new Color(0, 0, 0, 0));
+		setOpaque(false);
 		
 		//bottone crea utente
 		buttonCreateUser = new JButton("Crea nuovo utente");
@@ -48,7 +48,7 @@ public class TopBar extends JPanel
 	/**
 	 * metodo per aggiornare la comboBox 
 	 */
-	public void refreshComboBox() 
+	public void aggiornaComboBox() 
 	{
 		/*problema: comboBoxUtenti.removeAllItems() mi triggera l'evento dell'action listener, che prova a settare un utente senza l'utente
 		 *quindi tolgo l'action listener e lo rimetto alla fine dell'operazione di aggiornamento  
