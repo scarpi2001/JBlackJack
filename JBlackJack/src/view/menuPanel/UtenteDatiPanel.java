@@ -30,7 +30,7 @@ public class UtenteDatiPanel extends JPanel
         maniPerseLabel = new MyJLabel.Builder().build();
         livelloLabel = new MyJLabel.Builder().build();
         
-        add(new MyJLabel.Builder().text("Dati Utente").font(new Font("Arial", Font.BOLD, 24)).build());
+        add(new MyJLabel.Builder().text("Utente").font(new Font("Arial", Font.BOLD, 28)).build());
         add(Box.createRigidArea(new Dimension(0, 10)));
         
         add(usernameLabel);

@@ -10,14 +10,14 @@ import model.ModelManager;
  */
 public class MenuPanel extends JPanel
 {
-	private Image backgroundImage;
+	private Image background;
 	private TopBar topbar;
 	private BottomBar bottombar;
 	
 	public MenuPanel()
 	{	
 		setLayout(new BorderLayout());
-		backgroundImage = new ImageIcon("src/resources/images/menu_background.jpg").getImage();
+		background = new ImageIcon("src/resources/images/menu_background.jpg").getImage();
 		
 		topbar = new TopBar();
 		bottombar = new BottomBar(); 
@@ -35,10 +35,11 @@ public class MenuPanel extends JPanel
 		Graphics2D g2=(Graphics2D)g;
 
 		//disegna background
-		g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+		g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
 	}
 	
-	public void updateMenuPanel() {
+	public void updateMenuPanel() 
+	{
         bottombar.aggiornaDatiUtente();
         topbar.aggiornaComboBox();
         repaint();

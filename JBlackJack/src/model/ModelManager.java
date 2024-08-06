@@ -38,7 +38,7 @@ public class ModelManager extends Observable
 	
 	//INIZIO METODI UTENTE
 	
-	//inizio getters
+	//inizio getters utente
 	public String getUtenteUsername()
 	{
 		return utente.getUsername();
@@ -73,7 +73,7 @@ public class ModelManager extends Observable
 	{
 		return utente.getLivello();
 	}
-	//inizio getters
+	//fine getters utente
 	
 	/**
 	 * metodo che aggiorna i dati dell’utente prendendoli dal file passato in input,

@@ -1,10 +1,7 @@
 package controller.actionListeners;
 
 import java.awt.event.*;
-import java.io.*;
-
 import javax.swing.JComboBox;
-
 import model.ModelManager;
 
 /**
@@ -14,9 +11,9 @@ public class SetUserActionListener implements ActionListener
 {
 	private JComboBox<String> comboBoxUtenti;
 	
-    public SetUserActionListener(JComboBox<String> comboBoxOptions) 
+    public SetUserActionListener(JComboBox<String> comboBox) 
     {
-        this.comboBoxUtenti = comboBoxOptions;
+        this.comboBoxUtenti = comboBox;
     }
 	
     @Override

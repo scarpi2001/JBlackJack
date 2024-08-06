@@ -242,19 +242,17 @@ public class Utente
      * @param username l'username passato in input
      * @return se l'operazione di inserimento va a buon fine restituisce true altrimenti false
      */
-	private boolean salvaUsername(String username) 
+	private void salvaUsername(String username) 
 	{
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/resources/data/utenti.txt", true))) 
         {
             writer.write(username);
             writer.newLine();
-            return true;
         } 
         catch (IOException e) 
         {
             e.printStackTrace();
         }
-        return false;
     }
     	
 	/**
@@ -263,7 +261,7 @@ public class Utente
 	 * @param username l'username passato in input
 	 * @return se l'operazione di creazione del file e di inserimento dati va a buon fine restituisce true altrimenti false
 	 */
-	private boolean creaFileUtente(String username) 
+	private void creaFileUtente(String username) 
 	{
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/resources/data/dati_utenti/" + username + "_dati.txt")))
 		{
@@ -284,14 +282,11 @@ public class Utente
             
             writer.write("livello:0");
             writer.newLine();
-            
-            return true;
 		}
 		catch(IOException e)
 		{
 			e.printStackTrace();
 		}
-		return false;
 	}
 	//FINE CREAZIONE UTENTE
 	

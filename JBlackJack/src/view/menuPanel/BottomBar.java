@@ -13,16 +13,29 @@ public class BottomBar extends JPanel
 
     public BottomBar() 
     {
-        setLayout(new BorderLayout());
+    	setLayout(new GridBagLayout());
         setOpaque(false);
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        
+        //panel per i dati dell'utente
+        datiUtentePanel = new UtenteDatiPanel();
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 1.0;
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.LAST_LINE_START;
+        add(datiUtentePanel, gbc);
 
         //bottone play
         buttonGioca = new JButton("GIOCA");
-        add(buttonGioca, BorderLayout.LINE_END);
-
-        //panel per i dati dell'utente
-        datiUtentePanel = new UtenteDatiPanel();
-        add(datiUtentePanel, BorderLayout.CENTER);
+        buttonGioca.setPreferredSize(new Dimension(180, 60)); 
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.weightx = 0.0;
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.LAST_LINE_END;
+        add(buttonGioca, gbc);
 
     }
     
