@@ -5,13 +5,14 @@ import view.View;
 
 public class JBlackJack 
 {
-	public static void main(String[] args) 
+	public static void main(String[] args) throws InterruptedException 
 	{
 		ModelManager model = ModelManager.getInstance();
 		View view = View.getInstance();
 		model.addObserver(view);
 		
 		//gameloop
+		AudioManager.getInstance().play("src/resources/audio/background.wav", true);
 		avviaMenu(model);	
 	}
 	
