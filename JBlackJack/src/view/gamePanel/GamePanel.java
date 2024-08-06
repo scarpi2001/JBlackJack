@@ -12,19 +12,11 @@ import model.ModelManager;
  */
 public class GamePanel extends JPanel
 {
-	private JButton buttonCreateUser;
-	private JComboBox<String> comboBoxUtenti;
+	private Image background;
 	
 	public GamePanel()
 	{
-		setLayout(new BorderLayout());	
-		buttonCreateUser = new JButton("+2");	
-		add(buttonCreateUser,BorderLayout.NORTH);
-		
-		//select utenti
-		ModelManager model = ModelManager.getInstance();
-        comboBoxUtenti = new JComboBox<>(model.getUtenti("src/resources/data/utenti.txt"));
-        add(comboBoxUtenti);
+		background = new ImageIcon("src/resources/images/game_background.jpg").getImage();
 	}
 	
 	@Override
@@ -32,8 +24,8 @@ public class GamePanel extends JPanel
 	{
 		super.paintComponent(g);
 		Graphics2D g2=(Graphics2D)g;
-				
-		this.setForeground(Color.BLACK);
-		g2.drawString("ciao2", 50, 50);
+
+		//disegna background
+		g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
 	}
 }

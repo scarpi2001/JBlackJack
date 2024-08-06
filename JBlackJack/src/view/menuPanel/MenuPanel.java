@@ -26,7 +26,6 @@ public class MenuPanel extends JPanel
 		
 		add(topbar, BorderLayout.NORTH);
 		add(bottombar, BorderLayout.SOUTH);
-		
 	}
 	
 	@Override
