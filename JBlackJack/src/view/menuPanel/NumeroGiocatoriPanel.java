@@ -1,0 +1,28 @@
+package view.menuPanel;
+
+import java.awt.Font;
+import java.awt.event.ActionListener;
+import javax.swing.*;
+
+import controller.actionListeners.SetGiocatoriActionListener;
+import view.MyJLabel;
+
+public class NumeroGiocatoriPanel extends JPanel
+{
+	private JComboBox<Integer> comboBoxGiocatori;
+	private ActionListener setGiocatoriActionListener;
+	
+	public NumeroGiocatoriPanel()
+	{
+		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        setOpaque(false);
+        
+		//select numero giocatori
+        add(new MyJLabel.Builder().text("Numero giocatori").font(new Font("Arial", Font.BOLD, 22)).build());
+        Integer[] numeroGiocatori = {1, 2, 3, 4};
+        comboBoxGiocatori = new JComboBox<>(numeroGiocatori);
+        setGiocatoriActionListener = new SetGiocatoriActionListener(comboBoxGiocatori);
+        comboBoxGiocatori.addActionListener(setGiocatoriActionListener);
+        add(comboBoxGiocatori);
+	}
+}

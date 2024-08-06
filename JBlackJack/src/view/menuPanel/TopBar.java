@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 
 import controller.actionListeners.CreateUserActionListener;
 import controller.actionListeners.DeleteUserActionListener;
+import controller.actionListeners.PlayActionListener;
+import controller.actionListeners.SetGiocatoriActionListener;
 import controller.actionListeners.SetUserActionListener;
 
 import model.ModelManager;
@@ -16,33 +18,36 @@ import model.ModelManager;
  */
 public class TopBar extends JPanel 
 {
-	private JButton buttonDeleteUser;
-	private JButton buttonCreateUser;
-	private JComboBox<String> comboBoxUtenti;
-	
+	private NumeroGiocatoriPanel numeroGiocatoriPanel;
+	private GestioneUtentePanel gestioneUtentePanel;
+
 	private ActionListener setUserActionListener;
 	
 	public TopBar() 
 	{
 		ModelManager model = ModelManager.getInstance();
-		setLayout(new FlowLayout(FlowLayout.LEFT, 15,15));
+		setLayout(new GridBagLayout());
 		setOpaque(false);
 		
-		//bottone crea utente
-		buttonCreateUser = new JButton("Crea nuovo utente");
-		buttonCreateUser.addActionListener(new CreateUserActionListener());
-		add(buttonCreateUser);
-		
-		//bottone elimina utente
-		buttonDeleteUser = new JButton("elimina utente");
-		buttonDeleteUser.addActionListener(new DeleteUserActionListener());
-		add(buttonDeleteUser);
-		
-		//select utenti
-        comboBoxUtenti = new JComboBox<>(model.getUtenti("src/resources/data/utenti.txt"));
-        setUserActionListener = new SetUserActionListener(comboBoxUtenti);
-        comboBoxUtenti.addActionListener(setUserActionListener);
-        add(comboBoxUtenti);
+		GridBagConstraints gbc = new GridBagConstraints();
+        
+        //panel per gestione utente
+        gestioneUtentePanel = new GestioneUtentePanel();
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 1.0;
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.FIRST_LINE_START;
+        add(gestioneUtentePanel, gbc);
+
+        //panel selezione giocatori
+        numeroGiocatoriPanel = new NumeroGiocatoriPanel();
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.weightx = 0.0;
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.FIRST_LINE_END;
+        add(numeroGiocatoriPanel, gbc);
 	}
 	
 	/**
@@ -50,23 +55,6 @@ public class TopBar extends JPanel
 	 */
 	public void aggiornaComboBox() 
 	{
-		/*problema: comboBoxUtenti.removeAllItems() mi triggera l'evento dell'action listener, che prova a settare un utente senza l'utente
-		 *quindi tolgo l'action listener e lo rimetto alla fine dell'operazione di aggiornamento  
-		 */
-		ModelManager model = ModelManager.getInstance();
-		comboBoxUtenti.removeActionListener(setUserActionListener);
-		
-		//svuoto e riempio le options guardando le modifiche al file utenti
-		comboBoxUtenti.removeAllItems();
-		String[] utenti = model.getUtenti("src/resources/data/utenti.txt");
-		for (String utente : utenti) 
-		{
-			comboBoxUtenti.addItem(utente);
-		}
-		
-		//mostro l'utente selezionato nella combobox (sarebbe il comportamento di default, ma dato che svuoto e riempio, devo farlo a mano)
-		comboBoxUtenti.setSelectedItem(model.getUtenteUsername());
-
-		comboBoxUtenti.addActionListener(setUserActionListener);
+		gestioneUtentePanel.aggiornaComboBox();
 	}
 }

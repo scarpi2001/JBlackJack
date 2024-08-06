@@ -19,11 +19,17 @@ public class ModelManager extends Observable
 	private Utente utente;
 	
 	/**
+	 * numero di giocatori che partecipano alla partita
+	 */
+	private int giocatori;
+	
+	/**
 	 * il costruttore del model, che istanzia l'utente
 	 */
 	private ModelManager()
 	{
 		utente = Utente.getInstance();
+		giocatori = 1;
 	}
 	
 	/**
@@ -138,19 +144,31 @@ public class ModelManager extends Observable
 	 * metodo per leggere l'utente da un file contenente l'ultimo utente selezionato
 	 * @param path path del file che contiene i dati dell'utente
 	 */
-	public String getUltimoUtenteUsername(String path) {
+	public String getUltimoUtenteUsername(String path) 
+	{
         String username = null;
-        try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(path))) 
+        {
             String riga;
-            while ((riga = reader.readLine()) != null) {
+            while ((riga = reader.readLine()) != null) 
+            {
                 username = riga;
             }
-        } catch (IOException ex) {
-            ex.printStackTrace();
+        } 
+        catch (IOException e) 
+        {
+            e.printStackTrace();
         }
         return username;
     }
 	//FINE METODI UTENTE
+
+	//INIZIO METODI SELEZIONE GIOCATORI
+	public void setGiocatori(int giocatori) 
+	{
+		this.giocatori = giocatori;
+	}
+	//FINE METODI SELEZIONE GIOCATORI
 	
 }
 

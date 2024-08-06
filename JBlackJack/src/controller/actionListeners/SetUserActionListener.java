@@ -9,18 +9,18 @@ import model.ModelManager;
  */
 public class SetUserActionListener implements ActionListener
 {
-	private JComboBox<String> comboBoxUtenti;
+	private JComboBox<String> comboBox;
 	
     public SetUserActionListener(JComboBox<String> comboBox) 
     {
-        this.comboBoxUtenti = comboBox;
+        this.comboBox = comboBox;
     }
 	
     @Override
 	public void actionPerformed(ActionEvent e) 
 	{           
 		ModelManager model = ModelManager.getInstance();
-		String username = (String) comboBoxUtenti.getSelectedItem();
+		String username = (String) comboBox.getSelectedItem();
 		model.setUtente("src/resources/data/dati_utenti/" + username + "_dati.txt");
 	}
 }

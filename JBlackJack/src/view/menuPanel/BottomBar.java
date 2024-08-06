@@ -3,6 +3,8 @@ package view.menuPanel;
 import javax.swing.*;
 import java.awt.*;
 
+import controller.actionListeners.PlayActionListener;
+
 /**
  * panel che rappresenta la bottomBar del menu
  */
@@ -12,7 +14,7 @@ public class BottomBar extends JPanel
     private UtenteDatiPanel datiUtentePanel;
 
     public BottomBar() 
-    {
+    {	
     	setLayout(new GridBagLayout());
         setOpaque(false);
 
@@ -35,6 +37,8 @@ public class BottomBar extends JPanel
         gbc.gridx = 1;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.LAST_LINE_END;
+        
+        buttonGioca.addActionListener(new PlayActionListener());
         add(buttonGioca, gbc);
 
     }

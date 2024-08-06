@@ -20,6 +20,7 @@ public class MenuPanel extends JPanel
 		background = new ImageIcon("src/resources/images/menu_background.jpg").getImage();
 		
 		topbar = new TopBar();
+		topbar.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 		bottombar = new BottomBar(); 
 		bottombar.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 		
