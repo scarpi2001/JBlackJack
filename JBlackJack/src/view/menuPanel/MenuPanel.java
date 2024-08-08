@@ -3,8 +3,6 @@ package view.menuPanel;
 import java.awt.*;
 import javax.swing.*;
 
-import model.ModelManager;
-
 /**
  * panel che contiene il menu dell'applicazione
  */

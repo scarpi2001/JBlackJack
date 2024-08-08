@@ -1,4 +1,7 @@
 package model;
+
+import model.carte.Carta;
+import model.carte.Mazzo;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Observable;
@@ -8,6 +11,7 @@ import java.util.Observable;
  */
 public class ModelManager extends Observable 
 {
+	//INIZIO CAMPI
 	/**
 	 * istanza del model
 	 */
@@ -22,6 +26,12 @@ public class ModelManager extends Observable
 	 * numero di giocatori che partecipano alla partita
 	 */
 	private int giocatori;
+	
+	/**
+	 * mazzo di carte utilizzato in partita
+	 */
+	private Mazzo mazzo;
+	//FINE CAMPI
 	
 	/**
 	 * il costruttore del model, che istanzia l'utente
@@ -169,6 +179,31 @@ public class ModelManager extends Observable
 		this.giocatori = giocatori;
 	}
 	//FINE METODI SELEZIONE GIOCATORI
+	
+	//INIZIO METODI CARTE
+	public void initMazzo()
+	{
+		Mazzo mazzo = new Mazzo();
+		mazzo.mix();
+		
+		boolean finito = false;
+        while (finito == false)
+        {
+            Carta carta = mazzo.hit();
+            if(carta == null)
+            {
+            	System.out.println(""); 
+                System.out.println("Mazzo finito");
+                
+                finito = true;
+            }
+            else
+            {
+                System.out.println(carta.getImmagine());   
+            }
+        }
+	}
+	//FINE METODI CARTE
 	
 }
 

@@ -3,6 +3,9 @@ package controller;
 import java.io.*;
 import javax.sound.sampled.*;
 
+/**
+ * classe per gestire la riproduzione di clip audio
+ */
 public class AudioManager 
 {
 	private static AudioManager instance;
@@ -19,6 +22,11 @@ public class AudioManager
 
 	}
 
+	/**
+	 * metodo per riprodurre clip audio
+	 * @param filename file wav da riprodurre
+	 * @param loop booleano che decide se riprodurre in loop o no
+	 */
 	public void play(String filename, boolean loop) 
 	{
 		try 
@@ -32,7 +40,7 @@ public class AudioManager
 			{
 				//abbassa il volume del sottofondo
 				FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-                gainControl.setValue(-25.0f);
+                gainControl.setValue(-30.0f);
                 //ripeti in loop
 				clip.loop(Clip.LOOP_CONTINUOUSLY); 	
 			}	

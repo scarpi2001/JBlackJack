@@ -1,6 +1,7 @@
 package controller;
 
 import model.ModelManager;
+import model.carte.*;
 import view.View;
 
 public class JBlackJack 
@@ -12,7 +13,7 @@ public class JBlackJack
 		model.addObserver(view);
 		
 		//gameloop
-		AudioManager.getInstance().play("src/resources/audio/background.wav", true);
+		//AudioManager.getInstance().play("src/resources/audio/background.wav", true);
 		avviaMenu(model);	
 	}
 	
