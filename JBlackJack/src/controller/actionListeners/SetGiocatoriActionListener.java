@@ -24,7 +24,7 @@ public class SetGiocatoriActionListener implements ActionListener
 	public void actionPerformed(ActionEvent e) 
 	{           
 		ModelManager model = ModelManager.getInstance();
-		model.setGiocatori((int) comboBox.getSelectedItem());
+		model.setGiocatori((int)comboBox.getSelectedItem());
 	}
 
 }

@@ -6,8 +6,6 @@ import java.awt.event.ActionListener;
 
 import controller.actionListeners.CreateUserActionListener;
 import controller.actionListeners.DeleteUserActionListener;
-import controller.actionListeners.PlayActionListener;
-import controller.actionListeners.SetGiocatoriActionListener;
 import controller.actionListeners.SetUserActionListener;
 
 import model.ModelManager;

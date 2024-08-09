@@ -10,7 +10,6 @@ import view.MyJLabel;
 public class NumeroGiocatoriPanel extends JPanel
 {
 	private JComboBox<Integer> comboBoxGiocatori;
-	private ActionListener setGiocatoriActionListener;
 	
 	public NumeroGiocatoriPanel()
 	{
@@ -19,10 +18,10 @@ public class NumeroGiocatoriPanel extends JPanel
         
 		//select numero giocatori
         add(new MyJLabel.Builder().text("Numero giocatori").font(new Font("Arial", Font.BOLD, 22)).build());
+        
         Integer[] numeroGiocatori = {1, 2, 3, 4};
         comboBoxGiocatori = new JComboBox<>(numeroGiocatori);
-        setGiocatoriActionListener = new SetGiocatoriActionListener(comboBoxGiocatori);
-        comboBoxGiocatori.addActionListener(setGiocatoriActionListener);
+        comboBoxGiocatori.addActionListener(new SetGiocatoriActionListener(comboBoxGiocatori));
         add(comboBoxGiocatori);
 	}
 }

@@ -13,17 +13,17 @@ public class JBlackJack
 		model.addObserver(view);
 		
 		//gameloop
-		//AudioManager.getInstance().play("src/resources/audio/background.wav", true);
-		avviaMenu(model);	
+		AudioManager.getInstance().play("src/resources/audio/background.wav", true);
+		initMenu(model);	
 	}
 	
 	/**
 	 * metodo che controlla la presenza di un utente precedentemente creato, se non c'è chiede di crearlo
 	 * se è gia stato creato (quindi non sono al primo avvio) setta l'ultimo utente selezionato
 	 */
-	public static void avviaMenu(ModelManager model) 
+	public static void initMenu(ModelManager model) 
 	{		
-		String ultimoUtente = model.getUltimoUtenteUsername("src/resources/data/ultimo_utente.txt");
+		String ultimoUtente = model.getUltimoUtente("src/resources/data/ultimo_utente.txt");
         if (ultimoUtente == null) 
         {
             boolean isValid = false;

@@ -5,7 +5,6 @@ package model.carte;
  */
 public class Carta 
 {
-	//INIZIO ENUMS
 	//il seme mi serve esclusivamente a determinare l'immagine
 	/**
 	 * enumerazione dei semi delle carte
@@ -54,13 +53,17 @@ public class Carta
 	    {
 	        return this.valore;
 	    }
-
+	    
+	    /**
+	     * metodo che serve ad accedere al valore alternativo di un simbolo
+	     * (in questa applicazione è utile per via dell'asso che a seconda del caso può valere 1 o 11)
+	     * @return il valore alternativo della carta
+	     */
 	    public int getValoreInteroAlternativo() 
 	    {
 	        return this.valoreAlternativo;
 	    }
 	}
-	//FINE ENUMS
 	
 	/**
 	 * immagine della carta

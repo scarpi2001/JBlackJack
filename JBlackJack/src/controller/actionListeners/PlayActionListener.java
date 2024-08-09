@@ -16,6 +16,6 @@ public class PlayActionListener implements ActionListener
     	View view = View.getInstance();
     	view.showGamePanel();
     	
-    	model.initMazzo();
+    	model.initPartita();
 	}
 }

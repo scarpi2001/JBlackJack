@@ -4,6 +4,7 @@ import model.carte.Carta;
 import model.carte.Mazzo;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 
 /**
@@ -11,7 +12,7 @@ import java.util.Observable;
  */
 public class ModelManager extends Observable 
 {
-	//INIZIO CAMPI
+	//CAMPI
 	/**
 	 * istanza del model
 	 */
@@ -20,26 +21,33 @@ public class ModelManager extends Observable
 	/**
 	 * utente che sta utilizzando l'applicazione
 	 */
-	private Utente utente;
+	private UtenteGiocante utente;
 	
 	/**
 	 * numero di giocatori che partecipano alla partita
 	 */
-	private int giocatori;
+	private int numeroGiocatori;
+	
+	/**
+	 * lista dei giocatori che partecipano alla partita
+	 */
+	private List<Giocatore> giocatori;
 	
 	/**
 	 * mazzo di carte utilizzato in partita
 	 */
 	private Mazzo mazzo;
-	//FINE CAMPI
 	
+	//COSTRUTTORE
 	/**
 	 * il costruttore del model, che istanzia l'utente
 	 */
 	private ModelManager()
 	{
-		utente = Utente.getInstance();
-		giocatori = 1;
+		utente = UtenteGiocante.getInstance();
+		giocatori = new ArrayList<>();
+		giocatori.add(utente);
+
 	}
 	
 	/**
@@ -52,9 +60,13 @@ public class ModelManager extends Observable
 		return instance;
 	}
 	
-	//INIZIO METODI UTENTE
+	//GETTERS E SETTERS
+	public void setGiocatori(int numeroGiocatori) 
+	{		
+		this.numeroGiocatori = numeroGiocatori;
+	}
 	
-	//inizio getters utente
+	//GETTERS E SETTERS DELL'UTENTE
 	public String getUtenteUsername()
 	{
 		return utente.getUsername();
@@ -89,8 +101,8 @@ public class ModelManager extends Observable
 	{
 		return utente.getLivello();
 	}
-	//fine getters utente
 	
+	//METODI UTENTE
 	/**
 	 * metodo che aggiorna i dati dell’utente prendendoli dal file passato in input,
 	 * e notifica gli osservatori
@@ -154,7 +166,7 @@ public class ModelManager extends Observable
 	 * metodo per leggere l'utente da un file contenente l'ultimo utente selezionato
 	 * @param path path del file che contiene i dati dell'utente
 	 */
-	public String getUltimoUtenteUsername(String path) 
+	public String getUltimoUtente(String path) 
 	{
         String username = null;
         try (BufferedReader reader = new BufferedReader(new FileReader(path))) 
@@ -171,17 +183,22 @@ public class ModelManager extends Observable
         }
         return username;
     }
-	//FINE METODI UTENTE
-
-	//INIZIO METODI SELEZIONE GIOCATORI
-	public void setGiocatori(int giocatori) 
-	{
-		this.giocatori = giocatori;
-	}
-	//FINE METODI SELEZIONE GIOCATORI
 	
-	//INIZIO METODI CARTE
-	public void initMazzo()
+	//METODI PARTITA
+	public void initPartita()
+	{
+		initMazzo();
+		initGiocatori();
+		
+		int n = 0;
+        for(Giocatore giocatore : giocatori)
+        {
+        	n++;
+        	System.out.println("Giocatore: " + n); 
+        }
+	}
+	
+	private void initMazzo()
 	{
 		Mazzo mazzo = new Mazzo();
 		mazzo.mix();
@@ -203,7 +220,12 @@ public class ModelManager extends Observable
             }
         }
 	}
-	//FINE METODI CARTE
 	
+	private void initGiocatori()
+	{
+		for(int i = 0; i < numeroGiocatori - 1; i++)
+		{	
+			giocatori.add(new Giocatore());
+		}	
+	}
 }
-

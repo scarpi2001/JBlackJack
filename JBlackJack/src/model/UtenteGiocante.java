@@ -10,9 +10,10 @@ import view.View;
 /**
  * classe che rappresenta l'utente che utilizza l'applicazione
  */
-public class Utente 
+public class UtenteGiocante extends Giocatore
 {
-	private static Utente instance;
+	//CAMPI
+	private static UtenteGiocante instance;
 	
 	/**
 	 * nome dell'utente
@@ -49,8 +50,8 @@ public class Utente
 	 */
 	private int livello;
 	
-	
-	private Utente()
+	//COSTRUTTORE
+	private UtenteGiocante()
 	{
 		
 	}
@@ -59,13 +60,13 @@ public class Utente
 	 * metodo per ottenere/creare l'istanza dell'utente
 	 * @return l'istanza dell'utente
 	 */
-	public static Utente getInstance()
+	public static UtenteGiocante getInstance()
 	{
-		if (instance == null) instance = new Utente();
+		if (instance == null) instance = new UtenteGiocante();
 		return instance;
 	}
-
-	//INIZIO GETTER E SETTER
+	
+	//GETTERS E SETTERS
 	public String getUsername() 
 	{
 		return username;
@@ -134,9 +135,8 @@ public class Utente
 	{
 		this.livello = livello;
 	}
-	//FINE GETTER E SETTER
 	
-	//INIZIO SET UTENTE
+	//SET UTENTE
 	/**
 	 * metodo che aggiorna i dati dell’utente prendendoli dal file passato in input
 	 * e scrive l'username dell'utente nel file "ultimo_utente.txt"
@@ -192,9 +192,8 @@ public class Utente
             ex.printStackTrace();
         }
 	}
-	//FINE SET UTENTE
 	
-	//INIZIO CREAZIONE UTENTE
+	//CREAZIONE UTENTE
 	/**
 	 * metodo per creare un utente
 	 * prima controlla che l'username inserito non sia gia stato salvato in precedenza
@@ -288,9 +287,8 @@ public class Utente
 			e.printStackTrace();
 		}
 	}
-	//FINE CREAZIONE UTENTE
 	
-	//INIZIO ELIMINAZIONE UTENTE
+	//ELIMINAZIONE UTENTE
 	/**
 	 * metodo per eliminare l'utente 
 	 * elimina l'utente dal file degli utenti 
@@ -321,5 +319,4 @@ public class Utente
         new File("src/resources/data/dati_utenti/" + username + "_dati.txt").delete();
 
 	}
-	//FINE ELIMINAZIONE UTENTE
 }
