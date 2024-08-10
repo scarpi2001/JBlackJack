@@ -54,7 +54,7 @@ public class View extends JFrame implements Observer
 	{
 		System.out.println("view: update ricevuto");
 		menuPanel.updateMenuPanel();	
-		gamePanel.repaint();
+		gamePanel.updateGamePanel();
 	}
 
 	

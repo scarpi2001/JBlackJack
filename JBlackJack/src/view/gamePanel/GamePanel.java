@@ -3,9 +3,8 @@ package view.gamePanel;
 import java.awt.*;
 import javax.swing.*;
 
-import controller.actionListeners.CreateUserActionListener;
-import controller.actionListeners.SetUserActionListener;
-import model.ModelManager;
+import view.menuPanel.BottomBar;
+import view.menuPanel.TopBar;
 
 /**
  * in questo panel si svolge la partita
@@ -13,10 +12,16 @@ import model.ModelManager;
 public class GamePanel extends JPanel
 {
 	private Image background;
+	private BottomBarGamePanel bottombar;
 	
 	public GamePanel()
 	{
+		setLayout(new BorderLayout());
 		background = new ImageIcon("src/resources/images/game_background.jpg").getImage();
+
+		bottombar = new BottomBarGamePanel(); 
+		bottombar.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+		add(bottombar, BorderLayout.SOUTH);
 	}
 	
 	@Override
@@ -28,4 +33,9 @@ public class GamePanel extends JPanel
 		//disegna background
 		g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
 	}
+	
+	public void updateGamePanel() 
+	{
+
+    }
 }

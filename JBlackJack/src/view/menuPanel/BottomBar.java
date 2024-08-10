@@ -11,7 +11,7 @@ import controller.actionListeners.PlayActionListener;
 public class BottomBar extends JPanel 
 {
     private JButton buttonGioca;
-    private UtenteDatiPanel datiUtentePanel;
+    private DatiUtentePanel datiUtentePanel;
 
     public BottomBar() 
     {	
@@ -21,7 +21,7 @@ public class BottomBar extends JPanel
         GridBagConstraints gbc = new GridBagConstraints();
         
         //panel per i dati dell'utente
-        datiUtentePanel = new UtenteDatiPanel();
+        datiUtentePanel = new DatiUtentePanel();
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.weightx = 1.0;
         gbc.gridx = 0;

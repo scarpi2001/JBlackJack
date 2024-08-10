@@ -6,7 +6,14 @@ import java.util.Random;
  */
 public class Mazzo 
 {
+	/**
+	 * lista di carte che rappresenta il mazzo
+	 */
     private Carta[] mazzo;
+    
+    /**
+     * punto del mazzo nel quale mi trovo quando sto distribuendo le carte
+     */
     private int cartaCorrente;
 
     public Mazzo() 
@@ -47,7 +54,7 @@ public class Mazzo
      * e la distribuzione di carte riparte dall'inizio del mazzo
      * @return un oggetto di tipo Carta (una carta dal mazzo)
      */
-    public Carta hit() 
+    public Carta carta() 
     {
         if (cartaCorrente < mazzo.length) 
         {
@@ -55,9 +62,10 @@ public class Mazzo
         } 
         else 
         {
+        	System.out.println("mazzo finito");
             this.mix();
             this.cartaCorrente = 0;
-            return null;
+            return this.mazzo[this.cartaCorrente++];
         }   
     }
 }

@@ -6,7 +6,7 @@ import javax.swing.*;
 import model.ModelManager;
 import view.MyJLabel;
 
-public class UtenteDatiPanel extends JPanel
+public class DatiUtentePanel extends JPanel
 {
 	private JLabel usernameLabel;
     private JLabel chipsLabel;
@@ -15,7 +15,7 @@ public class UtenteDatiPanel extends JPanel
     private JLabel maniPerseLabel;
     private JLabel livelloLabel;
     
-    public UtenteDatiPanel() 
+    public DatiUtentePanel() 
     {
     	setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setOpaque(false);

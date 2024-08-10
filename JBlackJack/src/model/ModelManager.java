@@ -38,6 +38,11 @@ public class ModelManager extends Observable
 	 */
 	private Mazzo mazzo;
 	
+	/**
+	 * variabile utilizzata per stabilire quale giocatore deve giocare
+	 */
+	private int turno;
+	
 	//COSTRUTTORE
 	/**
 	 * il costruttore del model, che istanzia l'utente
@@ -47,7 +52,6 @@ public class ModelManager extends Observable
 		utente = UtenteGiocante.getInstance();
 		giocatori = new ArrayList<>();
 		giocatori.add(utente);
-
 	}
 	
 	/**
@@ -185,24 +189,39 @@ public class ModelManager extends Observable
     }
 	
 	//METODI PARTITA
+	//(questi aspetti della partita potrebbero dover essere trasferiti nel controller)
+	/**
+	 * metodo che inizializza la partita
+	 */
 	public void initPartita()
 	{
 		initMazzo();
 		initGiocatori();
 		
+		//per ogni giocatore devo distribuire due carte
 		int n = 0;
         for(Giocatore giocatore : giocatori)
         {
+        	Carta carta1 = mazzo.carta();
+        	Carta carta2 = mazzo.carta();
+        			
         	n++;
-        	System.out.println("Giocatore: " + n); 
+        	giocatore.addCarta(carta1);	
+        	giocatore.addCarta(carta2);
+ 	
+        	System.out.println("");  
         }
 	}
 	
+	/**
+	 * metodo che inizializza il mazzo
+	 */
 	private void initMazzo()
 	{
-		Mazzo mazzo = new Mazzo();
+		mazzo = new Mazzo();
 		mazzo.mix();
 		
+		/*
 		boolean finito = false;
         while (finito == false)
         {
@@ -219,13 +238,25 @@ public class ModelManager extends Observable
                 System.out.println(carta.getImmagine());   
             }
         }
+        */
 	}
 	
+	/**
+	 * metodo che inizializza la lista di giocatori che partecipano alla partita
+	 */
 	private void initGiocatori()
 	{
 		for(int i = 0; i < numeroGiocatori - 1; i++)
 		{	
 			giocatori.add(new Giocatore());
 		}	
+	}
+	
+	/**
+	 * metodo che aggiunge una carta al giocatore giusto in base al turno della partita
+	 */
+	public void hit()
+	{
+		giocatori.get(turno).addCarta(mazzo.carta());
 	}
 }

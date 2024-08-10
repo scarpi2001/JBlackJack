@@ -9,16 +9,15 @@ import view.View;
 
 /**
  * classe che rappresenta l'utente che utilizza l'applicazione
+ * che è anche un giocatore
+ * 
+ * principalmente questa classe serve a differenziare l'utente (del quale devo salvare i dati)
+ * e gli altri giocatori che sono bot 
  */
 public class UtenteGiocante extends Giocatore
 {
 	//CAMPI
 	private static UtenteGiocante instance;
-	
-	/**
-	 * nome dell'utente
-	 */
-	private String username;
 	
 	/**
 	 * path del file che contiente i dati dell'utente
@@ -51,10 +50,7 @@ public class UtenteGiocante extends Giocatore
 	private int livello;
 	
 	//COSTRUTTORE
-	private UtenteGiocante()
-	{
-		
-	}
+	private UtenteGiocante(){}
 	
 	/**
 	 * metodo per ottenere/creare l'istanza dell'utente

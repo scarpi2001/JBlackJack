@@ -1,7 +1,6 @@
 package controller;
 
 import model.ModelManager;
-import model.carte.*;
 import view.View;
 
 public class JBlackJack 
