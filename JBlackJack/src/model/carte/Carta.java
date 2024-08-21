@@ -32,7 +32,7 @@ public class Carta
 	    J(10), 
 	    Q(10),
 	    K(10), 
-	    A(1, 11);  
+	    A(11, 1);  
 
 	    private final int valore;
 	    private final int valoreAlternativo;
@@ -59,7 +59,7 @@ public class Carta
 	     * (in questa applicazione è utile per via dell'asso che a seconda del caso può valere 1 o 11)
 	     * @return il valore alternativo della carta
 	     */
-	    public int getValoreInteroAlternativo() 
+	    public int getValoreAlternativoIntero() 
 	    {
 	        return this.valoreAlternativo;
 	    }
@@ -74,10 +74,19 @@ public class Carta
 	 * valore numerico della carta
 	 */
     private final int valore;
-
+    
+    /**
+     * valore numerico alternativo della carta
+     */
+    private final int valoreAlternativo;
+    
+    private final Seme seme;
+    
     public Carta(Seme seme, Valore valore) 
     {
+    	this.seme = seme;
         this.valore = valore.getValoreIntero();   
+        this.valoreAlternativo = valore.getValoreAlternativoIntero();   
         immagine = "src/resources/images/carte/" + valore + "_" + seme + ".jpg";
     }
     
@@ -89,5 +98,15 @@ public class Carta
     public int getValore() 
     {
         return valore;
+    }
+    
+    public int getValoreAlternativo() 
+    {
+        return valoreAlternativo;
+    }
+    
+    public String toString()
+    {
+    	return seme + " " + valore;
     }
 }

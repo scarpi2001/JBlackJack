@@ -197,52 +197,49 @@ public class ModelManager extends Observable
 	{
 		initMazzo();
 		initGiocatori();
-		
-		//per ogni giocatore devo distribuire due carte
-		int n = 0;
-        for(Giocatore giocatore : giocatori)
-        {
-        	Carta carta1 = mazzo.carta();
-        	Carta carta2 = mazzo.carta();
-        			
-        	n++;
-        	giocatore.addCarta(carta1);	
-        	giocatore.addCarta(carta2);
- 	
-        	System.out.println("");  
-        }
+		initCarte();
 	}
 	
 	/**
-	 * metodo che inizializza il mazzo
+	 * metodo che aggiunge una carta al giocatore giusto in base al turno della partita
+	 */
+	public void hit()
+	{
+		if(turno == giocatori.size()) initCarte();
+		
+		Giocatore giocatore = giocatori.get(turno);
+		
+		giocatore.addCarta(mazzo.carta());
+		if(giocatore.isBusted()) 
+		{
+			turno++;
+			if(turno == giocatori.size()) initCarte();
+			System.out.println("");
+		}
+	}
+	
+	/**
+	 * metodo che passa al turno successivo
+	 */
+	public void stay()
+	{	
+		System.out.println("stay");
+		System.out.println("");
+		turno++;
+		if(turno == giocatori.size()) initCarte();
+	}
+	
+	/**
+	 * metodo privato che inizializza il mazzo
 	 */
 	private void initMazzo()
 	{
 		mazzo = new Mazzo();
 		mazzo.mix();
-		
-		/*
-		boolean finito = false;
-        while (finito == false)
-        {
-            Carta carta = mazzo.hit();
-            if(carta == null)
-            {
-            	System.out.println(""); 
-                System.out.println("Mazzo finito");
-                
-                finito = true;
-            }
-            else
-            {
-                System.out.println(carta.getImmagine());   
-            }
-        }
-        */
 	}
 	
 	/**
-	 * metodo che inizializza la lista di giocatori che partecipano alla partita
+	 * metodo privato che inizializza la lista di giocatori che partecipano alla partita
 	 */
 	private void initGiocatori()
 	{
@@ -253,10 +250,22 @@ public class ModelManager extends Observable
 	}
 	
 	/**
-	 * metodo che aggiunge una carta al giocatore giusto in base al turno della partita
+	 * metodo privato che distribuisce le carte ai giocatori
+	 * resetta le carte dei giocatori e parte dal primo turno
 	 */
-	public void hit()
+	private void initCarte()
 	{
-		giocatori.get(turno).addCarta(mazzo.carta());
+		for(Giocatore giocatore : giocatori)
+		{
+			giocatore.svuotaCarte();
+			Carta carta1 = mazzo.carta();
+        	Carta carta2 = mazzo.carta();
+
+        	giocatore.addCarta(carta1);	
+        	giocatore.addCarta(carta2);
+ 	
+        	System.out.println("");  
+		}
+		turno = 0;
 	}
 }
