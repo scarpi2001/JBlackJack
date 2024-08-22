@@ -23,9 +23,9 @@ public class Mazzo
         
         for (Carta.Seme seme : Carta.Seme.values()) 
         {
-            for (Carta.Valore valore : Carta.Valore.values()) 
+            for (Carta.Simbolo simbolo : Carta.Simbolo.values()) 
             {
-                mazzo[index++] = new Carta(seme, valore);
+                mazzo[index++] = new Carta(seme, simbolo);
             }
         }
         

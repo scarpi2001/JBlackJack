@@ -189,7 +189,7 @@ public class ModelManager extends Observable
     }
 	
 	//METODI PARTITA
-	//(questi aspetti della partita potrebbero dover essere trasferiti nel controller)
+	//(questi aspetti della partita potrebbero essere trasferiti nel controller)
 	/**
 	 * metodo che inizializza la partita
 	 */
@@ -210,11 +210,9 @@ public class ModelManager extends Observable
 		Giocatore giocatore = giocatori.get(turno);
 		
 		giocatore.addCarta(mazzo.carta());
-		if(giocatore.isBusted()) 
+		if(giocatore.isBusted() || giocatore.isBlackJack()) 
 		{
-			turno++;
-			if(turno == giocatori.size()) initCarte();
-			System.out.println("");
+			turnoSuccessivo();
 		}
 	}
 	
@@ -224,9 +222,7 @@ public class ModelManager extends Observable
 	public void stay()
 	{	
 		System.out.println("stay");
-		System.out.println("");
-		turno++;
-		if(turno == giocatori.size()) initCarte();
+		turnoSuccessivo();
 	}
 	
 	/**
@@ -251,21 +247,38 @@ public class ModelManager extends Observable
 	
 	/**
 	 * metodo privato che distribuisce le carte ai giocatori
-	 * resetta le carte dei giocatori e parte dal primo turno
 	 */
 	private void initCarte()
 	{
 		for(Giocatore giocatore : giocatori)
 		{
-			giocatore.svuotaCarte();
+			giocatore.resetCarte();
 			Carta carta1 = mazzo.carta();
         	Carta carta2 = mazzo.carta();
 
         	giocatore.addCarta(carta1);	
         	giocatore.addCarta(carta2);
  	
-        	System.out.println("");  
+        	System.out.println(""); 
+        	
+        	if(giocatore.isBlackJack()) 
+    		{
+    			turnoSuccessivo();
+    		}
+		}	
+	}
+	
+	/**
+	 * metodo privato che passa al turno successivo
+	 */
+	private void turnoSuccessivo()
+	{
+		turno++;
+		if(turno >= giocatori.size())
+		{
+			initCarte();
+			turno = 0;
 		}
-		turno = 0;
+		System.out.println("");
 	}
 }
