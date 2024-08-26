@@ -28,8 +28,6 @@ public class Mazzo
                 mazzo[index++] = new Carta(seme, simbolo);
             }
         }
-        
-        cartaCorrente = 0;
     }
 
     /**

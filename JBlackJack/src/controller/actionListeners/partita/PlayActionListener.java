@@ -1,6 +1,9 @@
-package controller.actionListeners;
+package controller.actionListeners.partita;
 
 import java.awt.event.*;
+
+import controller.Controller;
+import controller.JBlackJack;
 import view.View;
 import model.ModelManager;
 
@@ -12,10 +15,10 @@ public class PlayActionListener implements ActionListener
     @Override
 	public void actionPerformed(ActionEvent e) 
 	{      
-    	ModelManager model = ModelManager.getInstance();
     	View view = View.getInstance();
-    	view.showGamePanel();
+    	Controller controller = Controller.getInstance();
     	
-    	model.initPartita();
+    	controller.initPartita();
+    	view.showGamePanel();    	
 	}
 }

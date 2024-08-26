@@ -1,4 +1,4 @@
-package view.menuPanel;
+package view.menuPanel.topbar;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,12 +10,12 @@ import model.ModelManager;
 /**
  * panel che rappresenta la topBar del menu
  */
-public class TopBar extends JPanel 
+public class TopBarMenuPanel extends JPanel 
 {
 	private NumeroGiocatoriPanel numeroGiocatoriPanel;
 	private GestioneUtentePanel gestioneUtentePanel;
 	
-	public TopBar() 
+	public TopBarMenuPanel() 
 	{
 		setLayout(new GridBagLayout());
 		setOpaque(false);

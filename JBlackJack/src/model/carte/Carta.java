@@ -34,7 +34,7 @@ public class Carta
 	    K(10), 
 	    A(1); 
 
-	    private final int valore;
+	    private int valore;
 	    
 	    Simbolo(int valore) 
 	    {
@@ -55,17 +55,17 @@ public class Carta
 	/**
 	 * valore numerico della carta
 	 */
-    private final int valore;
+    private int valore;
      
     /**
      * seme della carta
      */
-    private final Seme seme;
+    private Seme seme;
     
     /**
      * simbolo della carta
      */
-    private final Simbolo simbolo;
+    private Simbolo simbolo;
     
     public Carta(Seme seme, Simbolo simbolo) 
     {

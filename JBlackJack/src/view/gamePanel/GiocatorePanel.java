@@ -3,8 +3,8 @@ package view.gamePanel;
 import java.awt.*;
 import javax.swing.*;
 
-import controller.actionListeners.HitActionListener;
-import controller.actionListeners.StayActionListener;
+import controller.actionListeners.partita.HitActionListener;
+import controller.actionListeners.partita.StayActionListener;
 import view.MyJLabel;
 
 public class GiocatorePanel extends JPanel

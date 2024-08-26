@@ -1,4 +1,4 @@
-package view.menuPanel;
+package view.menuPanel.bottombar;
 
 import java.awt.*;
 import javax.swing.*;

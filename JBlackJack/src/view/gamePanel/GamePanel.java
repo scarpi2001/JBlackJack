@@ -3,8 +3,8 @@ package view.gamePanel;
 import java.awt.*;
 import javax.swing.*;
 
-import view.menuPanel.BottomBar;
-import view.menuPanel.TopBar;
+import view.menuPanel.bottombar.BottomBarMenuPanel;
+import view.menuPanel.topbar.TopBarMenuPanel;
 
 /**
  * in questo panel si svolge la partita

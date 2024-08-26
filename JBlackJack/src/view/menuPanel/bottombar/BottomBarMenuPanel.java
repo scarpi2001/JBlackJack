@@ -1,19 +1,20 @@
-package view.menuPanel;
+package view.menuPanel.bottombar;
 
 import javax.swing.*;
-import java.awt.*;
 
-import controller.actionListeners.PlayActionListener;
+import controller.actionListeners.partita.PlayActionListener;
+
+import java.awt.*;
 
 /**
  * panel che rappresenta la bottomBar del menu
  */
-public class BottomBar extends JPanel 
+public class BottomBarMenuPanel extends JPanel 
 {
     private JButton buttonGioca;
     private DatiUtentePanel datiUtentePanel;
 
-    public BottomBar() 
+    public BottomBarMenuPanel() 
     {	
     	setLayout(new GridBagLayout());
         setOpaque(false);

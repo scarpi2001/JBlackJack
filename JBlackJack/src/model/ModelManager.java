@@ -65,9 +65,33 @@ public class ModelManager extends Observable
 	}
 	
 	//GETTERS E SETTERS
-	public void setGiocatori(int numeroGiocatori) 
+	public Mazzo getMazzo() 
+	{		
+		return mazzo;
+	}
+	public void setMazzo(Mazzo mazzo) 
+	{		
+		this.mazzo = mazzo;
+	}
+	public List<Giocatore> getGiocatori() 
+	{		
+		return giocatori;
+	}
+	public int getNumeroGiocatori() 
+	{		
+		return numeroGiocatori;
+	}
+	public void setNumeroGiocatori(int numeroGiocatori) 
 	{		
 		this.numeroGiocatori = numeroGiocatori;
+	}
+	public int getTurno() 
+	{		
+		return turno;
+	}
+	public void setTurno(int turno) 
+	{		
+		this.turno = turno;
 	}
 	
 	//GETTERS E SETTERS DELL'UTENTE
@@ -189,46 +213,10 @@ public class ModelManager extends Observable
     }
 	
 	//METODI PARTITA
-	//(questi aspetti della partita potrebbero essere trasferiti nel controller)
-	/**
-	 * metodo che inizializza la partita
-	 */
-	public void initPartita()
-	{
-		initMazzo();
-		initGiocatori();
-		initCarte();
-	}
-	
-	/**
-	 * metodo che aggiunge una carta al giocatore giusto in base al turno della partita
-	 */
-	public void hit()
-	{
-		if(turno == giocatori.size()) initCarte();
-		
-		Giocatore giocatore = giocatori.get(turno);
-		
-		giocatore.addCarta(mazzo.carta());
-		if(giocatore.isBusted() || giocatore.isBlackJack()) 
-		{
-			turnoSuccessivo();
-		}
-	}
-	
-	/**
-	 * metodo che passa al turno successivo
-	 */
-	public void stay()
-	{	
-		System.out.println("stay");
-		turnoSuccessivo();
-	}
-	
 	/**
 	 * metodo privato che inizializza il mazzo
 	 */
-	private void initMazzo()
+	public void initMazzo()
 	{
 		mazzo = new Mazzo();
 		mazzo.mix();
@@ -237,48 +225,11 @@ public class ModelManager extends Observable
 	/**
 	 * metodo privato che inizializza la lista di giocatori che partecipano alla partita
 	 */
-	private void initGiocatori()
+	public void initGiocatori()
 	{
 		for(int i = 0; i < numeroGiocatori - 1; i++)
 		{	
 			giocatori.add(new Giocatore());
 		}	
-	}
-	
-	/**
-	 * metodo privato che distribuisce le carte ai giocatori
-	 */
-	private void initCarte()
-	{
-		for(Giocatore giocatore : giocatori)
-		{
-			giocatore.resetCarte();
-			Carta carta1 = mazzo.carta();
-        	Carta carta2 = mazzo.carta();
-
-        	giocatore.addCarta(carta1);	
-        	giocatore.addCarta(carta2);
- 	
-        	System.out.println(""); 
-        	
-        	if(giocatore.isBlackJack()) 
-    		{
-    			turnoSuccessivo();
-    		}
-		}	
-	}
-	
-	/**
-	 * metodo privato che passa al turno successivo
-	 */
-	private void turnoSuccessivo()
-	{
-		turno++;
-		if(turno >= giocatori.size())
-		{
-			initCarte();
-			turno = 0;
-		}
-		System.out.println("");
 	}
 }

@@ -3,23 +3,26 @@ package view.menuPanel;
 import java.awt.*;
 import javax.swing.*;
 
+import view.menuPanel.bottombar.BottomBarMenuPanel;
+import view.menuPanel.topbar.TopBarMenuPanel;
+
 /**
  * panel che contiene il menu dell'applicazione
  */
 public class MenuPanel extends JPanel
 {
 	private Image background;
-	private TopBar topbar;
-	private BottomBar bottombar;
+	private TopBarMenuPanel topbar;
+	private BottomBarMenuPanel bottombar;
 	
 	public MenuPanel()
 	{	
 		setLayout(new BorderLayout());
 		background = new ImageIcon("src/resources/images/menu_background.jpg").getImage();
 		
-		topbar = new TopBar();
+		topbar = new TopBarMenuPanel();
 		topbar.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-		bottombar = new BottomBar(); 
+		bottombar = new BottomBarMenuPanel(); 
 		bottombar.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 		
 		add(topbar, BorderLayout.NORTH);

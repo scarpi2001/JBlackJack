@@ -1,12 +1,13 @@
-package view.menuPanel;
+package view.menuPanel.topbar;
 
 import javax.swing.*;
+
+import controller.actionListeners.utente.CreateUserActionListener;
+import controller.actionListeners.utente.DeleteUserActionListener;
+import controller.actionListeners.utente.SetUserActionListener;
+
 import java.awt.*;
 import java.awt.event.ActionListener;
-
-import controller.actionListeners.CreateUserActionListener;
-import controller.actionListeners.DeleteUserActionListener;
-import controller.actionListeners.SetUserActionListener;
 
 import model.ModelManager;
 
@@ -19,7 +20,6 @@ public class GestioneUtentePanel extends JPanel
 	private JButton buttonDeleteUser;
 	private JButton buttonCreateUser;
 	private JComboBox<String> comboBoxUtenti;
-	
 	private ActionListener setUserActionListener;
 	
 	public GestioneUtentePanel() 
