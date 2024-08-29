@@ -47,6 +47,7 @@ public class Carta
 	    }
 	}
 	
+	//CAMPI
 	/**
 	 * immagine della carta
 	 */
@@ -67,6 +68,7 @@ public class Carta
      */
     private Simbolo simbolo;
     
+    //COSTRUTTORE
     public Carta(Seme seme, Simbolo simbolo) 
     {
     	this.simbolo = simbolo;
@@ -75,6 +77,7 @@ public class Carta
         immagine = "src/resources/images/carte/" + seme + "_" + simbolo + ".jpg";
     }
     
+    //METODI
     public String getImmagine() 
     {
         return immagine;

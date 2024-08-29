@@ -11,6 +11,7 @@ import model.carte.Carta;
  */
 public class Giocatore 
 {
+	//CAMPI
 	/**
 	 * nome del giocatore
 	 */
@@ -41,7 +42,7 @@ public class Giocatore
 	 */
 	private int conteggio;
 	
-	
+	//COSTRUTTORE
 	public Giocatore()
 	{
 		if(!(this instanceof UtenteGiocante))
@@ -52,7 +53,7 @@ public class Giocatore
 		carte = new ArrayList<>();
 	}
 	
-	
+	//GETTERS E SETTERS
 	public String getUsername() 
 	{
 		return username;
@@ -81,7 +82,7 @@ public class Giocatore
 		this.conteggio = conteggio;
 	}
 
-	
+	//METODI
 	//questa roba potrebbe andare nel controller (checkConteggio) e addCarta dovrebbe servire solo ad aggiungere una carta al mazzo del giocatore
 	/**
 	 * metodo per aggiungere una carta alla lista di carte del giocatore

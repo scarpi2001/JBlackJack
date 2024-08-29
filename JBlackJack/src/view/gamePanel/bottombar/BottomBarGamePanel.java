@@ -1,4 +1,4 @@
-package view.gamePanel;
+package view.gamePanel.bottombar;
 
 import java.awt.*;
 import javax.swing.*;

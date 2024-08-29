@@ -49,6 +49,11 @@ public class UtenteGiocante extends Giocatore
 	 */
 	private int livello;
 	
+	/**
+	 * numero di partite giocate
+	 */
+	private int partite;
+	
 	//COSTRUTTORE
 	private UtenteGiocante(){}
 	
@@ -67,7 +72,6 @@ public class UtenteGiocante extends Giocatore
 	{
 		return filePath;
 	}
-
 	public void setFilePath(String file)
 	{
 		this.filePath = file;
@@ -76,7 +80,6 @@ public class UtenteGiocante extends Giocatore
 	public int getChips() {
 		return chips;
 	}
-
 	public void setChips(int chips)
 	{
 		this.chips = chips;
@@ -86,17 +89,16 @@ public class UtenteGiocante extends Giocatore
 	{
 		return maniGiocate;
 	}
-
 	public void setManiGiocate(int maniGiocate) 
 	{
 		this.maniGiocate = maniGiocate;
+		//e cambia maniGiocate nel file
 	}
 
 	public int getManiVinte() 
 	{
 		return maniVinte;
 	}
-
 	public void setManiVinte(int maniVinte) 
 	{
 		this.maniVinte = maniVinte;
@@ -106,7 +108,6 @@ public class UtenteGiocante extends Giocatore
 	{
 		return maniPerse;
 	}
-
 	public void setManiPerse(int maniPerse)
 	{
 		this.maniPerse = maniPerse;
@@ -116,7 +117,6 @@ public class UtenteGiocante extends Giocatore
 	{
 		return livello;
 	}
-
 	public void setLivello(int livello) 
 	{
 		this.livello = livello;
@@ -159,7 +159,7 @@ public class UtenteGiocante extends Giocatore
                         break;
                     case "livello":
                         setLivello(Integer.parseInt(value));
-                        break;	              
+                        break;	      
 	            }
 	        }
 	    } 

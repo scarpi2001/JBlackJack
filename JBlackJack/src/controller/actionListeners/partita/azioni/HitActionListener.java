@@ -1,4 +1,4 @@
-package controller.actionListeners.partita;
+package controller.actionListeners.partita.azioni;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

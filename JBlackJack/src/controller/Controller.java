@@ -1,10 +1,7 @@
 package controller;
 
-import java.util.List;
-
 import model.Giocatore;
 import model.ModelManager;
-import model.UtenteGiocante;
 import model.carte.Carta;
 import view.AudioManager;
 import view.View;
@@ -104,6 +101,15 @@ public class Controller
 		gioca();
 	}
 	
+	/**
+	 * metodo per tornare dalla partita al menu 
+	 * resetta lo stato della partita
+	 */
+	public void back()
+	{
+		model.clearGiocatori();
+	}
+	
     /**
 	 * metodo che aggiunge una carta al giocatore giusto in base al turno della partita
 	 */
@@ -163,8 +169,8 @@ public class Controller
     private void distribuisciCarte() 
     {
     	//conteggio partite
-    	int partita = model.getPartita();
-    	model.setPartita(++partita);
+    	int partita = model.getUtenteManiGiocate();
+    	model.setUtenteManiGiocate(++partita);
     	System.out.println("partita n°: " + partita);
     	
         for (Giocatore giocatore : model.getGiocatori())

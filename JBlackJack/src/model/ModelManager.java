@@ -43,11 +43,6 @@ public class ModelManager extends Observable
 	 */
 	private int turno;
 	
-	/**
-	 * numero di partite
-	 */
-	private int partita;
-	
 	//COSTRUTTORE
 	/**
 	 * il costruttore del model, che istanzia l'utente
@@ -82,7 +77,10 @@ public class ModelManager extends Observable
 	{		
 		return giocatori;
 	}
-	
+	public void setGiocatori(List<Giocatore> giocatori) 
+	{		
+		this.giocatori = giocatori;
+	}
 	public int getNumeroGiocatori() 
 	{		
 		return numeroGiocatori;
@@ -99,17 +97,6 @@ public class ModelManager extends Observable
 	public void setTurno(int turno) 
 	{		
 		this.turno = turno;
-	}
-	
-	//dovranno interagire con il db e saranno roba legata all'utente
-	public int getPartita()
-	{
-		return partita;
-	}
-	
-	public void setPartita(int partita)
-	{
-		this.partita = partita;
 	}
 	
 	//GETTERS E SETTERS DELL'UTENTE
@@ -131,6 +118,10 @@ public class ModelManager extends Observable
 	public int getUtenteManiGiocate()
 	{
 		return utente.getManiGiocate();
+	}
+	public void setUtenteManiGiocate(int maniGiocate)
+	{
+		utente.setManiGiocate(maniGiocate);
 	}
 	
 	public int getUtenteManiVinte()
@@ -174,7 +165,7 @@ public class ModelManager extends Observable
 	
 	/**
 	 * metodo per eliminare l'utente 
-	 * elimina l'utente e setta il primo della select degli utenti 
+	 * elimina l'utente e setta il primo della select degli utenti  
 	 * @param username l'username dell'utente da eliminare
 	 */
 	public void eliminaUtente(String username)
@@ -244,14 +235,19 @@ public class ModelManager extends Observable
 	 * metodo privato che inizializza la lista di giocatori che partecipano alla partita
 	 */
 	public void initGiocatori()
-	{
-		//il clear è da mettere sul "torna indietro"
-		giocatori.clear();
-		
+	{	
 		giocatori.add(utente);
 		for(int i = 0; i < numeroGiocatori - 1; i++)
 		{	
 			giocatori.add(new Giocatore());
 		}	
+	}
+	
+	/**
+	 * metodo che svuota la lista di giocatori
+	 */
+	public void clearGiocatori() 
+	{		
+		giocatori.clear();
 	}
 }

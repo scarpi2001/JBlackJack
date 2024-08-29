@@ -1,11 +1,11 @@
-package view.gamePanel;
+package view.gamePanel.bottombar;
 
 import java.awt.*;
 import javax.swing.*;
 
-import controller.actionListeners.partita.HitActionListener;
-import controller.actionListeners.partita.SplitActionListener;
-import controller.actionListeners.partita.StayActionListener;
+import controller.actionListeners.partita.azioni.HitActionListener;
+import controller.actionListeners.partita.azioni.SplitActionListener;
+import controller.actionListeners.partita.azioni.StayActionListener;
 import view.MyJLabel;
 
 public class GiocatorePanel extends JPanel
