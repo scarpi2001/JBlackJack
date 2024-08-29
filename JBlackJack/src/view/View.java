@@ -75,6 +75,14 @@ public class View extends JFrame implements Observer
     }
     
     /**
+     * mostra o meno il pulsante di split 
+     */
+    public void setSplitVisible(boolean visible) 
+    {
+    	gamePanel.setSplitVisible(visible);
+    }
+    
+    /**
      * metodo statico di utilità della view per mostrare un popup nel quale inserire l'username dell'utente che si vuole creare
      * @param primo booleano che mi informa se sto creando il primo utente 
      * @return l'username inserito nel prompt
@@ -100,4 +108,5 @@ public class View extends JFrame implements Observer
     {
         JOptionPane.showMessageDialog(null, message, "Errore", JOptionPane.ERROR_MESSAGE);
     }
+    
 }

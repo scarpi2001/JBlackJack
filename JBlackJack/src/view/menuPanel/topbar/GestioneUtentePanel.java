@@ -2,9 +2,9 @@ package view.menuPanel.topbar;
 
 import javax.swing.*;
 
-import controller.actionListeners.utente.CreateUserActionListener;
-import controller.actionListeners.utente.DeleteUserActionListener;
-import controller.actionListeners.utente.SetUserActionListener;
+import controller.actionListeners.menu.utente.CreateUserActionListener;
+import controller.actionListeners.menu.utente.DeleteUserActionListener;
+import controller.actionListeners.menu.utente.SetUserActionListener;
 
 import java.awt.*;
 import java.awt.event.ActionListener;

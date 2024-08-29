@@ -1,6 +1,9 @@
 package model.carte;
 import java.util.Random;
 
+import model.carte.Carta.Seme;
+import model.carte.Carta.Simbolo;
+
 /**
  * classe che rappresenta un mazzo di carte francesi
  */
@@ -28,6 +31,15 @@ public class Mazzo
                 mazzo[index++] = new Carta(seme, simbolo);
             }
         }
+
+    	/*
+    	 * test split
+    	mazzo = new Carta[4];
+    	mazzo[0] = new Carta(Seme.CUORI, Simbolo.DUE);
+    	mazzo[1] = new Carta(Seme.PICCHE, Simbolo.DUE);
+    	mazzo[2] = new Carta(Seme.CUORI, Simbolo.TRE);
+    	mazzo[3] = new Carta(Seme.PICCHE, Simbolo.TRE);
+    	*/
     }
 
     /**

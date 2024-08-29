@@ -63,16 +63,6 @@ public class UtenteGiocante extends Giocatore
 	}
 	
 	//GETTERS E SETTERS
-	public String getUsername() 
-	{
-		return username;
-	}
-
-	public void setUsername(String username) 
-	{
-		this.username = username;
-	}
-
 	public String getFilePath() 
 	{
 		return filePath;
@@ -181,7 +171,7 @@ public class UtenteGiocante extends Giocatore
 		//scrivo l'username nel file ultimo_utente.txt
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/resources/data/ultimo_utente.txt"))) 
         {
-            writer.write(username);
+            writer.write(getUsername());
         } 
         catch (IOException ex) 
         {

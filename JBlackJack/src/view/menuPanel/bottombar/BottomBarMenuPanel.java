@@ -2,7 +2,7 @@ package view.menuPanel.bottombar;
 
 import javax.swing.*;
 
-import controller.actionListeners.partita.PlayActionListener;
+import controller.actionListeners.menu.PlayActionListener;
 
 import java.awt.*;
 

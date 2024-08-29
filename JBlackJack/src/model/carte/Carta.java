@@ -79,7 +79,12 @@ public class Carta
     {
         return immagine;
     }
-
+    
+    public Simbolo getSimbolo() 
+    {
+        return simbolo;
+    }
+    
     public int getValore() 
     {
         return valore;

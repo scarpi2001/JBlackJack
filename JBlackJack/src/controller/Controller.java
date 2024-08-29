@@ -4,6 +4,7 @@ import java.util.List;
 
 import model.Giocatore;
 import model.ModelManager;
+import model.UtenteGiocante;
 import model.carte.Carta;
 import view.AudioManager;
 import view.View;
@@ -98,7 +99,9 @@ public class Controller
 	{
 		model.initMazzo();
 		model.initGiocatori();
-		initCarte();
+		
+		distribuisciCarte();
+		gioca();
 	}
 	
     /**
@@ -106,15 +109,9 @@ public class Controller
 	 */
     public void hit()
     {
-    	List<Giocatore> giocatori = model.getGiocatori();
-        int turno = model.getTurno();
-
-        if (turno == giocatori.size()) initCarte();
-  
-        Giocatore giocatore = giocatori.get(turno);
+    	Giocatore giocatore = model.getGiocatori().get(model.getTurno());
         giocatore.addCarta(model.getMazzo().carta());
-
-        if (giocatore.isBusted() || giocatore.isBlackJack()) turnoSuccessivo();
+        gioca();
     }
     
     /**
@@ -126,26 +123,62 @@ public class Controller
 		turnoSuccessivo();
 	}
 	
+	/**
+	 * metodo che permette all'utente di "splittare" le 2 carte iniziali quando hanno lo stesso valore
+	 * in modo da giocare più mani nello stesso turno
+	 */
+	public void split()
+	{
+		
+	}
+	
+	/**
+	 * metodo che fa giocare il turno corrente
+	 */
+	private void gioca()
+	{
+        Giocatore giocatore = model.getGiocatori().get(model.getTurno());
+        
+        //se siamo al turno 0 (turno dell'utente e c'è la condizione per "splittare" allora fai comparire il pulsante split)
+        if (model.getTurno() == 0 && giocatore.canSplit()) 
+        {
+            view.setSplitVisible(true);
+        } 
+        else 
+        {
+            view.setSplitVisible(false);
+        }
+
+        if (giocatore.isBlackJack() || giocatore.isBusted()) 
+        {
+            turnoSuccessivo();
+        }
+        
+        //se non accade nulla aspetto che il giocatore clicca hit o stay o split
+	}
+	
     /**
 	 * metodo privato che distribuisce le carte ai giocatori
 	 */
-    private void initCarte() 
+    private void distribuisciCarte() 
     {
+    	//conteggio partite
+    	int partita = model.getPartita();
+    	model.setPartita(++partita);
+    	System.out.println("partita n°: " + partita);
+    	
         for (Giocatore giocatore : model.getGiocatori())
         {
-            giocatore.resetCarte();
+        	giocatore.resetStato();
             Carta carta1 = model.getMazzo().carta();
             Carta carta2 = model.getMazzo().carta();
-
+            
             giocatore.addCarta(carta1);
-            giocatore.addCarta(carta2);
-
-            if (giocatore.isBlackJack()) turnoSuccessivo();
-
+            giocatore.addCarta(carta2);     
         }
-        
         System.out.println("");
     }
+    
     
     /**
 	 * metodo privato che passa al turno successivo
@@ -155,10 +188,17 @@ public class Controller
         int turno = model.getTurno();
         model.setTurno(++turno);
         
+        //se l'ultimo giocatore ha finito il suo turno, ridistribuisci le carte ricomincia dal turno 0 e gioca
         if (turno >= model.getGiocatori().size()) 
         {
-            initCarte();
+            // Finisce il round, gestisce la logica per il dealer e determina il vincitore
+        	distribuisciCarte();
             model.setTurno(0);
+            gioca();
+        }
+        else
+        {
+        	gioca();
         }
     }
 }

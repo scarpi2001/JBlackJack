@@ -34,8 +34,13 @@ public class GamePanel extends JPanel
 		g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
 	}
 	
+	public void setSplitVisible(boolean visible) 
+    {
+		bottombar.setSplitVisible(visible);
+    }
+	
 	public void updateGamePanel() 
 	{
-
+		repaint();
     }
 }

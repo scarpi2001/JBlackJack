@@ -2,9 +2,8 @@ package controller;
 
 public class JBlackJack 
 {
-	public static void main(String[] args) throws InterruptedException 
+	public static void main(String[] args)
 	{
-		//avvio dell'applicazione
         Controller controller = Controller.getInstance();
         controller.start();	
 	}

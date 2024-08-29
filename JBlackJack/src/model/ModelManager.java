@@ -43,6 +43,11 @@ public class ModelManager extends Observable
 	 */
 	private int turno;
 	
+	/**
+	 * numero di partite
+	 */
+	private int partita;
+	
 	//COSTRUTTORE
 	/**
 	 * il costruttore del model, che istanzia l'utente
@@ -51,7 +56,6 @@ public class ModelManager extends Observable
 	{
 		utente = UtenteGiocante.getInstance();
 		giocatori = new ArrayList<>();
-		giocatori.add(utente);
 	}
 	
 	/**
@@ -73,10 +77,12 @@ public class ModelManager extends Observable
 	{		
 		this.mazzo = mazzo;
 	}
+	
 	public List<Giocatore> getGiocatori() 
 	{		
 		return giocatori;
 	}
+	
 	public int getNumeroGiocatori() 
 	{		
 		return numeroGiocatori;
@@ -85,6 +91,7 @@ public class ModelManager extends Observable
 	{		
 		this.numeroGiocatori = numeroGiocatori;
 	}
+	
 	public int getTurno() 
 	{		
 		return turno;
@@ -92,6 +99,17 @@ public class ModelManager extends Observable
 	public void setTurno(int turno) 
 	{		
 		this.turno = turno;
+	}
+	
+	//dovranno interagire con il db e saranno roba legata all'utente
+	public int getPartita()
+	{
+		return partita;
+	}
+	
+	public void setPartita(int partita)
+	{
+		this.partita = partita;
 	}
 	
 	//GETTERS E SETTERS DELL'UTENTE
@@ -227,6 +245,10 @@ public class ModelManager extends Observable
 	 */
 	public void initGiocatori()
 	{
+		//il clear è da mettere sul "torna indietro"
+		giocatori.clear();
+		
+		giocatori.add(utente);
 		for(int i = 0; i < numeroGiocatori - 1; i++)
 		{	
 			giocatori.add(new Giocatore());

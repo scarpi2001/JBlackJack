@@ -4,7 +4,7 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
-import controller.actionListeners.partita.SetGiocatoriActionListener;
+import controller.actionListeners.menu.SetGiocatoriActionListener;
 import view.MyJLabel;
 
 public class NumeroGiocatoriPanel extends JPanel

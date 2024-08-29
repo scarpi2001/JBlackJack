@@ -24,6 +24,11 @@ public class BottomBarGamePanel extends JPanel
         add(giocatorePanel, gbc);
     }
     
+    public void setSplitVisible(boolean visible) 
+    {
+		giocatorePanel.setSplitVisible(visible);
+    }
+    
     public void aggiornaGiocatore() 
     {
         giocatorePanel.aggiornaGiocatore();
