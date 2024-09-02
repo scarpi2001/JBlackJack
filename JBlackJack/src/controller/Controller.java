@@ -9,6 +9,7 @@ import view.View;
 
 public class Controller 
 {
+	//CAMPI
 	/**
 	 * istanza del controller
 	 */
@@ -28,6 +29,8 @@ public class Controller
      * costruttore del controller
      * crea le istanze di model e view e stabilisce la relazione di osservatore tra di loro.
      */
+    
+    //COSTRUTTORE
     private Controller() 
     {
         model = ModelManager.getInstance();
@@ -195,11 +198,6 @@ public class Controller
 	 */
     private void distribuisciCarte() 
     {
-    	//conteggio partite
-    	int partita = model.getUtenteManiGiocate();
-    	model.setUtenteManiGiocate(++partita);
-    	System.out.println("partita n°: " + partita);
-    	
         for (Giocatore giocatore : model.getGiocatori())
         {
         	giocatore.resetStato();
@@ -223,15 +221,23 @@ public class Controller
         
         //se l'ultimo giocatore ha finito il suo turno, ridistribuisci le carte ricomincia dal turno 0 e gioca
         if (turno >= model.getGiocatori().size()) 
-        {
-            // Finisce il round, gestisce la logica per il dealer e determina il vincitore
+        {	
+            //fine round
         	distribuisciCarte();
             model.setTurno(0);
-            gioca();
+            gioca();                
         }
         else
         {
         	gioca();
+        }
+        
+        //conteggio mani
+        //se sto passando al turno successivo e il turno era il primo (quello dell'utente) aumento il conteggio
+        if(model.getTurno() == 0)
+        {
+        	int mani = model.getUtenteManiGiocate();
+        	model.setUtenteManiGiocate(++mani);
         }
     }
     

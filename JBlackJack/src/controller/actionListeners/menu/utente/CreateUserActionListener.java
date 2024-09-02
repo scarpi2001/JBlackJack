@@ -22,8 +22,7 @@ public class CreateUserActionListener implements ActionListener
 			if (username.isEmpty()) 
 			{
 				View.showError("l'username non può essere vuoto!");
-				return;
-				
+				return;			
             } 
 			
 			if(username.length() > 20)
@@ -31,8 +30,12 @@ public class CreateUserActionListener implements ActionListener
 				View.showError("l'username supera la lunghezza massima di 20 caratteri");
 				return;
 			}
-
-			model.creaUtente(username);
+			
+			boolean successo = model.creaUtente(username);
+			if (!successo) 
+			{
+			   View.showError("Questo username è già stato preso.");
+			}
         } 
 	}
 }

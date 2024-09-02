@@ -1,6 +1,5 @@
 package model;
 
-import model.carte.Carta;
 import model.carte.Mazzo;
 import java.io.*;
 import java.util.ArrayList;
@@ -122,6 +121,8 @@ public class ModelManager extends Observable
 	public void setUtenteManiGiocate(int maniGiocate)
 	{
 		utente.setManiGiocate(maniGiocate);
+		setChanged();
+		notifyObservers();
 	}
 	
 	public int getUtenteManiVinte()
@@ -145,9 +146,9 @@ public class ModelManager extends Observable
 	 * e notifica gli osservatori
 	 * @param nomeFile nome del file che contiene i dati dell'utente
 	 */
-	public void setUtente(String nomeFile)
+	public void setUtente(String path)
 	{
-		utente.setDati(nomeFile);        
+		utente.setDati(path);        
 		setChanged();
 		notifyObservers();
 	}
@@ -156,11 +157,13 @@ public class ModelManager extends Observable
 	 * metodo per creare l'utente 
 	 * crea l'utente e lo setta
 	 * @param username l'username dell'utente
+	 * @return true se la creazione va a buon fine, altrimenti false
 	 */
-	public void creaUtente(String username)
+	public boolean creaUtente(String username)
 	{
-		utente.creaUtente(username);
-		setUtente("src/resources/data/dati_utenti/" + username + "_dati.txt");
+		boolean res = utente.creaUtente(username);
+		if(res) setUtente("src/resources/data/dati_utenti/" + username + "_dati.txt");
+		return res;
 	}
 	
 	/**
@@ -172,31 +175,7 @@ public class ModelManager extends Observable
 	{
 		utente.eliminaUtente(username);
 		//setto il primo utente della lista di utenti 
-		setUtente("src/resources/data/dati_utenti/" + getUtenti("src/resources/data/utenti.txt")[0] + "_dati.txt");
-	}
-	
-	/**
-	 * metodo per leggere gli utenti da un file di utenti 
-	 * @param path path del file che contiene gli utenti
-	 * @return la lista degli utenti
-	 */
-	public String[] getUtenti(String path) 
-	{
-		ArrayList<String> utenti = new ArrayList<>();
-		
-		try (BufferedReader reader = new BufferedReader(new FileReader(path))) 
-		{
-			String riga;
-			while ((riga = reader.readLine()) != null)
-			{
-				utenti.add(riga.trim());
-			}
-		} 
-		catch (IOException e) 
-		{
-			e.printStackTrace();
-		}
-		return utenti.toArray(new String[0]);
+		setUtente("src/resources/data/dati_utenti/" + FileUtils.leggiFile("src/resources/data/utenti.txt").get(0) + "_dati.txt");
 	}
 	
 	/**
@@ -205,20 +184,8 @@ public class ModelManager extends Observable
 	 */
 	public String getUltimoUtente(String path) 
 	{
-        String username = null;
-        try (BufferedReader reader = new BufferedReader(new FileReader(path))) 
-        {
-            String riga;
-            while ((riga = reader.readLine()) != null) 
-            {
-                username = riga;
-            }
-        } 
-        catch (IOException e) 
-        {
-            e.printStackTrace();
-        }
-        return username;
+		List<String> righe = FileUtils.leggiFile(path);
+		return righe.get(righe.size() - 1);  
     }
 	
 	//METODI PARTITA
