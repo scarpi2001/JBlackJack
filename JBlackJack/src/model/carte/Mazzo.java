@@ -32,14 +32,13 @@ public class Mazzo
             }
         }
 
+    	
     	/*
-    	 * test split
-    	mazzo = new Carta[4];
+    	mazzo = new Carta[2];
     	mazzo[0] = new Carta(Seme.CUORI, Simbolo.DUE);
     	mazzo[1] = new Carta(Seme.PICCHE, Simbolo.DUE);
-    	mazzo[2] = new Carta(Seme.CUORI, Simbolo.TRE);
-    	mazzo[3] = new Carta(Seme.PICCHE, Simbolo.TRE);
-    	*/
+	*/
+    	
     }
 
     /**

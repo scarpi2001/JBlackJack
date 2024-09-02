@@ -18,30 +18,15 @@ public class Giocatore
 	private String username;
 	
 	/**
-	 * lista di carte utilizzata durante la partita
+	 * lista di mani del giocatore, ogni mano è una lista di carte
 	 */
-	private List<Carta> carte;
+	private List<Mano> mani;
 	
 	/**
-	 * flag che indica se il giocatore ha "sballato" o no
+	 * l'indice della mano che il giocatore sta giocando
 	 */
-	private boolean sballato;
-	
-	/**
-	 * flag che indica se il giocatore ha fatto blackjack o no
-	 */
-	private boolean blackjack;
-	
-	/**
-	 * flag per capire se sono in una "soft hand" o no
-	 */
-	private boolean soft;
-	
-	/**
-	 * conteggio dei punti delle carte del giocatore
-	 */
-	private int conteggio;
-	
+	private int manoCorrente;
+
 	//COSTRUTTORE
 	public Giocatore()
 	{
@@ -50,7 +35,9 @@ public class Giocatore
 			username = "bot";  
 		}
 		
-		carte = new ArrayList<>();
+		mani = new ArrayList<>();
+		//all'inizio il giocatore ha una sola mano
+        mani.add(new Mano());  
 	}
 	
 	//GETTERS E SETTERS
@@ -63,87 +50,55 @@ public class Giocatore
 		this.username = username;
 	}
 	
-	public boolean isBusted()
+    public List<Mano> getMani()
+    {
+        return mani;
+    }
+    
+    public int getManoCorrenteIndex() 
 	{
-		return sballato;
+		return manoCorrente;
+	}
+    public void setManoCorrenteIndex(int mano) 
+	{
+		manoCorrente = mano;
 	}
 	
-	public boolean isBlackJack()
-	{
-		return blackjack;
-	}
-	
-	public int getConteggio()
-	{
-		return conteggio;
-	}
-	public void setConteggio(int conteggio)
-	{
-		this.conteggio = conteggio;
-	}
-
 	//METODI
-	//questa roba potrebbe andare nel controller (checkConteggio) e addCarta dovrebbe servire solo ad aggiungere una carta al mazzo del giocatore
-	/**
-	 * metodo per aggiungere una carta alla lista di carte del giocatore
-	 * riconosce lo stato di "sballato" e di "blackjack"
+    /**
+	 * metodo per aggiungere una carta alla mano corrente del giocatore
 	 * @param carta la carta da aggiugere
 	 */
-	public void addCarta(Carta carta) 
+    public void addCarta(Carta carta) 
+    {
+    	System.out.print(username + ", ");
+    	getManoCorrente().addCarta(carta);
+    }
+    
+    /**
+     * metodo che ritorna la mano corrente del giocatore
+     */
+    public Mano getManoCorrente() 
 	{
-		carte.add(carta);		
-		conteggio += carta.getValore();
-		
-		//se ho beccato il primo asso, lo faccio valere 11 invece che 1, entrando in una "soft hand"
-		if(conteggio <= 11 && carta.isAsso()) 
-		{
-			conteggio += 10;
-			soft = true;
-		}
-		//se sono in una "soft hand" e ho "sballato" il primo asso torna a valere 1 invece che 11 ed esco dalla "soft hand" (hard hand)
-		if(soft && conteggio > 21)
-		{
-			soft = false;
-			conteggio -=10;
-		}
-		
-		System.out.println(username + ", carta: " + carta.toString() + ", " + conteggio + ", " + "soft hand: " + soft);
-		
-		//check se sono sballato oppure se ho fatto blackjack
-		if(conteggio == 21)
-		{
-			System.out.println("Blackjack!");
-			System.out.println("");
-			blackjack = true;
-		}	
-		if(conteggio > 21)
-		{
-			System.out.println("Sballato!");
-			System.out.println("");
-			sballato = true;
-		}
+		return mani.get(manoCorrente);
 	}
-	
+    
 	/**
-	 * metodo per riconoscere la condizione di split del giocatore
-	 * @return true se il giocatore può splittare, false altrimenti
+	 * metodo per riconoscere la condizione di split della mano corrente del giocatore
+	 * @return true se la mano può essere splittata, false altrimenti
 	 */
 	public boolean canSplit()
 	{
-		if (carte.size() == 2) return carte.get(0).getSimbolo() == carte.get(1).getSimbolo();
-		return false;
+		return getManoCorrente().canSplit();
 	}
 	
-	//la lista di carte potrebbe non servire, potrei usare solo il conteggio
 	/**
-	 * metodo per resettare lo stato del giocatore (svuotare la mano del giocatore dalle carte e reimpostare i flag a false e il conteggio a 0)
-	 */
-	public void resetStato() 
-	{
-		carte.clear();
-		setConteggio(0);
-		sballato = false;
-		blackjack = false;
-		soft = false;
-	}
+	 * metodo per resettare lo stato del giocatore
+	 */	
+    public void resetStato() 
+    {
+        mani.clear();
+        mani.add(new Mano());
+        manoCorrente = 0;
+    }
 }
