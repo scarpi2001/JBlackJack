@@ -125,12 +125,13 @@ public class UtenteGiocante extends Giocatore
 	/**
 	 * metodo che aggiorna i dati dell’utente prendendoli dal file passato in input
 	 * e scrive l'username dell'utente nel file "ultimo_utente.txt"
-	 * @param path nome del file che contiene i dati dell'utente
+	 * @param fileDatiUtentePath path del file che contiene i dati dell'utente
+	 * @param fileUltimoUtentePath path del file che conterrà l'username dell'utente selezionato
 	 */
-	public void setDati(String path)
+	public void setDati(String fileDatiUtentePath, String fileUltimoUtentePath)
 	{
-        setFilePath(path);
-        List<String> lines = FileUtils.leggiFile(path);
+        setFilePath(fileDatiUtentePath);
+        List<String> lines = FileUtils.leggiFile(fileDatiUtentePath);
 
         for (String line : lines) {
             String[] keyValue = line.split(":");
@@ -160,38 +161,35 @@ public class UtenteGiocante extends Giocatore
         }
 
         // Scrivi l'username nel file ultimo_utente.txt
-        FileUtils.scriviFile("src/resources/data/ultimo_utente.txt", getUsername(), false);
+        FileUtils.scriviFile(fileUltimoUtentePath, getUsername(), false);
 	}
 	
 	//CREAZIONE UTENTE
 	/**
 	 * metodo per creare un utente
-	 * prima controlla che l'username inserito non sia gia stato salvato in precedenza
-	 * poi salva l'username inserito nel file "utenti.txt"
-	 * infine crea il file dedicato all'utente appena creato
-	 * @return true se la creazione va a buon fine, altrimenti false
+	 * salva l'username inserito nel file degli utenti passato in input
+	 * e crea il file dedicato all'utente appena creato
+	 * @param username nome dell'utente
+	 * @param fileUtentiPath path del file degli utenti
+	 * @param fileDatiUtentePath path del file dell'utente da creare
 	 */
-	public boolean creaUtente(String username)
+	//potrei estrapolare l'username da fileDatiUtentePath
+	public void creaUtente(String username, String fileUtentiPath, String fileDatiUtentePath)
 	{
-		//se il file degli utenti contiene gia l'username inserito
-		if (FileUtils.leggiFile("src/resources/data/utenti.txt").contains(username)) return false;
-        
 		//salva l'username
-		FileUtils.scriviFile("src/resources/data/utenti.txt", username, true);
+		FileUtils.scriviFile(fileUtentiPath, username, true);
 		
-		//crea il file dell'utente e ritorna true
-        creaFileUtente(username);
-        return true;
+		//crea il file dell'utente
+        creaFileUtente(username, fileDatiUtentePath);
 	} 	
 	/**
 	 * metodo privato che crea il file del nuovo utente inserendo i dati necessari al suo interno"
-	 * @param filename nome del file passato in input
-	 * @param username l'username passato in input
+	 * @param username l'username dell'utente legato al file
+	 * @param path path del file da creare
 	 * @return se l'operazione di creazione del file e di inserimento dati va a buon fine restituisce true altrimenti false
 	 */
-	private void creaFileUtente(String username) 
+	private void creaFileUtente(String username, String path) 
 	{
-		String filePath = "src/resources/data/dati_utenti/" + username + "_dati.txt";
         List<String> contenuto = new ArrayList<>();
         contenuto.add("username:" + username);
         contenuto.add("chips:1000");
@@ -200,7 +198,7 @@ public class UtenteGiocante extends Giocatore
         contenuto.add("maniPerse:0");
         contenuto.add("livello:0");
 
-        FileUtils.scriviFile(filePath, contenuto, false);
+        FileUtils.scriviFile(path, contenuto, false);
 	}
 	
 	//ELIMINAZIONE UTENTE
@@ -209,16 +207,19 @@ public class UtenteGiocante extends Giocatore
 	 * elimina l'utente dal file degli utenti 
 	 * elimina il file dell'utente
 	 * @param username l'username dell'utente da eliminare
+	 * @param fileUtentiPath path del file degli utenti
+	 * @param fileDatiUtentePath path del file dell'utente da eliminare
 	 */
-	public void eliminaUtente(String username)
+	//potrei estrapolare l'username da fileDatiUtentePath
+	public void eliminaUtente(String username, String fileUtentiPath, String fileDatiUtentePath)
 	{
-		List<String> utenti = new ArrayList<>(FileUtils.leggiFile("src/resources/data/utenti.txt"));
+		List<String> utenti = new ArrayList<>(FileUtils.leggiFile(fileUtentiPath));
         utenti.remove(username);
    
         //sovrascrivo il file con la lista di utenti aggiornata
-        FileUtils.scriviFile("src/resources/data/utenti.txt", utenti, false);
+        FileUtils.scriviFile(fileUtentiPath, utenti, false);
         
         //elimino il file legato all'utente
-        new File("src/resources/data/dati_utenti/" + username + "_dati.txt").delete();
+        new File(fileDatiUtentePath).delete();
 	}
 }

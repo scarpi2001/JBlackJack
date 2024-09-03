@@ -146,11 +146,12 @@ public class ModelManager extends Observable
 	/**
 	 * metodo che aggiorna i dati dell’utente prendendoli dal file passato in input,
 	 * e notifica gli osservatori
-	 * @param nomeFile nome del file che contiene i dati dell'utente
+	 * @param fileDatiUtentePath path del file che contiene i dati dell'utente
+	 * @param fileUltimoUtentePath path del file che conterrà l'username dell'utente selezionato
 	 */
-	public void setUtente(String path)
+	public void setUtente(String fileDatiUtentePath, String fileUltimoUtentePath)
 	{
-		utente.setDati(path);        
+		utente.setDati(fileDatiUtentePath, fileUltimoUtentePath);        
 		setChanged();
 		notifyObservers();
 	}
@@ -159,30 +160,29 @@ public class ModelManager extends Observable
 	 * metodo per creare l'utente 
 	 * crea l'utente e lo setta
 	 * @param username l'username dell'utente
+	 * @param fileUtentiPath path del file degli utenti
+	 * @param fileDatiUtentePath path del file dell'utente da creare
 	 * @return true se la creazione va a buon fine, altrimenti false
 	 */
-	public boolean creaUtente(String username)
+	public void creaUtente(String username, String fileUtentiPath, String fileDatiUtentePath)
 	{
-		boolean res = utente.creaUtente(username);
-		if(res) setUtente("src/resources/data/dati_utenti/" + username + "_dati.txt");
-		return res;
+		utente.creaUtente(username, fileUtentiPath, fileDatiUtentePath);
 	}
 	
 	/**
 	 * metodo per eliminare l'utente 
-	 * elimina l'utente e setta il primo della select degli utenti  
 	 * @param username l'username dell'utente da eliminare
+	 * @param fileUtentiPath path del file degli utenti
+	 * @param fileDatiUtentePath path del file dell'utente da eliminare
 	 */
-	public void eliminaUtente(String username)
+	public void eliminaUtente(String username, String fileUtentiPath, String fileDatiUtentePath)
 	{
-		utente.eliminaUtente(username);
-		//setto il primo utente della lista di utenti 
-		setUtente("src/resources/data/dati_utenti/" + FileUtils.leggiFile("src/resources/data/utenti.txt").get(0) + "_dati.txt");
+		utente.eliminaUtente(username, fileUtentiPath, fileDatiUtentePath);
 	}
 	
 	/**
 	 * metodo per leggere l'utente da un file contenente l'ultimo utente selezionato
-	 * @param path path del file che contiene i dati dell'utente
+	 * @param path path del file che contiene l'username dell'ultimo utente selezionato
 	 */
 	public String getUltimoUtente(String path) 
 	{

@@ -67,7 +67,7 @@ public class Controller
                 {
                     if (!username.isEmpty()) 
                     {
-                    	model.creaUtente(username);
+                    	model.creaUtente(username, "src/resources/data/utenti.txt", "src/resources/data/dati_utenti/" + username + "_dati.txt");
                         isValid = true;
                     } 
                     else 
@@ -79,7 +79,7 @@ public class Controller
         } 
         else 
         {
-            model.setUtente("src/resources/data/dati_utenti/" + ultimoUtente + "_dati.txt");
+            model.setUtente("src/resources/data/dati_utenti/" + ultimoUtente + "_dati.txt", "src/resources/data/ultimo_utente.txt");
         }
     }
     

@@ -1,6 +1,8 @@
 package controller.actionListeners.menu.utente;
 
 import java.awt.event.*;
+
+import model.FileUtils;
 import model.ModelManager;
 import view.View;
 
@@ -11,13 +13,15 @@ public class CreaUtenteActionListener implements ActionListener
 {
     @Override
 	public void actionPerformed(ActionEvent e) 
-	{      
+	{    
+    	ModelManager model = ModelManager.getInstance();
 		String username = View.showUsernameInput(false);
 
 		//se clicco su OK
 		if (username != null) 
 		{
-			//controlla la validita dell'input (se il campo non è vuoto e il nome non è troppo lungo crea l'utente, altrimenti manda un errore)
+			//controlla la validita dell'input 
+			//(se il campo non è vuoto, il nome non è troppo lungo e non è gia stato preso allora crea l'utente, altrimenti manda un errore)
 			if (username.isEmpty()) 
 			{
 				View.showError("l'username non può essere vuoto!");
@@ -30,11 +34,14 @@ public class CreaUtenteActionListener implements ActionListener
 				return;
 			}
 			
-			boolean successo = ModelManager.getInstance().creaUtente(username);
-			if (!successo) 
+			if (FileUtils.leggiFile("src/resources/data/utenti.txt").contains(username))
 			{
-			   View.showError("Questo username è già stato preso.");
+				View.showError("Questo username è già stato preso.");
+				return;
 			}
+			
+			model.creaUtente(username, "src/resources/data/utenti.txt", "src/resources/data/dati_utenti/" + username + "_dati.txt");
+			model.setUtente("src/resources/data/dati_utenti/" + username + "_dati.txt", "src/resources/data/ultimo_utente.txt");
         } 
 	}
 }

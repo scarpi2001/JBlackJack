@@ -17,15 +17,19 @@ public class EliminaUtenteActionListener implements ActionListener
 	public void actionPerformed(ActionEvent e) 
 	{           
 		ModelManager model = ModelManager.getInstance();
+		String username = model.getUtenteUsername();
 		
 		//se c'è più di un utente, elimino quello slezionato, altrimenti se ho un solo utente do errore
 		List<String> utenti = FileUtils.leggiFile("src/resources/data/utenti.txt");
 		if(utenti.size() > 1) 
 		{		
-			model.eliminaUtente(model.getUtenteUsername());
+			model.eliminaUtente(username, "src/resources/data/utenti.txt", "src/resources/data/dati_utenti/" + username + "_dati.txt");
+			//setto il primo utente della lista di utenti 
+			model.setUtente("src/resources/data/dati_utenti/" + FileUtils.leggiFile("src/resources/data/utenti.txt").get(0) + "_dati.txt", "src/resources/data/ultimo_utente.txt");
 	    }
 		else
 		{
-			View.showError("non è possibile eliminare l'utente se è l'unico presente");}
+			View.showError("non è possibile eliminare l'utente se è l'unico presente");
 		}
+	}
 }
