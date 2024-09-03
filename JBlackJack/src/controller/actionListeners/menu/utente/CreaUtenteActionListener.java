@@ -7,7 +7,7 @@ import view.View;
 /**
  * classe che definisce l'evento di creazione dell'utente che deve accadere al click di un componente swing
  */
-public class CreateUserActionListener implements ActionListener
+public class CreaUtenteActionListener implements ActionListener
 {
     @Override
 	public void actionPerformed(ActionEvent e) 

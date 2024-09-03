@@ -10,7 +10,7 @@ import view.View;
 /**
  * classe che definisce l'evento di eliminazione dell'utente che deve accadere al click di un componente swing
  */
-public class DeleteUserActionListener implements ActionListener
+public class EliminaUtenteActionListener implements ActionListener
 {
 
     @Override

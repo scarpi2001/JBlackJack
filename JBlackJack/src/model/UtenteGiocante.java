@@ -4,6 +4,8 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.partita.Giocatore;
+
 /**
  * classe che rappresenta l'utente che utilizza l'applicazione
  * che è anche un giocatore

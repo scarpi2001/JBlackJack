@@ -3,9 +3,9 @@ package view.menuPanel.topbar;
 import javax.swing.*;
 import java.util.List;
 
-import controller.actionListeners.menu.utente.CreateUserActionListener;
-import controller.actionListeners.menu.utente.DeleteUserActionListener;
-import controller.actionListeners.menu.utente.SetUserActionListener;
+import controller.actionListeners.menu.utente.CreaUtenteActionListener;
+import controller.actionListeners.menu.utente.EliminaUtenteActionListener;
+import controller.actionListeners.menu.utente.SetUtenteActionListener;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -32,17 +32,17 @@ public class GestioneUtentePanel extends JPanel
 		
 		//bottone crea utente
 		buttonCreateUser = new JButton("Crea nuovo utente");
-		buttonCreateUser.addActionListener(new CreateUserActionListener());
+		buttonCreateUser.addActionListener(new CreaUtenteActionListener());
 		add(buttonCreateUser);
 		
 		//bottone elimina utente
 		buttonDeleteUser = new JButton("elimina utente");
-		buttonDeleteUser.addActionListener(new DeleteUserActionListener());
+		buttonDeleteUser.addActionListener(new EliminaUtenteActionListener());
 		add(buttonDeleteUser);
 		
 		//select utenti
         comboBoxUtenti = new JComboBox<>(FileUtils.leggiFile("src/resources/data/utenti.txt").toArray(new String[0]));
-        setUserActionListener = new SetUserActionListener(comboBoxUtenti);
+        setUserActionListener = new SetUtenteActionListener(comboBoxUtenti);
         comboBoxUtenti.addActionListener(setUserActionListener);
         add(comboBoxUtenti);
 	}

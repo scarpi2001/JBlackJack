@@ -7,11 +7,11 @@ import model.ModelManager;
 /**
  * classe che definisce l'evento di set dell'utente che deve accadere al click di un componente swing
  */
-public class SetUserActionListener implements ActionListener
+public class SetUtenteActionListener implements ActionListener
 {
 	private JComboBox<String> comboBox;
 	
-    public SetUserActionListener(JComboBox<String> comboBox) 
+    public SetUtenteActionListener(JComboBox<String> comboBox) 
     {
         this.comboBox = comboBox;
     }

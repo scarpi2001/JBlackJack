@@ -1,9 +1,9 @@
 package controller;
 
-import model.Giocatore;
-import model.Mano;
 import model.ModelManager;
-import model.carte.Carta;
+import model.partita.Giocatore;
+import model.partita.carte.Carta;
+import model.partita.carte.Mano;
 import view.AudioManager;
 import view.View;
 
@@ -130,12 +130,8 @@ public class Controller
 	 */
 	public void stay()
 	{	
-		System.out.println("stay");
-		Giocatore giocatore = model.getGiocatori().get(model.getTurno());
-		int manoCorrenteIndex = giocatore.getManoCorrenteIndex();
-		
-		if(manoCorrenteIndex + 1 >= giocatore.getMani().size()) turnoSuccessivo();
-        else manoSuccessiva();
+		System.out.println("stay");	
+		manoSuccessiva();
 	}
 	
 	/**
@@ -170,10 +166,9 @@ public class Controller
 	private void gioca()
 	{
         Giocatore giocatore = model.getGiocatori().get(model.getTurno());
-        int manoCorrenteIndex = giocatore.getManoCorrenteIndex();
         Mano manoCorrente = giocatore.getManoCorrente();
         
-        //se siamo al turno 0 (turno dell'utente e c'è la condizione per "splittare" allora fai comparire il pulsante split)
+        //se siamo al turno 0 (turno dell'utente) e c'è la condizione per "splittare" allora fai comparire il pulsante split
         if (model.getTurno() == 0 && giocatore.canSplit()) 
         {
             view.setSplitVisible(true);
@@ -186,11 +181,11 @@ public class Controller
         //se la mano corrente è blackjack o sballata passa a quella successiva, se non c'è quella successiva vai al turno successivo"
         if (manoCorrente.isBlackJack() || manoCorrente.isBusted()) 
         {
-        	if(manoCorrenteIndex + 1 >= giocatore.getMani().size()) turnoSuccessivo();
-        	else manoSuccessiva();
+        	manoSuccessiva();
         }
         
         //se non accade nulla aspetto che il giocatore clicca hit o stay o split
+        //se non sono il giocatore gioca come farebbe il dealer
 	}
 	
     /**
@@ -198,13 +193,19 @@ public class Controller
 	 */
     private void distribuisciCarte() 
     {
-        for (Giocatore giocatore : model.getGiocatori())
+        //primo giro: distribuisci una carta a ciascun giocatore (incluso il dealer)
+        for (Giocatore giocatore : model.getGiocatori()) 
         {
-        	giocatore.resetStato();
+        	//svuota prima le mani del giocatore
+            giocatore.resetStato(); 
             Carta carta1 = model.getMazzo().carta();
-            Carta carta2 = model.getMazzo().carta();
-            
             giocatore.addCarta(carta1);
+        }
+        
+        //secondo giro: distribuisci un'altra carta a ciascun giocatore (se è il dealer la carta è coperta)
+        for (Giocatore giocatore : model.getGiocatori()) 
+        {
+            Carta carta2 = model.getMazzo().carta();
             giocatore.addCarta(carta2);
         }
         System.out.println("");
@@ -216,37 +217,35 @@ public class Controller
 	 */
     private void turnoSuccessivo() 
     {
-        int turno = model.getTurno();
+    	int turno = model.getTurno();
         model.setTurno(++turno);
         
-        //se l'ultimo giocatore ha finito il suo turno, ridistribuisci le carte ricomincia dal turno 0 e gioca
-        if (turno >= model.getGiocatori().size()) 
-        {	
-            //fine round
-        	distribuisciCarte();
+        //se i giocatori hanno finito, fai giocare il dealer e stabilisci vittoria o sconfitta dei giocatori
+        if (turno >= model.getGiocatori().size() - 1) 
+        {
+            //giocaBot();
+            
+            //il round è finito, ridistribuisci le carte e ricomincia dal turno 0
+            distribuisciCarte();
             model.setTurno(0);
-            gioca();                
-        }
-        else
-        {
-        	gioca();
-        }
-        
-        //conteggio mani
-        //se sto passando al turno successivo e il turno era il primo (quello dell'utente) aumento il conteggio
-        if(model.getTurno() == 0)
-        {
-        	int mani = model.getUtenteManiGiocate();
-        	model.setUtenteManiGiocate(++mani);
-        }
+        } 
+        gioca(); 
     }
     
     /**
 	 * metodo privato che passa alla mano successiva
+	 * se non c'è una mano successiva passa al turno successivo
 	 */
     private void manoSuccessiva() 
     {
-    	Giocatore giocatore = model.getGiocatori().get(model.getTurno());
-    	giocatore.setManoCorrenteIndex(giocatore.getManoCorrenteIndex() + 1);
+        Giocatore giocatore = model.getGiocatori().get(model.getTurno());
+        int manoCorrenteIndex = giocatore.getManoCorrenteIndex();
+
+    	//conteggio mani: se il turno è il primo (quello dell'utente), aumenta il conteggio
+        if(model.getTurno() == 0) model.setUtenteManiGiocate(model.getUtenteManiGiocate() + 1);
+        
+        
+        if(manoCorrenteIndex + 1 >= giocatore.getMani().size()) turnoSuccessivo();
+        else giocatore.setManoCorrenteIndex(manoCorrenteIndex + 1);
     }
 }

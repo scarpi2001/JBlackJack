@@ -1,9 +1,11 @@
-package model;
+package model.partita;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import model.carte.Carta;
+import model.UtenteGiocante;
+import model.partita.carte.Carta;
+import model.partita.carte.Mano;
 
 /**
  * classe che rappresenta il giocatore
@@ -30,10 +32,8 @@ public class Giocatore
 	//COSTRUTTORE
 	public Giocatore()
 	{
-		if(!(this instanceof UtenteGiocante))
-		{
-			username = "bot";  
-		}
+		if(this instanceof Dealer) username = "dealer";
+		else if(!(this instanceof UtenteGiocante)) username = "bot";  	
 		
 		mani = new ArrayList<>();
 		//all'inizio il giocatore ha una sola mano

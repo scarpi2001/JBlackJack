@@ -1,9 +1,7 @@
-package model;
+package model.partita.carte;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import model.carte.Carta;
 
 /**
  * classe che rappresenta una mano di blackjack, una mano non è altro che una lista di carte

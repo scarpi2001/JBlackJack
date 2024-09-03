@@ -1,7 +1,9 @@
 package model;
 
-import model.carte.Mazzo;
-import java.io.*;
+import model.partita.Dealer;
+import model.partita.Giocatore;
+import model.partita.carte.Mazzo;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -208,6 +210,7 @@ public class ModelManager extends Observable
 		{	
 			giocatori.add(new Giocatore());
 		}	
+		giocatori.add(new Dealer());
 	}
 	
 	/**
