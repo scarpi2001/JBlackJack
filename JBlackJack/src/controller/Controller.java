@@ -4,7 +4,6 @@ import model.ModelManager;
 import model.partita.Giocatore;
 import model.partita.carte.Carta;
 import model.partita.carte.Mano;
-import view.AudioManager;
 import view.View;
 
 public class Controller 
@@ -48,21 +47,13 @@ public class Controller
 		return instance;
 	}
     
-    //METODI MENU
+    //METODI MENU  
     /**
-     * metodo che inizializza il menu e avvia la la clip di sottofondo
-     */
-    public void start() 
-    {
-    	AudioManager.getInstance().play("src/resources/audio/background.wav", true);
-        initMenu();
-    }
-    
-    /**
-	 * metodo privato che controlla la presenza di un utente precedentemente creato, se non c'è chiede di crearlo
+	 * metodo metodo che inizializza il menu 
+	 * e controlla la presenza di un utente precedentemente creato, se non c'è chiede di crearlo
 	 * se è gia stato creato (quindi non sono al primo avvio) setta l'ultimo utente selezionato
 	 */
-    private void initMenu() 
+    public void initMenu() 
     {		
 		String ultimoUtente = model.getUltimoUtente("src/resources/data/ultimo_utente.txt");
         if (ultimoUtente == null) 
@@ -103,15 +94,6 @@ public class Controller
 		
 		distribuisciCarte();
 		gioca();
-	}
-	
-	/**
-	 * metodo per tornare dalla partita al menu 
-	 * resetta lo stato della partita
-	 */
-	public void back()
-	{
-		model.clearGiocatori();
 	}
 	
     /**
@@ -210,7 +192,6 @@ public class Controller
         }
         System.out.println("");
     }
-    
     
     /**
 	 * metodo privato che passa al turno successivo

@@ -1,6 +1,6 @@
 username:MARIO
 chips:1000
-maniGiocate:8
+maniGiocate:9
 maniVinte:0
 maniPerse:0
 livello:0

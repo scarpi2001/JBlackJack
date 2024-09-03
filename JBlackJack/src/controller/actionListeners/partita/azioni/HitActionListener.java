@@ -16,7 +16,6 @@ public class HitActionListener implements ActionListener
 	 */
 	public void actionPerformed(ActionEvent e) 
 	{
-		Controller controller = Controller.getInstance();
-		controller.hit();
+		Controller.getInstance().hit();
 	}
 }

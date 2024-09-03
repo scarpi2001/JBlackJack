@@ -16,7 +16,6 @@ public class SplitActionListener implements ActionListener
 	 */
 	public void actionPerformed(ActionEvent e) 
 	{
-		Controller controller = Controller.getInstance();
-		controller.split();
+		Controller.getInstance().split();
 	}
 }

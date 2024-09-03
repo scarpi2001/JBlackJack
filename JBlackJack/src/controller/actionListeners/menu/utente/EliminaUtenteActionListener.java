@@ -17,13 +17,12 @@ public class EliminaUtenteActionListener implements ActionListener
 	public void actionPerformed(ActionEvent e) 
 	{           
 		ModelManager model = ModelManager.getInstance();
-		String username = model.getUtenteUsername();
 		
 		//se c'è più di un utente, elimino quello slezionato, altrimenti se ho un solo utente do errore
 		List<String> utenti = FileUtils.leggiFile("src/resources/data/utenti.txt");
 		if(utenti.size() > 1) 
 		{		
-			model.eliminaUtente(username);
+			model.eliminaUtente(model.getUtenteUsername());
 	    }
 		else
 		{

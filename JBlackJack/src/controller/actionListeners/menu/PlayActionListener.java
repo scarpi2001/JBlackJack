@@ -13,10 +13,7 @@ public class PlayActionListener implements ActionListener
     @Override
 	public void actionPerformed(ActionEvent e) 
 	{      
-    	View view = View.getInstance();
-    	Controller controller = Controller.getInstance();
-    	
-    	controller.initPartita();
-    	view.showGamePanel();    	
+    	Controller.getInstance().initPartita();
+    	View.getInstance().showGamePanel();    	
 	}
 }

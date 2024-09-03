@@ -15,7 +15,6 @@ public class StayActionListener implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		Controller controller = Controller.getInstance();
-		controller.stay();
+		Controller.getInstance().stay();
 	}
 }

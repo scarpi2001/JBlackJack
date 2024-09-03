@@ -12,7 +12,6 @@ public class CreaUtenteActionListener implements ActionListener
     @Override
 	public void actionPerformed(ActionEvent e) 
 	{      
-    	ModelManager model = ModelManager.getInstance();
 		String username = View.showUsernameInput(false);
 
 		//se clicco su OK
@@ -31,7 +30,7 @@ public class CreaUtenteActionListener implements ActionListener
 				return;
 			}
 			
-			boolean successo = model.creaUtente(username);
+			boolean successo = ModelManager.getInstance().creaUtente(username);
 			if (!successo) 
 			{
 			   View.showError("Questo username è già stato preso.");

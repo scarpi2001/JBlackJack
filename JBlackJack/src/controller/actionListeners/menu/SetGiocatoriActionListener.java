@@ -12,7 +12,6 @@ import model.ModelManager;
  */
 public class SetGiocatoriActionListener implements ActionListener 
 {
-
 	private JComboBox<Integer> comboBoxGiocatori;
 	
     public SetGiocatoriActionListener(JComboBox<Integer> comboBox) 
@@ -23,8 +22,7 @@ public class SetGiocatoriActionListener implements ActionListener
     @Override
 	public void actionPerformed(ActionEvent e) 
 	{           
-		ModelManager model = ModelManager.getInstance();
-		model.setNumeroGiocatori((int)comboBoxGiocatori.getSelectedItem());
+		ModelManager.getInstance().setNumeroGiocatori((int)comboBoxGiocatori.getSelectedItem());
 	}
 
 }

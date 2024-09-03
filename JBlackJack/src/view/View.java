@@ -40,7 +40,9 @@ public class View extends JFrame implements Observer
         
         add(cardPanel, BorderLayout.CENTER);
         
+        AudioManager.getInstance().play("src/resources/audio/background.wav", true);
         setVisible(true);
+        
 	}
 	
 	public static View getInstance()
