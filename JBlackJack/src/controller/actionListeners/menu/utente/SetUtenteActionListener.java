@@ -21,6 +21,7 @@ public class SetUtenteActionListener implements ActionListener
 	{           
 		ModelManager model = ModelManager.getInstance();
 		String username = (String) comboBox.getSelectedItem();
+		
 		model.setUtente("src/resources/data/dati_utenti/" + username + "_dati.txt", "src/resources/data/ultimo_utente.txt");
 	}
 }

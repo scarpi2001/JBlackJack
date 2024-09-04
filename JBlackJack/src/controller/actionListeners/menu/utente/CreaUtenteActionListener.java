@@ -2,7 +2,6 @@ package controller.actionListeners.menu.utente;
 
 import java.awt.event.*;
 
-import model.FileUtils;
 import model.ModelManager;
 import view.View;
 
@@ -34,7 +33,7 @@ public class CreaUtenteActionListener implements ActionListener
 				return;
 			}
 			
-			if (FileUtils.leggiFile("src/resources/data/utenti.txt").contains(username))
+			if (model.usernamePresente(username, "src/resources/data/utenti.txt"))
 			{
 				View.showError("Questo username è già stato preso.");
 				return;

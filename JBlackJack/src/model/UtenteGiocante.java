@@ -56,10 +56,6 @@ public class UtenteGiocante extends Giocatore
 	//COSTRUTTORE
 	private UtenteGiocante(){}
 	
-	/**
-	 * metodo per ottenere/creare l'istanza dell'utente
-	 * @return l'istanza dell'utente
-	 */
 	public static UtenteGiocante getInstance()
 	{
 		if (instance == null) instance = new UtenteGiocante();

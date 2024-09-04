@@ -25,7 +25,7 @@ public class EliminaUtenteActionListener implements ActionListener
 		{		
 			model.eliminaUtente(username, "src/resources/data/utenti.txt", "src/resources/data/dati_utenti/" + username + "_dati.txt");
 			//setto il primo utente della lista di utenti 
-			model.setUtente("src/resources/data/dati_utenti/" + FileUtils.leggiFile("src/resources/data/utenti.txt").get(0) + "_dati.txt", "src/resources/data/ultimo_utente.txt");
+			model.setUtente("src/resources/data/dati_utenti/" + model.getUtenti("src/resources/data/utenti.txt").get(0) + "_dati.txt", "src/resources/data/ultimo_utente.txt");
 	    }
 		else
 		{

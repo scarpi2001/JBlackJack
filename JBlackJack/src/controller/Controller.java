@@ -24,12 +24,11 @@ public class Controller
 	 */
     private View view;
 
+    //COSTRUTTORE
     /**
      * costruttore del controller
      * crea le istanze di model e view e stabilisce la relazione di osservatore tra di loro.
-     */
-    
-    //COSTRUTTORE
+     */    
     private Controller() 
     {
         model = ModelManager.getInstance();
@@ -37,10 +36,6 @@ public class Controller
         model.addObserver(view);
     }
     
-    /**
-	 * metodo per ottenere/creare l'istanza del controller
-	 * @return l'istanza del controller
-	 */
 	public static Controller getInstance()
 	{
 		if (instance == null) instance = new Controller();
@@ -49,8 +44,9 @@ public class Controller
     
     //METODI MENU  
     /**
-	 * metodo metodo che inizializza il menu 
-	 * e controlla la presenza di un utente precedentemente creato, se non c'è chiede di crearlo
+	 * inizializza il menu 
+	 * e controlla la presenza di un utente precedentemente creato,
+	 * se non c'è chiede di crearlo
 	 * se è gia stato creato (quindi non sono al primo avvio) setta l'ultimo utente selezionato
 	 */
     public void initMenu() 
@@ -85,7 +81,7 @@ public class Controller
     
     //METODI PARTITA
     /**
-	 * metodo che inizializza la partita
+	 * inizializza la partita
 	 */
 	public void initPartita()
 	{
@@ -97,7 +93,7 @@ public class Controller
 	}
 	
     /**
-	 * metodo che aggiunge una carta alla mano corrente del giocatore giusto in base al turno della partita
+	 * aggiunge una carta alla mano corrente del giocatore giusto in base al turno della partita
 	 */
     public void hit()
     {
@@ -108,7 +104,7 @@ public class Controller
     }
     
     /**
-	 * metodo che passa alla mano o al turno successivo
+	 * passa alla mano o al turno successivo
 	 */
 	public void stay()
 	{	
@@ -143,7 +139,7 @@ public class Controller
 	}
 	
 	/**
-	 * metodo che fa giocare il turno corrente
+	 * fa giocare il turno corrente
 	 */
 	private void gioca()
 	{

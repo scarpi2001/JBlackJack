@@ -46,7 +46,8 @@ public class ModelManager extends Observable
 	
 	//COSTRUTTORE
 	/**
-	 * il costruttore del model, che istanzia l'utente
+	 * il costruttore del model, 
+	 * istanzia l'utente e la lista di giocatori
 	 */
 	private ModelManager()
 	{
@@ -54,10 +55,6 @@ public class ModelManager extends Observable
 		giocatori = new ArrayList<>();
 	}
 	
-	/**
-	 * metodo per ottenere/creare l'istanza del model
-	 * @return l'istanza del model
-	 */
 	public static ModelManager getInstance()
 	{
 		if (instance == null) instance = new ModelManager();
@@ -144,7 +141,8 @@ public class ModelManager extends Observable
 	
 	//METODI UTENTE
 	/**
-	 * metodo che aggiorna i dati dell’utente prendendoli dal file passato in input,
+	 * aggiorna i dati dell’utente prendendoli dal file fileDatiUtentePath,
+	 * scrive l'username dell'utente settato nel file fileUltimoUtentePath
 	 * e notifica gli osservatori
 	 * @param fileDatiUtentePath path del file che contiene i dati dell'utente
 	 * @param fileUltimoUtentePath path del file che conterrà l'username dell'utente selezionato
@@ -157,12 +155,10 @@ public class ModelManager extends Observable
 	}
 	
 	/**
-	 * metodo per creare l'utente 
 	 * crea l'utente e lo setta
 	 * @param username l'username dell'utente
 	 * @param fileUtentiPath path del file degli utenti
 	 * @param fileDatiUtentePath path del file dell'utente da creare
-	 * @return true se la creazione va a buon fine, altrimenti false
 	 */
 	public void creaUtente(String username, String fileUtentiPath, String fileDatiUtentePath)
 	{
@@ -170,7 +166,7 @@ public class ModelManager extends Observable
 	}
 	
 	/**
-	 * metodo per eliminare l'utente 
+ 	 * elimina l'utente 
 	 * @param username l'username dell'utente da eliminare
 	 * @param fileUtentiPath path del file degli utenti
 	 * @param fileDatiUtentePath path del file dell'utente da eliminare
@@ -180,19 +176,43 @@ public class ModelManager extends Observable
 		utente.eliminaUtente(username, fileUtentiPath, fileDatiUtentePath);
 	}
 	
+	
 	/**
-	 * metodo per leggere l'utente da un file contenente l'ultimo utente selezionato
+	 * ottiene la lista di utenti
+	 * @param username username da controllare
+	 * @param path path del file degli utenti
+	 * @return la lista di utenti
+	 */
+	public List<String> getUtenti(String path) 
+	{
+		return FileUtils.leggiFile(path);
+	}
+	
+	/**
+	 * ottiene l'ultimo utente selezionato
 	 * @param path path del file che contiene l'username dell'ultimo utente selezionato
 	 */
 	public String getUltimoUtente(String path) 
 	{
-		List<String> righe = FileUtils.leggiFile(path);
-		return righe.get(righe.size() - 1);  
-    }
+		List<String> utenti = getUtenti(path);
+		return utenti.get(utenti.size() - 1);  
+	}
+	
+	/**
+	 * controlla che l'username inserito sia presente nel file inserito
+	 * @param username username da controllare
+	 * @param fileUtentiPath path del file da controllare
+	 * @return true se è presente, false altrimenti
+	 */
+	public boolean usernamePresente(String username, String fileUtentiPath) 
+	{
+	    return FileUtils.leggiFile(fileUtentiPath).contains(username);
+	}
+	
 	
 	//METODI PARTITA
 	/**
-	 * metodo privato che inizializza il mazzo
+	 * inizializza il mazzo
 	 */
 	public void initMazzo()
 	{
@@ -201,7 +221,7 @@ public class ModelManager extends Observable
 	}
 	
 	/**
-	 * metodo privato che inizializza la lista di giocatori che partecipano alla partita
+	 * inizializza la lista di giocatori che partecipano alla partita
 	 */
 	public void initGiocatori()
 	{	
@@ -214,7 +234,7 @@ public class ModelManager extends Observable
 	}
 	
 	/**
-	 * metodo che svuota la lista di giocatori
+	 * svuota la lista di giocatori
 	 */
 	public void clearGiocatori() 
 	{		

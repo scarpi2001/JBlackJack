@@ -41,7 +41,7 @@ public class GestioneUtentePanel extends JPanel
 		add(buttonDeleteUser);
 		
 		//select utenti
-        comboBoxUtenti = new JComboBox<>(FileUtils.leggiFile("src/resources/data/utenti.txt").toArray(new String[0]));
+        comboBoxUtenti = new JComboBox<>(model.getUtenti("src/resources/data/utenti.txt").toArray(new String[0]));
         setUserActionListener = new SetUtenteActionListener(comboBoxUtenti);
         comboBoxUtenti.addActionListener(setUserActionListener);
         add(comboBoxUtenti);
@@ -60,7 +60,7 @@ public class GestioneUtentePanel extends JPanel
 		
 		//svuoto e riempio le options guardando le modifiche al file utenti
 		comboBoxUtenti.removeAllItems();
-		List<String> utenti = FileUtils.leggiFile("src/resources/data/utenti.txt");
+		List<String> utenti = model.getUtenti("src/resources/data/utenti.txt");
 		for (String utente : utenti) 
 		{
 			comboBoxUtenti.addItem(utente);
