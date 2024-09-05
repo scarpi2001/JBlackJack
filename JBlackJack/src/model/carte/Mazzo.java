@@ -1,8 +1,8 @@
-package model.partita.carte;
+package model.carte;
 import java.util.Random;
 
-import model.partita.carte.Carta.Seme;
-import model.partita.carte.Carta.Simbolo;
+import model.carte.Carta.Seme;
+import model.carte.Carta.Simbolo;
 
 /**
  * classe che rappresenta un mazzo di carte francesi

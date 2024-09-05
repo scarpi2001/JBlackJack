@@ -1,17 +1,17 @@
-package model.partita;
+package model.giocatore;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import model.UtenteGiocante;
-import model.partita.carte.Carta;
-import model.partita.carte.Mano;
+import model.ModelManager;
+import model.carte.Carta;
+import model.carte.Mano;
 
 /**
  * classe che rappresenta il giocatore
  * può essere un utente reale oppure un bot
  */
-public class Giocatore 
+public abstract class Giocatore 
 {
 	//CAMPI
 	/**
@@ -28,12 +28,12 @@ public class Giocatore
 	 * l'indice della mano che il giocatore sta giocando
 	 */
 	private int manoCorrente;
-
+	
 	//COSTRUTTORE
 	public Giocatore()
 	{
-		if(this instanceof Dealer) username = "dealer";
-		else if(!(this instanceof UtenteGiocante)) username = "bot";  	
+		if(this instanceof GiocatoreDealer) username = "dealer";
+		else if(!(this instanceof GiocatoreUtente)) username = "bot";  	
 		
 		mani = new ArrayList<>();
 		//all'inizio il giocatore ha una sola mano
@@ -65,16 +65,71 @@ public class Giocatore
 	}
 	
 	//METODI
+    //se è l'utente gioca in un modo, se è un bot gioca in un altro
+    public abstract boolean gioca();
+    
     /**
 	 * metodo per aggiungere una carta alla mano corrente del giocatore
 	 * @param carta la carta da aggiugere
 	 */
     public void addCarta(Carta carta) 
-    {
-    	System.out.print(username + ", ");
+    {  	
     	getManoCorrente().addCarta(carta);
     }
     
+    /**
+	 * aggiunge una carta alla mano corrente del giocatore giusto in base al turno della partita
+	 */
+    public void hit()
+    {
+    	/*
+    	addCarta(model.getMazzo().carta());
+    	gioca();
+     */
+    }
+    /**
+	 * passa alla mano o al turno successivo
+	 */
+    public void stay()
+    {
+    	/*
+    	model.manoSuccessiva();
+     */
+    }
+    
+    /**
+	 * metodo che permette all'utente di "splittare" le 2 carte iniziali quando hanno lo stesso simbolo
+	 * in modo da giocare più mani nello stesso turno
+	 */
+	public void split()
+	{
+		/*
+		Giocatore giocatore = model.getGiocatori().get(model.getTurno());
+		Mano manoCorrente = getManoCorrente();
+		
+        Carta carta1 = manoCorrente.getCarte().get(0);
+        Carta carta2 = manoCorrente.getCarte().get(1);
+
+        manoCorrente.reset();
+        manoCorrente.addCarta(carta1);
+        manoCorrente.addCarta(model.getMazzo().carta());
+        
+        System.out.println("");
+        
+        Mano nuovaMano = new Mano();
+        nuovaMano.addCarta(carta2);
+        nuovaMano.addCarta(model.getMazzo().carta());
+        giocatore.getMani().add(nuovaMano); 
+
+        gioca();
+     */
+	}
+    
+	public boolean isFinito()
+	{
+		Mano manoCorrente = getManoCorrente();
+		return manoCorrente.isBlackJack() || manoCorrente.isBusted();
+	}
     /**
      * metodo che ritorna la mano corrente del giocatore
      */

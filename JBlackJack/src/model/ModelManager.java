@@ -1,8 +1,11 @@
 package model;
 
-import model.partita.Dealer;
-import model.partita.Giocatore;
-import model.partita.carte.Mazzo;
+import model.carte.Carta;
+import model.carte.Mazzo;
+import model.giocatore.Giocatore;
+import model.giocatore.GiocatoreBot;
+import model.giocatore.GiocatoreDealer;
+import model.giocatore.GiocatoreUtente;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +25,7 @@ public class ModelManager extends Observable
 	/**
 	 * utente che sta utilizzando l'applicazione
 	 */
-	private UtenteGiocante utente;
+	private GiocatoreUtente utente;
 	
 	/**
 	 * numero di giocatori che partecipano alla partita
@@ -51,7 +54,7 @@ public class ModelManager extends Observable
 	 */
 	private ModelManager()
 	{
-		utente = UtenteGiocante.getInstance();
+		utente = GiocatoreUtente.getInstance();
 		giocatori = new ArrayList<>();
 	}
 	
@@ -209,7 +212,6 @@ public class ModelManager extends Observable
 	    return FileUtils.leggiFile(fileUtentiPath).contains(username);
 	}
 	
-	
 	//METODI PARTITA
 	/**
 	 * inizializza il mazzo
@@ -222,16 +224,43 @@ public class ModelManager extends Observable
 	
 	/**
 	 * inizializza la lista di giocatori che partecipano alla partita
+	 * inserisce prima l'utente, poi i bot, l'ultimo giocatore è il dealer
 	 */
 	public void initGiocatori()
 	{	
 		giocatori.add(utente);
 		for(int i = 0; i < numeroGiocatori - 1; i++)
 		{	
-			giocatori.add(new Giocatore());
+			giocatori.add(new GiocatoreBot());
 		}	
-		giocatori.add(new Dealer());
+		giocatori.add(new GiocatoreDealer());
 	}
+	
+	/**
+	 * distribuisce le carte ai giocatori
+	 * simula la distribuzione di carte reale del blackjack
+	 */
+    public void distribuisciCarte() 
+    {    	
+        //primo giro: distribuisci una carta a ciascun giocatore (incluso il dealer)
+        for (Giocatore giocatore : getGiocatori()) 
+        {
+        	//svuota prima le mani del giocatore
+            giocatore.resetStato(); 
+            Carta carta1 = mazzo.carta();
+            giocatore.addCarta(carta1);
+        }
+        
+        //secondo giro: distribuisci un'altra carta a ciascun giocatore (se è il dealer la carta è coperta)
+        for (Giocatore giocatore : getGiocatori()) 
+        {
+        	Carta carta2 = mazzo.carta();
+            giocatore.addCarta(carta2);                
+        }
+        
+        setChanged();
+		notifyObservers();
+    }
 	
 	/**
 	 * svuota la lista di giocatori
@@ -240,4 +269,47 @@ public class ModelManager extends Observable
 	{		
 		giocatori.clear();
 	}
+
+	public Giocatore getGiocatoreCorrente()
+	{
+		return getGiocatori().get(turno);
+	}
+	
+	public void giocaTurno() 
+	{	
+		boolean isManoSuccessiva = getGiocatoreCorrente().gioca();
+		if(isManoSuccessiva) manoSuccessiva();
+	}
+	
+	/**
+	 * metodo privato che passa al turno successivo
+	 */
+    private void turnoSuccessivo() 
+    {
+        setTurno(turno++);   
+    }   
+    
+    /**
+	 * metodo che passa alla mano successiva
+	 * se non c'è una mano successiva passa al turno successivo
+	 */
+    public void manoSuccessiva() 
+    {
+    	Giocatore giocatore = getGiocatoreCorrente();
+        int manoCorrenteIndex = giocatore.getManoCorrenteIndex();
+
+    	//conteggio mani: se il turno è il primo (quello dell'utente), aumenta il conteggio
+        if(turno == 0) setUtenteManiGiocate(getUtenteManiGiocate() + 1);
+        
+        if(manoCorrenteIndex + 1 >= giocatore.getMani().size()) turnoSuccessivo();
+        else giocatore.setManoCorrenteIndex(manoCorrenteIndex + 1);
+        
+        giocaTurno();
+    }
+    
+    public boolean roundFinito()
+    {
+    	return turno >= getGiocatori().size() - 1;
+    }
+    
 }

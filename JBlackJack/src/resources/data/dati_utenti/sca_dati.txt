@@ -1,6 +1,6 @@
 username:sca
 chips:1000
-maniGiocate:13
+maniGiocate:20
 maniVinte:0
 maniPerse:0
 livello:0

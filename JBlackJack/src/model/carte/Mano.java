@@ -1,4 +1,4 @@
-package model.partita.carte;
+package model.carte;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +60,11 @@ public class Mano
         return carte;
     }
     
+    public boolean isSoft()
+    {
+    	return soft;
+    }
+    
     //METODI
     /**
 	 * metodo per aggiungere una carta alla mano
@@ -83,9 +88,7 @@ public class Mano
             soft = false;
             conteggio -= 10;
         }
-        
-        System.out.println("carta: " + carta.toString() + " " + conteggio + ", " + "soft hand: " + soft);
-        
+                 
         //check se la mano è sballata oppure se ha fatto blackjack
         if (conteggio == 21) 
         {

@@ -1,4 +1,4 @@
-package model.partita.carte;
+package model.carte;
 
 /**
  * classe che rappresenta una carta da gioco francese

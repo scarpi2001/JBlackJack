@@ -1,10 +1,11 @@
-package model;
+package model.giocatore;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.partita.Giocatore;
+import model.FileUtils;
+import model.carte.Mano;
 
 /**
  * classe che rappresenta l'utente che utilizza l'applicazione
@@ -13,10 +14,10 @@ import model.partita.Giocatore;
  * principalmente questa classe serve a differenziare l'utente (del quale devo salvare i dati)
  * e gli altri giocatori che sono bot 
  */
-public class UtenteGiocante extends Giocatore
+public class GiocatoreUtente extends Giocatore
 {
 	//CAMPI
-	private static UtenteGiocante instance;
+	private static GiocatoreUtente instance;
 	
 	/**
 	 * path del file che contiente i dati dell'utente
@@ -54,11 +55,11 @@ public class UtenteGiocante extends Giocatore
 	private int partite;
 	
 	//COSTRUTTORE
-	private UtenteGiocante(){}
+	private GiocatoreUtente(){}
 	
-	public static UtenteGiocante getInstance()
+	public static GiocatoreUtente getInstance()
 	{
-		if (instance == null) instance = new UtenteGiocante();
+		if (instance == null) instance = new GiocatoreUtente();
 		return instance;
 	}
 	
@@ -217,5 +218,22 @@ public class UtenteGiocante extends Giocatore
         
         //elimino il file legato all'utente
         new File(fileDatiUtentePath).delete();
+	}
+	
+	//PARTITA
+	@Override
+	//deve vedere in che condizione sono
+	public boolean gioca()
+	{    
+        //se la mano corrente è blackjack o sballata passa a quella successiva, se non c'è quella successiva vai al turno successivo"
+        if (isFinito()) 
+        {
+        	return true;
+        }
+        
+        return false;
+       
+        //se non accade nulla aspetto che il giocatore clicca hit o stay o split
+        //se non sono il giocatore gioca come farebbe il dealer
 	}
 }
