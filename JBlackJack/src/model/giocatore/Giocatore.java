@@ -6,6 +6,7 @@ import java.util.List;
 import model.ModelManager;
 import model.carte.Carta;
 import model.carte.Mano;
+import model.carte.Mazzo;
 
 /**
  * classe che rappresenta il giocatore
@@ -65,36 +66,35 @@ public abstract class Giocatore
 	}
 	
 	//METODI
-    //se è l'utente gioca in un modo, se è un bot gioca in un altro
-    public abstract boolean gioca();
-    
     /**
-	 * metodo per aggiungere una carta alla mano corrente del giocatore
-	 * @param carta la carta da aggiugere
-	 */
-    public void addCarta(Carta carta) 
-    {  	
-    	getManoCorrente().addCarta(carta);
-    }
-    
-    /**
-	 * aggiunge una carta alla mano corrente del giocatore giusto in base al turno della partita
-	 */
-    public void hit()
-    {
-    	/*
-    	addCarta(model.getMazzo().carta());
-    	gioca();
+     * ogni tipo di giocatore (utente, bot...) ha un modo di giocare
      */
-    }
+    public abstract void gioca();
+    
     /**
-	 * passa alla mano o al turno successivo
+	 * aggiunge una carta alla mano corrente del giocatore, 
+	 * se la mano è terminata passa alla mano successiva 
+	 * e aggiorna gli osservatori del model
+	 */
+    public void hit() 
+    {  	
+    	ModelManager model = ModelManager.getInstance();
+    	Carta carta = model.getMazzo().carta();
+    	
+    	getManoCorrente().addCarta(carta);
+    	model.updateObservers();
+    	if(manoTerminata()) model.manoSuccessiva();
+    }
+
+    /**
+	 * passa alla mano successiva gioca e aggiorna gli osservatori del model
 	 */
     public void stay()
     {
-    	/*
+    	ModelManager model = ModelManager.getInstance();
+    	
     	model.manoSuccessiva();
-     */
+    	model.giocaTurno();
     }
     
     /**
@@ -125,7 +125,11 @@ public abstract class Giocatore
      */
 	}
     
-	public boolean isFinito()
+	/**
+	 * indica se la mano è terminata per un blackjack o una sballata
+	 * @return true se la mano è terminata, false altrimenti
+	 */
+	public boolean manoTerminata()
 	{
 		Mano manoCorrente = getManoCorrente();
 		return manoCorrente.isBlackJack() || manoCorrente.isBusted();

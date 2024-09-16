@@ -123,8 +123,7 @@ public class ModelManager extends Observable
 	public void setUtenteManiGiocate(int maniGiocate)
 	{
 		utente.setManiGiocate(maniGiocate);
-		setChanged();
-		notifyObservers();
+		updateObservers();
 	}
 	
 	public int getUtenteManiVinte()
@@ -142,6 +141,13 @@ public class ModelManager extends Observable
 		return utente.getLivello();
 	}
 	
+	//METODI MODEL
+	public void updateObservers()
+	{
+		setChanged();
+		notifyObservers();
+	}
+	
 	//METODI UTENTE
 	/**
 	 * aggiorna i dati dell’utente prendendoli dal file fileDatiUtentePath,
@@ -153,12 +159,11 @@ public class ModelManager extends Observable
 	public void setUtente(String fileDatiUtentePath, String fileUltimoUtentePath)
 	{
 		utente.setDati(fileDatiUtentePath, fileUltimoUtentePath);        
-		setChanged();
-		notifyObservers();
+		updateObservers();
 	}
 	
 	/**
-	 * crea l'utente e lo setta
+	 * crea l'utente, scrivendo l'username nel file fileUtentiPath e creando il file fileDatiUtentePath
 	 * @param username l'username dell'utente
 	 * @param fileUtentiPath path del file degli utenti
 	 * @param fileDatiUtentePath path del file dell'utente da creare
@@ -169,7 +174,7 @@ public class ModelManager extends Observable
 	}
 	
 	/**
- 	 * elimina l'utente 
+ 	 * elimina l'utente
 	 * @param username l'username dell'utente da eliminare
 	 * @param fileUtentiPath path del file degli utenti
 	 * @param fileDatiUtentePath path del file dell'utente da eliminare
@@ -202,7 +207,7 @@ public class ModelManager extends Observable
 	}
 	
 	/**
-	 * controlla che l'username inserito sia presente nel file inserito
+	 * controlla che l'username sia presente nel file 
 	 * @param username username da controllare
 	 * @param fileUtentiPath path del file da controllare
 	 * @return true se è presente, false altrimenti
@@ -212,7 +217,7 @@ public class ModelManager extends Observable
 	    return FileUtils.leggiFile(fileUtentiPath).contains(username);
 	}
 	
-	//METODI PARTITA
+	//METODI INIZIALIZZAZIONE PARTITA
 	/**
 	 * inizializza il mazzo
 	 */
@@ -236,59 +241,37 @@ public class ModelManager extends Observable
 		giocatori.add(new GiocatoreDealer());
 	}
 	
+	//METODI PARTITA
+	public void giocaTurno()
+	{
+		getGiocatoreCorrente().gioca();
+	}
+	
 	/**
 	 * distribuisce le carte ai giocatori
 	 * simula la distribuzione di carte reale del blackjack
 	 */
     public void distribuisciCarte() 
     {    	
-        //primo giro: distribuisci una carta a ciascun giocatore (incluso il dealer)
+    	//resetta lo stato dei giocatori
+    	for (Giocatore giocatore : getGiocatori()) 
+        { 
+            giocatore.resetStato();
+        }
+    	
+        //primo giro
         for (Giocatore giocatore : getGiocatori()) 
-        {
-        	//svuota prima le mani del giocatore
-            giocatore.resetStato(); 
-            Carta carta1 = mazzo.carta();
-            giocatore.addCarta(carta1);
+        { 
+            giocatore.hit();
         }
         
-        //secondo giro: distribuisci un'altra carta a ciascun giocatore (se è il dealer la carta è coperta)
+        //secondo giro
         for (Giocatore giocatore : getGiocatori()) 
         {
-        	Carta carta2 = mazzo.carta();
-            giocatore.addCarta(carta2);                
+            giocatore.hit();                
         }
-        
-        setChanged();
-		notifyObservers();
     }
-	
-	/**
-	 * svuota la lista di giocatori
-	 */
-	public void clearGiocatori() 
-	{		
-		giocatori.clear();
-	}
-
-	public Giocatore getGiocatoreCorrente()
-	{
-		return getGiocatori().get(turno);
-	}
-	
-	public void giocaTurno() 
-	{	
-		boolean isManoSuccessiva = getGiocatoreCorrente().gioca();
-		if(isManoSuccessiva) manoSuccessiva();
-	}
-	
-	/**
-	 * metodo privato che passa al turno successivo
-	 */
-    private void turnoSuccessivo() 
-    {
-        setTurno(turno++);   
-    }   
-    
+		
     /**
 	 * metodo che passa alla mano successiva
 	 * se non c'è una mano successiva passa al turno successivo
@@ -299,17 +282,75 @@ public class ModelManager extends Observable
         int manoCorrenteIndex = giocatore.getManoCorrenteIndex();
 
     	//conteggio mani: se il turno è il primo (quello dell'utente), aumenta il conteggio
-        if(turno == 0) setUtenteManiGiocate(getUtenteManiGiocate() + 1);
+        //if(turno == 0) setUtenteManiGiocate(getUtenteManiGiocate() + 1);
         
-        if(manoCorrenteIndex + 1 >= giocatore.getMani().size()) turnoSuccessivo();
+        //se sono all'ultima mano del giocatore passa al turno successivo, altrimenti indica che sei passato alla mano successiva
+        if(manoCorrenteIndex + 1 == giocatore.getMani().size()) turnoSuccessivo();
         else giocatore.setManoCorrenteIndex(manoCorrenteIndex + 1);
         
         giocaTurno();
     }
     
+    /**
+	 * metodo privato che passa al turno successivo
+	 */
+    private void turnoSuccessivo() 
+    {
+        turno++;   
+        if(turno == getGiocatori().size())
+        {
+        	setTurno(0);
+        	distribuisciCarte();
+        }
+    }  
+        
     public boolean roundFinito()
     {
     	return turno >= getGiocatori().size() - 1;
-    }
+    }   
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+	
+    /**
+     * metodo per ottenere il giocatore che deve giocare il turno
+     * @return il giocatore corrente
+     */
+    public Giocatore getGiocatoreCorrente()
+	{
+		return getGiocatori().get(turno);
+	}
+    
+    /**
+     * rimette il turno a 0 e svuota la lista di giocatori
+     */
+    public void back() 
+    {		
+    	setTurno(0);
+    	giocatori.clear();
+    }
 }

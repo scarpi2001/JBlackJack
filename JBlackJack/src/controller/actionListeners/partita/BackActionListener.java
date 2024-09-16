@@ -12,7 +12,7 @@ public class BackActionListener implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
-    	ModelManager.getInstance().clearGiocatori();
+    	ModelManager.getInstance().back();
     	View.getInstance().showMenuPanel(); 
 	}
 

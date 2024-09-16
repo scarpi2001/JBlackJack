@@ -6,6 +6,7 @@ import java.util.List;
 
 import model.FileUtils;
 import model.carte.Mano;
+import model.carte.Mazzo;
 
 /**
  * classe che rappresenta l'utente che utilizza l'applicazione
@@ -164,8 +165,8 @@ public class GiocatoreUtente extends Giocatore
 	//CREAZIONE UTENTE
 	/**
 	 * metodo per creare un utente
-	 * salva l'username inserito nel file degli utenti passato in input
-	 * e crea il file dedicato all'utente appena creato
+	 * salva l'username inserito nel file fileUtentiPath
+	 * e crea il file con il nome fileDatiUtentePath dedicato all'utente appena creato
 	 * @param username nome dell'utente
 	 * @param fileUtentiPath path del file degli utenti
 	 * @param fileDatiUtentePath path del file dell'utente da creare
@@ -222,18 +223,9 @@ public class GiocatoreUtente extends Giocatore
 	
 	//PARTITA
 	@Override
-	//deve vedere in che condizione sono
-	public boolean gioca()
+	//aspetta hit o stay
+	public void gioca()
 	{    
-        //se la mano corrente è blackjack o sballata passa a quella successiva, se non c'è quella successiva vai al turno successivo"
-        if (isFinito()) 
-        {
-        	return true;
-        }
-        
-        return false;
-       
-        //se non accade nulla aspetto che il giocatore clicca hit o stay o split
-        //se non sono il giocatore gioca come farebbe il dealer
+		
 	}
 }

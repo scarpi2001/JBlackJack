@@ -3,17 +3,12 @@ package model.giocatore;
 public class GiocatoreBot extends Giocatore
 {
 	@Override
-    public boolean gioca() 
-	{
-		return true;
-		/*
+    public void gioca() 
+	{	
         while (getManoCorrente().getConteggio() < 17)
         {
-            hit();
-            if(isFinito()) return true;
+        	hit(); 
         }
-        stay();
-        return false;
-        */
+        if(!manoTerminata()) stay(); 
     }
 }

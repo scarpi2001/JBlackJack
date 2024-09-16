@@ -16,6 +16,10 @@ public class HitActionListener implements ActionListener
 	 */
 	public void actionPerformed(ActionEvent e) 
 	{
-		ModelManager.getInstance().getGiocatoreCorrente().hit();
+		ModelManager model = ModelManager.getInstance();
+		
+		model.getGiocatoreCorrente().hit();
+		model.giocaTurno();
+		
 	}
 }

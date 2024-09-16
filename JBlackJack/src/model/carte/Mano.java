@@ -92,14 +92,10 @@ public class Mano
         //check se la mano è sballata oppure se ha fatto blackjack
         if (conteggio == 21) 
         {
-        	System.out.println("Blackjack!");
-			System.out.println("");
             blackjack = true;
         }
         else if (conteggio > 21)
         {
-        	System.out.println("Sballato!");
-			System.out.println("");
             sballata = true;
         }
     }

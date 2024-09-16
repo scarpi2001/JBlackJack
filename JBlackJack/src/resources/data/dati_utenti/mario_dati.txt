@@ -1,6 +1,6 @@
-username:sca
+username:mario
 chips:1000
-maniGiocate:11160
+maniGiocate:0
 maniVinte:0
 maniPerse:0
 livello:0

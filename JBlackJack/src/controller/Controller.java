@@ -88,19 +88,23 @@ public class Controller
 		model.initMazzo();
 		model.initGiocatori();
 		model.distribuisciCarte();
+		model.giocaTurno();
 		//gioca();
 	}
 	
+	/*
 	private void gioca()
 	{
-		while(!model.roundFinito())
+		model.giocaTurno();
+		
+		/*
+		if(model.roundFinito())
 		{
-			model.giocaTurno();
+			model.distribuisciCarte();
+	        model.setTurno(0);
+	        //gioca();
 		}
-       
-        //il round è finito, ridistribuisci le carte e ricomincia dal turno 0
-        model.distribuisciCarte();
-        model.setTurno(0);
-        gioca();
+		
 	}
+	*/
 }
