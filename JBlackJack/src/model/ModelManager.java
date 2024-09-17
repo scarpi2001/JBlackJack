@@ -1,6 +1,6 @@
 package model;
 
-import model.carte.Carta;
+
 import model.carte.Mazzo;
 import model.giocatore.Giocatore;
 import model.giocatore.GiocatoreBot;
@@ -14,6 +14,7 @@ import java.util.Observable;
 /**
  * classe che rappresenta il model
  */
+@SuppressWarnings("deprecation")
 public class ModelManager extends Observable 
 {
 	//CAMPI
@@ -184,7 +185,6 @@ public class ModelManager extends Observable
 		utente.eliminaUtente(username, fileUtentiPath, fileDatiUtentePath);
 	}
 	
-	
 	/**
 	 * ottiene la lista di utenti
 	 * @param username username da controllare
@@ -229,7 +229,7 @@ public class ModelManager extends Observable
 	
 	/**
 	 * inizializza la lista di giocatori che partecipano alla partita
-	 * inserisce prima l'utente, poi i bot, l'ultimo giocatore è il dealer
+	 * inserisce prima l'utente, poi i bot, infine il dealer
 	 */
 	public void initGiocatori()
 	{	
@@ -242,102 +242,17 @@ public class ModelManager extends Observable
 	}
 	
 	//METODI PARTITA
-	public void giocaTurno()
-	{
-		getGiocatoreCorrente().gioca();
-	}
-	
-	/**
-	 * distribuisce le carte ai giocatori
-	 * simula la distribuzione di carte reale del blackjack
-	 */
-    public void distribuisciCarte() 
-    {    	
-    	//resetta lo stato dei giocatori
-    	for (Giocatore giocatore : getGiocatori()) 
-        { 
-            giocatore.resetStato();
-        }
-    	
-        //primo giro
-        for (Giocatore giocatore : getGiocatori()) 
-        { 
-            giocatore.hit();
-        }
-        
-        //secondo giro
-        for (Giocatore giocatore : getGiocatori()) 
-        {
-            giocatore.hit();                
-        }
-    }
-		
     /**
-	 * metodo che passa alla mano successiva
-	 * se non c'è una mano successiva passa al turno successivo
-	 */
-    public void manoSuccessiva() 
-    {
-    	Giocatore giocatore = getGiocatoreCorrente();
-        int manoCorrenteIndex = giocatore.getManoCorrenteIndex();
-
-    	//conteggio mani: se il turno è il primo (quello dell'utente), aumenta il conteggio
-        //if(turno == 0) setUtenteManiGiocate(getUtenteManiGiocate() + 1);
-        
-        //se sono all'ultima mano del giocatore passa al turno successivo, altrimenti indica che sei passato alla mano successiva
-        if(manoCorrenteIndex + 1 == giocatore.getMani().size()) turnoSuccessivo();
-        else giocatore.setManoCorrenteIndex(manoCorrenteIndex + 1);
-        
-        giocaTurno();
-    }
-    
-    /**
-	 * metodo privato che passa al turno successivo
-	 */
-    private void turnoSuccessivo() 
-    {
-        turno++;   
-        if(turno == getGiocatori().size())
-        {
-        	setTurno(0);
-        	distribuisciCarte();
-        }
-    }  
-        
+     * indica se il round è finito 
+     * @return true se è finito, false altrimenti
+     */
     public boolean roundFinito()
     {
-    	return turno >= getGiocatori().size() - 1;
+    	return turno == getGiocatori().size();
     }   
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-	
     /**
-     * metodo per ottenere il giocatore che deve giocare il turno
+     * restituisce il giocatore che deve giocare il turno
      * @return il giocatore corrente
      */
     public Giocatore getGiocatoreCorrente()
@@ -346,7 +261,7 @@ public class ModelManager extends Observable
 	}
     
     /**
-     * rimette il turno a 0 e svuota la lista di giocatori
+     * imposta il turno a 0 e svuota la lista di giocatori
      */
     public void back() 
     {		

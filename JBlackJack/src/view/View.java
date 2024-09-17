@@ -11,6 +11,7 @@ import view.menuPanel.MenuPanel;
 /**
  * classe che rappresenta la view, implementata tramite un JFrame
  */
+@SuppressWarnings("deprecation")
 public class View extends JFrame implements Observer 
 {
 	public static final String TITOLO = "JBlackJack";

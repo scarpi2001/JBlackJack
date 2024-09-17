@@ -223,7 +223,11 @@ public class GiocatoreUtente extends Giocatore
 	
 	//PARTITA
 	@Override
-	//aspetta hit o stay
+	/**
+	 * sovrascrive il metodo gioca,
+	 * non facendo nulla, in un certo senso aspetta l'input dell'utente,
+	 * perchè l'utente gioca attraverso l'input dei pulsanti
+	 */
 	public void gioca()
 	{    
 		

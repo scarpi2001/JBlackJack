@@ -4,6 +4,8 @@ import model.ModelManager;
 import model.carte.Carta;
 import model.carte.Mano;
 import model.giocatore.Giocatore;
+import model.giocatore.GiocatoreBot;
+import model.giocatore.GiocatoreUtente;
 import view.View;
 
 public class Controller 
@@ -87,24 +89,67 @@ public class Controller
 	{
 		model.initMazzo();
 		model.initGiocatori();
-		model.distribuisciCarte();
-		model.giocaTurno();
-		//gioca();
+		distribuisciCarte();
+		gameloop();
 	}
-	
-	/*
-	private void gioca()
-	{
-		model.giocaTurno();
+
+	public void gameloop() 
+	{	 
+		Giocatore giocatore = model.getGiocatoreCorrente();
+
+		giocatore.gioca();
 		
-		/*
-		if(model.roundFinito())
+		//se il giocatore è un bot, dopo che ha giocato, la mano è sicuramente terminata
+		if (giocatore instanceof GiocatoreBot)
 		{
-			model.distribuisciCarte();
-	        model.setTurno(0);
-	        //gioca();
+			//passo al turno successivo 
+			giocatore.manoSuccessiva();
+			//e controllo se il round è finito, se lo è chiamo la logica di fine round che alla fine rigiocherà, se non lo è rigioco subito,
+			if(model.roundFinito()) fineRound();
+			else gameloop();
 		}
 		
+		//se il giocatore è un utente e la sua mano è terminata
+		if(giocatore instanceof GiocatoreUtente && giocatore.isManoTerminata())
+		{
+            giocatore.manoSuccessiva();   
+            //rigioca, giocherà la mano successiva o il giocatore successivo
+            gameloop();
+	    }
 	}
-	*/
+
+	/**
+	 * distribuisce le carte ai giocatori
+	 * simula la distribuzione di carte del blackjack (una alla volta)
+	 */
+	private void distribuisciCarte() 
+	{    	
+		//resetta lo stato dei giocatori
+		for (Giocatore giocatore : model.getGiocatori()) 
+		{ 
+			giocatore.resetStato();
+		}
+		
+		//primo giro
+		for (Giocatore giocatore : model.getGiocatori()) 
+		{ 
+			giocatore.hit();
+		}
+		
+		//secondo giro
+		for (Giocatore giocatore : model.getGiocatori()) 
+		{
+			giocatore.hit();                
+		}
+	}
+	
+	private void fineRound() 
+	{
+    	// Aggiungi la logica per calcolare il risultato del round, aggiornare le statistiche dei giocatori, ecc. (dal model)
+    	// Poi, inizializza un nuovo round.
+    	
+		model.setTurno(0);
+		distribuisciCarte();
+    	gameloop();
+	}
 }

@@ -3,6 +3,7 @@ package controller.actionListeners.partita.azioni;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import controller.Controller;
 import model.ModelManager;
 
 /**
@@ -15,11 +16,8 @@ public class HitActionListener implements ActionListener
 	 * aggiunge una carta al giocatore giusto in base al turno della partita
 	 */
 	public void actionPerformed(ActionEvent e) 
-	{
-		ModelManager model = ModelManager.getInstance();
-		
-		model.getGiocatoreCorrente().hit();
-		model.giocaTurno();
-		
+	{		
+		ModelManager.getInstance().getGiocatoreCorrente().hit();
+		Controller.getInstance().gameloop();
 	}
 }

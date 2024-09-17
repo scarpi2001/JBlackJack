@@ -6,7 +6,6 @@ import java.util.List;
 import model.ModelManager;
 import model.carte.Carta;
 import model.carte.Mano;
-import model.carte.Mazzo;
 
 /**
  * classe che rappresenta il giocatore
@@ -37,7 +36,6 @@ public abstract class Giocatore
 		else if(!(this instanceof GiocatoreUtente)) username = "bot";  	
 		
 		mani = new ArrayList<>();
-		//all'inizio il giocatore ha una sola mano
         mani.add(new Mano());  
 	}
 	
@@ -64,6 +62,11 @@ public abstract class Giocatore
 	{
 		manoCorrente = mano;
 	}
+    
+    public boolean isManoTerminata()
+    {
+    	return getManoCorrente().isTerminata();
+    }
 	
 	//METODI
     /**
@@ -73,7 +76,7 @@ public abstract class Giocatore
     
     /**
 	 * aggiunge una carta alla mano corrente del giocatore, 
-	 * se la mano è terminata passa alla mano successiva 
+	 * in base alle condizioni della mano la termina o meno
 	 * e aggiorna gli osservatori del model
 	 */
     public void hit() 
@@ -82,19 +85,16 @@ public abstract class Giocatore
     	Carta carta = model.getMazzo().carta();
     	
     	getManoCorrente().addCarta(carta);
+    	getManoCorrente().setTerminata(manoTerminata());
     	model.updateObservers();
-    	if(manoTerminata()) model.manoSuccessiva();
     }
 
     /**
-	 * passa alla mano successiva gioca e aggiorna gli osservatori del model
+	 * termina la mano corrente
 	 */
     public void stay()
     {
-    	ModelManager model = ModelManager.getInstance();
-    	
-    	model.manoSuccessiva();
-    	model.giocaTurno();
+    	getManoCorrente().setTerminata(true);
     }
     
     /**
@@ -125,17 +125,34 @@ public abstract class Giocatore
      */
 	}
     
+    /**
+	 * passa alla mano successiva
+	 * aumenta il conteggio delle mani giocate se il giocatore è un utente
+	 * se non c'è una mano successiva passa al turno successivo
+	 */
+    public void manoSuccessiva() 
+    {
+    	ModelManager model = ModelManager.getInstance();
+    	//conteggio mani: se il turno è il primo (quello dell'utente), aumenta il conteggio
+        if(this instanceof GiocatoreUtente) model.setUtenteManiGiocate(model.getUtenteManiGiocate() + 1);
+        
+        //se sono all'ultima mano del giocatore passa al turno successivo, altrimenti indica al giocatore di passare alla mano successiva
+        if(manoCorrente + 1 == mani.size()) model.setTurno(model.getTurno() + 1);
+        else setManoCorrenteIndex(manoCorrente + 1);
+    }
+    
 	/**
-	 * indica se la mano è terminata per un blackjack o una sballata
+	 * indica se la mano corrente è terminata per un blackjack o una sballata
 	 * @return true se la mano è terminata, false altrimenti
 	 */
 	public boolean manoTerminata()
 	{
-		Mano manoCorrente = getManoCorrente();
-		return manoCorrente.isBlackJack() || manoCorrente.isBusted();
+		return getManoCorrente().isBlackJack() || getManoCorrente().isBusted();
 	}
+	
     /**
      * metodo che ritorna la mano corrente del giocatore
+     * @return la mano corrente
      */
     public Mano getManoCorrente() 
 	{

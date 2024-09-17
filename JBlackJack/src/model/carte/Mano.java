@@ -29,6 +29,11 @@ public class Mano
      */
     private boolean soft;
     
+	/**
+	 * flag che indica se la mano che sta giocando il giocatore è terminata o no
+	 */
+	private boolean terminata;
+    
     /**
      * conteggio del valore totale della mano
      */
@@ -54,16 +59,25 @@ public class Mano
     {
         return blackjack;
     }
-
-    public List<Carta> getCarte() 
+    
+    public boolean isTerminata()
     {
-        return carte;
+    	return terminata;
+    }
+    public void setTerminata(boolean terminata)
+    {
+    	this.terminata = terminata;
     }
     
     public boolean isSoft()
     {
     	return soft;
     }
+    public List<Carta> getCarte() 
+    {
+        return carte;
+    }
+    
     
     //METODI
     /**

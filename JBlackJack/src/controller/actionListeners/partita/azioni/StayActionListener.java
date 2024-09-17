@@ -3,6 +3,7 @@ package controller.actionListeners.partita.azioni;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import controller.Controller;
 import model.ModelManager;
 
 /**
@@ -15,5 +16,6 @@ public class StayActionListener implements ActionListener
 	public void actionPerformed(ActionEvent e)
 	{
 		ModelManager.getInstance().getGiocatoreCorrente().stay();
+		Controller.getInstance().gameloop();
 	}
 }
