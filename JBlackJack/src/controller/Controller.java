@@ -118,6 +118,20 @@ public class Controller
 	}
 
 	/**
+	 * gestisce la fine di un round
+	 */
+	private void fineRound() 
+	{
+		//aggiorna le chips del giocatore, rivela punteggi. (dal model)
+		model.checkRisultati();
+		
+		//inizializza un nuovo round	
+		model.setTurnoPartita(0);
+		distribuisciCarte();
+		gameloop();
+	}
+	
+	/**
 	 * distribuisce le carte ai giocatori
 	 * simula la distribuzione di carte del blackjack (una alla volta)
 	 */
@@ -142,14 +156,4 @@ public class Controller
 		}
 	}
 	
-	private void fineRound() 
-	{
-    	//aggiorna le chips del giocatore, ecc. (dal model)
-		
-		
-    	//inizializza un nuovo round	
-		model.setTurnoPartita(0);
-		distribuisciCarte();
-    	gameloop();
-	}
 }

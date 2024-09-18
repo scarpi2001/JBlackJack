@@ -8,9 +8,12 @@ import java.util.List;
  */
 public class Mano
 {
-	private enum StatoMano
+	/**
+	 * enum degli stati di una mano di blackjack
+	 */
+	public enum StatoMano
 	{
-		VINTA, PERSA, IN_CORSO;
+		VINTA, PERSA, PAREGGIATA, IN_CORSO;
 	}
 	
 	//CAMPI
@@ -40,7 +43,7 @@ public class Mano
 	private boolean terminata;
 	
 	/**
-	 * indica lo stato della mano (in corso, vinta o persa)
+	 * indica lo stato della mano (in corso, vinta, persa, pareggiata)
 	 */
 	private StatoMano statoMano;
     
@@ -84,11 +87,20 @@ public class Mano
     {
     	return soft;
     }
+    
     public List<Carta> getCarte() 
     {
         return carte;
     }
     
+    public StatoMano getStato()
+    {
+    	return statoMano;
+    }
+    public void setStato(StatoMano statoMano)
+    {
+    	this.statoMano = statoMano;
+    }
     
     //METODI
     /**

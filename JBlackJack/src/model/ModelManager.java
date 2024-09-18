@@ -1,6 +1,7 @@
 package model;
 
 
+import model.carte.Mano;
 import model.carte.Mazzo;
 import model.giocatore.Giocatore;
 import model.giocatore.GiocatoreBot;
@@ -215,6 +216,29 @@ public class ModelManager extends Observable
 	public boolean roundFinito()
 	{
 		return partita.roundFinito();
+	}
+	
+	public void checkRisultati()
+	{	
+		List<Giocatore> giocatori = getGiocatoriPartita();
+		Giocatore dealer = giocatori.get(giocatori.size() - 1);
+		Mano manoDealer = dealer.getMani().get(0);
+		int conteggioDealer = manoDealer.getConteggio();
+		
+		for(Giocatore giocatore : getGiocatoriPartita())
+		{
+			for(Mano mano : giocatore.getMani())
+			{
+				if(mano.getStato() == Mano.StatoMano.IN_CORSO)
+				{
+					//confronto ogni mano con quella del dealer
+					if(manoDealer.isBusted() || mano.getConteggio() > conteggioDealer) mano.setStato(Mano.StatoMano.VINTA);
+					else if(mano.getConteggio() < conteggioDealer) mano.setStato(Mano.StatoMano.PERSA);
+					else mano.setStato(Mano.StatoMano.PAREGGIATA);
+				}
+			}
+		}
+		updateObservers();
 	}
 	
     public Giocatore getGiocatoreCorrente()

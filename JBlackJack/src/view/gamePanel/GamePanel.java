@@ -8,6 +8,7 @@ import model.ModelManager;
 import model.carte.Carta;
 import model.carte.Mano;
 import model.giocatore.Giocatore;
+import model.giocatore.GiocatoreDealer;
 import view.gamePanel.bottombar.BottomBarGamePanel;
 import view.gamePanel.topbar.TopBarGamePanel;
 import view.menuPanel.bottombar.BottomBarMenuPanel;
@@ -49,7 +50,7 @@ public class GamePanel extends JPanel
 		
 		//voglio una lista di elementi "SpazioCarta" 
 		//per ogni giocatore aggiungo un oggetto SpazioCarta
-		for(int i = 0; i <= model.getNumeroGiocatori(); i++)
+		for(int i = 0; i <= model.getNumeroGiocatoriPartita(); i++)
 		{
 			
 		}		
@@ -65,7 +66,7 @@ public class GamePanel extends JPanel
 		ModelManager model = ModelManager.getInstance();
 		repaint();
 		
-		for(Giocatore giocatore : model.getGiocatori())
+		for(Giocatore giocatore : model.getGiocatoriPartita())
 		{
 			int numeroMano = 1;
 			for (Mano mano : giocatore.getMani()) 
@@ -77,7 +78,7 @@ public class GamePanel extends JPanel
 		        numeroMano++; 
 		        System.out.println(mano.getConteggio());
 		        
-		        if(model.roundFinito()) System.out.println(giocatore.getManoCorrente().getStato());		        
+		        if(!(giocatore instanceof GiocatoreDealer))System.out.println(giocatore.getManoCorrente().getStato());		        
 		    }
 		}
 		System.out.println("");
