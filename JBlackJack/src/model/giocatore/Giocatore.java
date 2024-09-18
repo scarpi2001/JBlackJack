@@ -82,7 +82,7 @@ public abstract class Giocatore
     public void hit() 
     {  	
     	ModelManager model = ModelManager.getInstance();
-    	Carta carta = model.getMazzo().carta();
+    	Carta carta = model.getMazzoPartita().carta();
     	
     	getManoCorrente().addCarta(carta);
     	getManoCorrente().setTerminata(manoTerminata());
@@ -134,10 +134,10 @@ public abstract class Giocatore
     {
     	ModelManager model = ModelManager.getInstance();
     	//conteggio mani: se il turno è il primo (quello dell'utente), aumenta il conteggio
-        if(this instanceof GiocatoreUtente) model.setUtenteManiGiocate(model.getUtenteManiGiocate() + 1);
+        if(this instanceof GiocatoreUtente) model.setManiGiocateUtente(model.getManiGiocateUtente() + 1);
         
         //se sono all'ultima mano del giocatore passa al turno successivo, altrimenti indica al giocatore di passare alla mano successiva
-        if(manoCorrente + 1 == mani.size()) model.setTurno(model.getTurno() + 1);
+        if(manoCorrente + 1 == mani.size()) model.setTurnoPartita(model.getTurnoPartita() + 1);
         else setManoCorrenteIndex(manoCorrente + 1);
     }
     

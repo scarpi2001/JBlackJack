@@ -17,7 +17,7 @@ public class EliminaUtenteActionListener implements ActionListener
 	public void actionPerformed(ActionEvent e) 
 	{           
 		ModelManager model = ModelManager.getInstance();
-		String username = model.getUtenteUsername();
+		String username = model.getUsernameUtente();
 		
 		//se c'è più di un utente, elimino quello slezionato, altrimenti se ho un solo utente do errore
 		List<String> utenti = model.getUtenti("src/resources/data/utenti.txt");

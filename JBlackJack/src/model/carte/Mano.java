@@ -8,6 +8,11 @@ import java.util.List;
  */
 public class Mano
 {
+	private enum StatoMano
+	{
+		VINTA, PERSA, IN_CORSO;
+	}
+	
 	//CAMPI
 	/**
 	 * lista di carte di cui è composta la mano
@@ -33,6 +38,11 @@ public class Mano
 	 * flag che indica se la mano che sta giocando il giocatore è terminata o no
 	 */
 	private boolean terminata;
+	
+	/**
+	 * indica lo stato della mano (in corso, vinta o persa)
+	 */
+	private StatoMano statoMano;
     
     /**
      * conteggio del valore totale della mano
@@ -42,6 +52,7 @@ public class Mano
     public Mano()
     {
         carte = new ArrayList<>();
+        statoMano = StatoMano.IN_CORSO;
     }
     
     //GETTERS E SETTER
@@ -111,6 +122,7 @@ public class Mano
         else if (conteggio > 21)
         {
             sballata = true;
+            statoMano = StatoMano.PERSA;
         }
     }
 

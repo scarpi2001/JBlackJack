@@ -29,115 +29,100 @@ public class ModelManager extends Observable
 	private GiocatoreUtente utente;
 	
 	/**
-	 * numero di giocatori che partecipano alla partita
+	 * partita di blackjack
 	 */
-	private int numeroGiocatori;
-	
-	/**
-	 * lista dei giocatori che partecipano alla partita
-	 */
-	private List<Giocatore> giocatori;
-	
-	/**
-	 * mazzo di carte utilizzato in partita
-	 */
-	private Mazzo mazzo;
-	
-	/**
-	 * variabile utilizzata per stabilire quale giocatore deve giocare
-	 */
-	private int turno;
+	private Partita partita;
 	
 	//COSTRUTTORE
 	/**
 	 * il costruttore del model, 
-	 * istanzia l'utente e la lista di giocatori
+	 * istanzia l'utente e la partita
 	 */
 	private ModelManager()
 	{
 		utente = GiocatoreUtente.getInstance();
-		giocatori = new ArrayList<>();
+		partita = Partita.getInstance();
 	}
-	
 	public static ModelManager getInstance()
 	{
 		if (instance == null) instance = new ModelManager();
 		return instance;
 	}
 	
-	//GETTERS E SETTERS
-	public Mazzo getMazzo() 
+	//GETTERS E SETTERS DELLA PARTITA
+	public Mazzo getMazzoPartita() 
 	{		
-		return mazzo;
+		return partita.getMazzo();
 	}
-	public void setMazzo(Mazzo mazzo) 
+	public void setMazzoPartita(Mazzo mazzo) 
 	{		
-		this.mazzo = mazzo;
-	}
-	
-	public List<Giocatore> getGiocatori() 
-	{		
-		return giocatori;
-	}
-	public void setGiocatori(List<Giocatore> giocatori) 
-	{		
-		this.giocatori = giocatori;
-	}
-	public int getNumeroGiocatori() 
-	{		
-		return numeroGiocatori;
-	}
-	public void setNumeroGiocatori(int numeroGiocatori) 
-	{		
-		this.numeroGiocatori = numeroGiocatori;
+		partita.setMazzo(mazzo);
 	}
 	
-	public int getTurno() 
+	public List<Giocatore> getGiocatoriPartita() 
 	{		
-		return turno;
+		return partita.getGiocatori();
 	}
-	public void setTurno(int turno) 
+	public void setGiocatoriPartita(List<Giocatore> giocatori) 
 	{		
-		this.turno = turno;
+		partita.setGiocatori(giocatori);
+	}
+	
+	public int getNumeroGiocatoriPartita() 
+	{		
+		return partita.getNumeroGiocatori();
+	}
+	public void setNumeroGiocatoriPartita(int numeroGiocatori) 
+	{		
+		partita.setNumeroGiocatori(numeroGiocatori);
+	}
+	
+	public int getTurnoPartita() 
+	{		
+		return partita.getTurno();
+	}
+	public void setTurnoPartita(int turno) 
+	{		
+		partita.setTurno(turno);
 	}
 	
 	//GETTERS E SETTERS DELL'UTENTE
-	public String getUtenteUsername()
+	public String getUsernameUtente()
 	{
 		return utente.getUsername();
 	}
 	
-	public String getUtenteFilePath()
+	public String geteFilePathUtent()
 	{
 		return utente.getFilePath();
 	}
 	
-	public int getUtenteChips()
+	public int getChipsUtente()
 	{
 		return utente.getChips();
 	}
 	
-	public int getUtenteManiGiocate()
+	public int getManiGiocateUtente()
 	{
 		return utente.getManiGiocate();
 	}
-	public void setUtenteManiGiocate(int maniGiocate)
+	public void setManiGiocateUtente(int maniGiocate)
 	{
 		utente.setManiGiocate(maniGiocate);
 		updateObservers();
 	}
 	
-	public int getUtenteManiVinte()
+	public int getManiVinteUtente()
 	{
 		return utente.getManiVinte();
 	}
 	
-	public int getUtenteManiPerse()
+	public int getManiPerseUtente()
 	{
 		return utente.getManiPerse();
 	}
 	
-	public int getUtenteLivello()
+	public int getLivelloUtente()
 	{
 		return utente.getLivello();
 	}
@@ -217,55 +202,28 @@ public class ModelManager extends Observable
 	    return FileUtils.leggiFile(fileUtentiPath).contains(username);
 	}
 	
-	//METODI INIZIALIZZAZIONE PARTITA
-	/**
-	 * inizializza il mazzo
-	 */
-	public void initMazzo()
-	{
-		mazzo = new Mazzo();
-		mazzo.mix();
-	}
-	
-	/**
-	 * inizializza la lista di giocatori che partecipano alla partita
-	 * inserisce prima l'utente, poi i bot, infine il dealer
-	 */
-	public void initGiocatori()
-	{	
-		giocatori.add(utente);
-		for(int i = 0; i < numeroGiocatori - 1; i++)
-		{	
-			giocatori.add(new GiocatoreBot());
-		}	
-		giocatori.add(new GiocatoreDealer());
-	}
-	
 	//METODI PARTITA
-    /**
-     * indica se il round è finito 
-     * @return true se è finito, false altrimenti
-     */
-    public boolean roundFinito()
-    {
-    	return turno == getGiocatori().size();
-    }   
-    
-    /**
-     * restituisce il giocatore che deve giocare il turno
-     * @return il giocatore corrente
-     */
+	/**
+	 * inizializza la partita
+	 */
+	public void initPartita()
+	{	
+		partita.initMazzo();
+		partita.initGiocatori();
+	}
+	
+	public boolean roundFinito()
+	{
+		return partita.roundFinito();
+	}
+	
     public Giocatore getGiocatoreCorrente()
 	{
-		return getGiocatori().get(turno);
+		return partita.getGiocatoreCorrente();
 	}
     
-    /**
-     * imposta il turno a 0 e svuota la lista di giocatori
-     */
-    public void back() 
-    {		
-    	setTurno(0);
-    	giocatori.clear();
+    public void back()
+    {
+    	partita.back();
     }
 }

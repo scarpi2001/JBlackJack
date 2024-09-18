@@ -67,7 +67,7 @@ public class GestioneUtentePanel extends JPanel
 		}
 		
 		//mostro l'utente selezionato nella combobox (sarebbe il comportamento di default, ma dato che svuoto e riempio, devo farlo a mano)
-		comboBoxUtenti.setSelectedItem(model.getUtenteUsername());
+		comboBoxUtenti.setSelectedItem(model.getUsernameUtente());
 
 		comboBoxUtenti.addActionListener(setUserActionListener);
 	}

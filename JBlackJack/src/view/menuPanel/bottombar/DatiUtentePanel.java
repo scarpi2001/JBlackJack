@@ -42,14 +42,14 @@ public class DatiUtentePanel extends JPanel
     public void aggiornaDatiUtente() 
     {
         ModelManager model = ModelManager.getInstance();
-        if (model.getUtenteUsername() != null) 
+        if (model.getUsernameUtente() != null) 
         {
-            usernameLabel.setText("Username: " + model.getUtenteUsername());
-            chipsLabel.setText("Chips: " + model.getUtenteChips());
-            maniGiocateLabel.setText("Mani Giocate: " + model.getUtenteManiGiocate());
-            maniVinteLabel.setText("Mani Vinte: " + model.getUtenteManiVinte());
-            maniPerseLabel.setText("Mani Perse: " + model.getUtenteManiPerse());
-            livelloLabel.setText("Livello: " + model.getUtenteLivello());
+            usernameLabel.setText("Username: " + model.getUsernameUtente());
+            chipsLabel.setText("Chips: " + model.getChipsUtente());
+            maniGiocateLabel.setText("Mani Giocate: " + model.getManiGiocateUtente());
+            maniVinteLabel.setText("Mani Vinte: " + model.getManiVinteUtente());
+            maniPerseLabel.setText("Mani Perse: " + model.getManiPerseUtente());
+            livelloLabel.setText("Livello: " + model.getLivelloUtente());
         } 
     }
 }

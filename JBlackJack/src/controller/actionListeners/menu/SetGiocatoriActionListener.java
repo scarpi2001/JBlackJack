@@ -22,7 +22,7 @@ public class SetGiocatoriActionListener implements ActionListener
     @Override
 	public void actionPerformed(ActionEvent e) 
 	{           
-		ModelManager.getInstance().setNumeroGiocatori((int)comboBoxGiocatori.getSelectedItem());
+		ModelManager.getInstance().setNumeroGiocatoriPartita((int)comboBoxGiocatori.getSelectedItem());
 	}
 
 }

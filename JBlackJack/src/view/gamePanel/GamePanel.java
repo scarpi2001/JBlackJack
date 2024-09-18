@@ -76,6 +76,8 @@ public class GamePanel extends JPanel
 		        }
 		        numeroMano++; 
 		        System.out.println(mano.getConteggio());
+		        
+		        if(model.roundFinito()) System.out.println(giocatore.getManoCorrente().getStato());		        
 		    }
 		}
 		System.out.println("");

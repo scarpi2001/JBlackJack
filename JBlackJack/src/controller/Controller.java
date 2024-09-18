@@ -87,8 +87,7 @@ public class Controller
 	 */
 	public void initPartita()
 	{
-		model.initMazzo();
-		model.initGiocatori();
+		model.initPartita();
 		distribuisciCarte();
 		gameloop();
 	}
@@ -125,19 +124,19 @@ public class Controller
 	private void distribuisciCarte() 
 	{    	
 		//resetta lo stato dei giocatori
-		for (Giocatore giocatore : model.getGiocatori()) 
+		for (Giocatore giocatore : model.getGiocatoriPartita()) 
 		{ 
 			giocatore.resetStato();
 		}
 		
 		//primo giro
-		for (Giocatore giocatore : model.getGiocatori()) 
+		for (Giocatore giocatore : model.getGiocatoriPartita()) 
 		{ 
 			giocatore.hit();
 		}
 		
 		//secondo giro
-		for (Giocatore giocatore : model.getGiocatori()) 
+		for (Giocatore giocatore : model.getGiocatoriPartita()) 
 		{
 			giocatore.hit();                
 		}
@@ -145,10 +144,11 @@ public class Controller
 	
 	private void fineRound() 
 	{
-    	// Aggiungi la logica per calcolare il risultato del round, aggiornare le statistiche dei giocatori, ecc. (dal model)
-    	// Poi, inizializza un nuovo round.
-    	
-		model.setTurno(0);
+    	//aggiorna le chips del giocatore, ecc. (dal model)
+		
+		
+    	//inizializza un nuovo round	
+		model.setTurnoPartita(0);
 		distribuisciCarte();
     	gameloop();
 	}
