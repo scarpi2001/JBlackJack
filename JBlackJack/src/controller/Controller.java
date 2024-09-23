@@ -1,8 +1,6 @@
 package controller;
 
 import model.ModelManager;
-import model.carte.Carta;
-import model.carte.Mano;
 import model.giocatore.Giocatore;
 import model.giocatore.GiocatoreBot;
 import model.giocatore.GiocatoreUtente;
@@ -82,20 +80,10 @@ public class Controller
     }
     
     //METODI PARTITA
-    /**
-	 * inizializza la partita
-	 */
-	public void initPartita()
-	{
-		model.initPartita();
-		distribuisciCarte();
-		gameloop();
-	}
-
 	public void gameloop() 
 	{	 
-		Giocatore giocatore = model.getGiocatoreCorrente();
-
+		Giocatore giocatore = model.getGiocatoreCorrente(); 
+			
 		giocatore.gioca();
 		
 		//se il giocatore è un bot, dopo che ha giocato, la mano è sicuramente terminata
@@ -103,8 +91,8 @@ public class Controller
 		{
 			//passo al turno successivo 
 			giocatore.manoSuccessiva();
-			//e controllo se il round è finito, se lo è chiamo la logica di fine round che alla fine rigiocherà, se non lo è rigioco subito,
-			if(model.roundFinito()) fineRound();
+			//e controllo se la partita è finita, se lo è chiamo la logica di fine partita che alla fine rigiocherà, se non lo è rigioco subito,
+			if(model.FinePartita()) finePartita();
 			else gameloop();
 		}
 		
@@ -118,24 +106,20 @@ public class Controller
 	}
 
 	/**
-	 * gestisce la fine di un round
+	 * gestisce la fine di una partita
 	 */
-	private void fineRound() 
+	private void finePartita() 
 	{
 		//aggiorna le chips del giocatore, rivela punteggi. (dal model)
-		model.checkRisultati();
-		
-		//inizializza un nuovo round	
-		model.setTurnoPartita(0);
-		distribuisciCarte();
-		gameloop();
+		model.checkRisultatiPartita();
+		model.nuovaPartita();
 	}
 	
 	/**
 	 * distribuisce le carte ai giocatori
 	 * simula la distribuzione di carte del blackjack (una alla volta)
 	 */
-	private void distribuisciCarte() 
+	public void distribuisciCarte() 
 	{    	
 		//resetta lo stato dei giocatori
 		for (Giocatore giocatore : model.getGiocatoriPartita()) 

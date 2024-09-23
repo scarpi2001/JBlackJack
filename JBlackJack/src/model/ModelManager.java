@@ -110,7 +110,6 @@ public class ModelManager extends Observable
 	public void setManiGiocateUtente(int maniGiocate)
 	{
 		utente.setManiGiocate(maniGiocate);
-		updateObservers();
 	}
 	
 	public int getManiVinteUtente()
@@ -146,6 +145,7 @@ public class ModelManager extends Observable
 	public void setUtente(String fileDatiUtentePath, String fileUltimoUtentePath)
 	{
 		utente.setDati(fileDatiUtentePath, fileUltimoUtentePath);        
+		System.out.println("setUtente");
 		updateObservers();
 	}
 	
@@ -213,31 +213,27 @@ public class ModelManager extends Observable
 		partita.initGiocatori();
 	}
 	
-	public boolean roundFinito()
+	public boolean InizioPartita()
 	{
-		return partita.roundFinito();
+		return partita.inizio();
 	}
 	
-	public void checkRisultati()
+	public boolean FinePartita()
+	{
+		return partita.fine();
+	}
+	
+	public void nuovaPartita()
+	{
+		setTurnoPartita(0);
+		partita.setInizio(true);
+		updateObservers();
+	}
+	
+	public void checkRisultatiPartita()
 	{	
-		List<Giocatore> giocatori = getGiocatoriPartita();
-		Giocatore dealer = giocatori.get(giocatori.size() - 1);
-		Mano manoDealer = dealer.getMani().get(0);
-		int conteggioDealer = manoDealer.getConteggio();
-		
-		for(Giocatore giocatore : getGiocatoriPartita())
-		{
-			for(Mano mano : giocatore.getMani())
-			{
-				if(mano.getStato() == Mano.StatoMano.IN_CORSO)
-				{
-					//confronto ogni mano con quella del dealer
-					if(manoDealer.isBusted() || mano.getConteggio() > conteggioDealer) mano.setStato(Mano.StatoMano.VINTA);
-					else if(mano.getConteggio() < conteggioDealer) mano.setStato(Mano.StatoMano.PERSA);
-					else mano.setStato(Mano.StatoMano.PAREGGIATA);
-				}
-			}
-		}
+		partita.checkRisultati();
+		System.out.println("checkRis");
 		updateObservers();
 	}
 	
@@ -249,5 +245,7 @@ public class ModelManager extends Observable
     public void back()
     {
     	partita.back();
+    	System.out.println("back");
+		updateObservers();
     }
 }

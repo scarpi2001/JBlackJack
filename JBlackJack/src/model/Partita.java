@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.carte.Mano;
 import model.carte.Mazzo;
 import model.giocatore.Giocatore;
 import model.giocatore.GiocatoreBot;
@@ -40,9 +41,15 @@ public class Partita
 	 */
 	private List<Giocatore> giocatori;
 	
+	/**
+	 * flag che indica se la partita è all'inizio (pre-bet)
+	 */
+	private boolean inizio;
+	
 	//COSTRUTTORE
 	private Partita()
 	{
+		inizio = true;
 		giocatori = new ArrayList<>();
 	}
 	public static Partita getInstance()
@@ -87,6 +94,11 @@ public class Partita
 		this.turno = turno;
 	}
 	
+	public void setInizio(boolean inizio)
+	{
+		this.inizio = inizio;
+	}
+	
 	//METODI
 	/**
 	 * inizializza il mazzo
@@ -112,13 +124,47 @@ public class Partita
 	}
 	
 	/**
-     * indica se il round è finito 
+     * indica se la partita è all'inizio
+     * @return true se è all'inizio, false altrimenti
+     */
+    public boolean inizio()
+    {
+    	return inizio;
+    }   
+    
+	/**
+     * indica se la partita è finita
      * @return true se è finito, false altrimenti
      */
-    public boolean roundFinito()
+    public boolean fine()
     {
     	return turno == getGiocatori().size();
     }   
+    
+    /**
+     * confronta ogni mano con la mano del dealer e ne decreta lo stato (vinta, persa, pareggiata)
+     */
+    public void checkRisultati()
+	{	
+		List<Giocatore> giocatori = getGiocatori();
+		Giocatore dealer = giocatori.get(giocatori.size() - 1);
+		Mano manoDealer = dealer.getMani().get(0);
+		int conteggioDealer = manoDealer.getConteggio();
+		
+		for(Giocatore giocatore : getGiocatori())
+		{
+			for(Mano mano : giocatore.getMani())
+			{
+				if(mano.getStato() == Mano.StatoMano.IN_CORSO)
+				{
+					//confronto ogni mano con quella del dealer
+					if(manoDealer.isBusted() || mano.getConteggio() > conteggioDealer) mano.setStato(Mano.StatoMano.VINTA);
+					else if(mano.getConteggio() < conteggioDealer) mano.setStato(Mano.StatoMano.PERSA);
+					else mano.setStato(Mano.StatoMano.PAREGGIATA);
+				}
+			}
+		}
+	}
     
     /**
      * imposta il turno a 0 e svuota la lista di giocatori
@@ -127,6 +173,7 @@ public class Partita
     {		
     	setTurno(0);
     	giocatori.clear();
+    	inizio = true;
     }
     
     /**

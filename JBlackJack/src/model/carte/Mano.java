@@ -156,6 +156,8 @@ public class Mano
         sballata = false;
         blackjack = false;
         soft = false;
+        terminata = false;
+        statoMano = Mano.StatoMano.IN_CORSO;
         conteggio = 0;
     }
 }

@@ -3,6 +3,8 @@ package view.gamePanel.bottombar;
 import java.awt.*;
 import javax.swing.*;
 
+import view.gamePanel.bottombar.giocatorePanel.GiocatorePanel;
+
 public class BottomBarGamePanel extends JPanel
 {
     private GiocatorePanel giocatorePanel;
@@ -24,13 +26,18 @@ public class BottomBarGamePanel extends JPanel
         add(giocatorePanel, gbc);
     }
     
+    public void setBetPanelVisible(boolean visible) 
+    {
+    	giocatorePanel.setBetPanelVisible(visible);
+    }
+    
+    public void setActionsPanelVisible(boolean visible) 
+    {
+    	giocatorePanel.setActionsPanelVisible(visible);
+    }
+    
     public void setSplitVisible(boolean visible) 
     {
 		giocatorePanel.setSplitVisible(visible);
-    }
-    
-    public void aggiornaGiocatore() 
-    {
-        giocatorePanel.aggiornaGiocatore();
     }
 }

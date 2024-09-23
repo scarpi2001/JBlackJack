@@ -2,7 +2,7 @@ package controller.actionListeners.menu;
 
 import java.awt.event.*;
 
-import controller.Controller;
+import model.ModelManager;
 import view.View;
 
 /**
@@ -14,6 +14,6 @@ public class PlayActionListener implements ActionListener
 	public void actionPerformed(ActionEvent e) 
 	{      
     	View.getInstance().showGamePanel();    	
-    	Controller.getInstance().initPartita();
+    	ModelManager.getInstance().initPartita();
 	}
 }

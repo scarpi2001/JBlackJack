@@ -21,6 +21,7 @@ public class Mazzo
 
     public Mazzo() 
     {
+    	
         mazzo = new Carta[52];
         int index = 0;
         
@@ -31,9 +32,8 @@ public class Mazzo
                 mazzo[index++] = new Carta(seme, simbolo);
             }
         }
-
     	
-    	/*
+    /*	
     	mazzo = new Carta[2];
     	mazzo[0] = new Carta(Seme.CUORI, Simbolo.DUE);
     	mazzo[1] = new Carta(Seme.PICCHE, Simbolo.DUE);

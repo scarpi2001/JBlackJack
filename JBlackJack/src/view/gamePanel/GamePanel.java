@@ -56,6 +56,16 @@ public class GamePanel extends JPanel
 		}		
 	}
 	
+	public void setBetPanelVisible(boolean visible) 
+    {
+		bottombar.setBetPanelVisible(visible);
+    }
+	
+	public void setActionsPanelVisible(boolean visible) 
+    {
+		bottombar.setActionsPanelVisible(visible);
+    }
+	
 	public void setSplitVisible(boolean visible) 
     {
 		bottombar.setSplitVisible(visible);
@@ -64,7 +74,25 @@ public class GamePanel extends JPanel
 	public void updateGamePanel() 
 	{	
 		ModelManager model = ModelManager.getInstance();
+		
+		topbar.aggiornaDatiUtente();
 		repaint();
+		
+		//se sono a inizio partita vedo bet e passa, se no vedo le azioni
+		if(model.InizioPartita()) 
+		{
+			setBetPanelVisible(true); 
+			setActionsPanelVisible(false); 
+		}
+		else 
+		{
+			setBetPanelVisible(false); 
+			setActionsPanelVisible(true); 
+		}
+			
+		
+		if(model.getGiocatoriPartita().size() != 0 && model.getTurnoPartita() == 0 && model.getGiocatoreCorrente().canSplit()) setSplitVisible(true); 
+		else setSplitVisible(false); 
 		
 		for(Giocatore giocatore : model.getGiocatoriPartita())
 		{

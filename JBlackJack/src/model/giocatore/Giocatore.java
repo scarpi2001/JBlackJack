@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.ModelManager;
+import model.Partita;
 import model.carte.Carta;
 import model.carte.Mano;
 
@@ -27,7 +28,7 @@ public abstract class Giocatore
 	/**
 	 * l'indice della mano che il giocatore sta giocando
 	 */
-	private int manoCorrente;
+	private int manoCorrenteIndex;
 	
 	//COSTRUTTORE
 	public Giocatore()
@@ -56,11 +57,11 @@ public abstract class Giocatore
     
     public int getManoCorrenteIndex() 
 	{
-		return manoCorrente;
+		return manoCorrenteIndex;
 	}
-    public void setManoCorrenteIndex(int mano) 
+    public void setManoCorrenteIndex(int index) 
 	{
-		manoCorrente = mano;
+    	manoCorrenteIndex = index;
 	}
     
     public boolean isManoTerminata()
@@ -74,6 +75,11 @@ public abstract class Giocatore
      */
     public abstract void gioca();
     
+    public void bet()
+    {
+    	Partita.getInstance().setInizio(false);
+    }
+
     /**
 	 * aggiunge una carta alla mano corrente del giocatore, 
 	 * in base alle condizioni della mano la termina o meno
@@ -86,6 +92,7 @@ public abstract class Giocatore
     	
     	getManoCorrente().addCarta(carta);
     	getManoCorrente().setTerminata(manoTerminata());
+    	System.out.println("hit");
     	model.updateObservers();
     }
 
@@ -98,13 +105,12 @@ public abstract class Giocatore
     }
     
     /**
-	 * metodo che permette all'utente di "splittare" le 2 carte iniziali quando hanno lo stesso simbolo
+	 * metodo che permette al giocatore di "splittare" le 2 carte iniziali quando hanno lo stesso simbolo
 	 * in modo da giocare più mani nello stesso turno
 	 */
 	public void split()
 	{
-		/*
-		Giocatore giocatore = model.getGiocatori().get(model.getTurno());
+		ModelManager model = ModelManager.getInstance();
 		Mano manoCorrente = getManoCorrente();
 		
         Carta carta1 = manoCorrente.getCarte().get(0);
@@ -112,17 +118,27 @@ public abstract class Giocatore
 
         manoCorrente.reset();
         manoCorrente.addCarta(carta1);
-        manoCorrente.addCarta(model.getMazzo().carta());
-        
-        System.out.println("");
+        manoCorrente.addCarta(model.getMazzoPartita().carta());
+        manoCorrente.setTerminata(manoTerminata());
         
         Mano nuovaMano = new Mano();
         nuovaMano.addCarta(carta2);
-        nuovaMano.addCarta(model.getMazzo().carta());
-        giocatore.getMani().add(nuovaMano); 
+        nuovaMano.addCarta(model.getMazzoPartita().carta());
+        nuovaMano.setTerminata(manoTerminata());
+        
+        getMani().add(nuovaMano); 
 
-        gioca();
-     */
+        System.out.println("split");
+        model.updateObservers();
+	}
+	
+	/**
+	 * metodo per riconoscere la condizione di split della mano corrente del giocatore
+	 * @return true se la mano corrente può essere splittata, false altrimenti
+	 */
+	public boolean canSplit()
+	{
+		return getManoCorrente().canSplit();
 	}
     
     /**
@@ -137,8 +153,8 @@ public abstract class Giocatore
         if(this instanceof GiocatoreUtente) model.setManiGiocateUtente(model.getManiGiocateUtente() + 1);
         
         //se sono all'ultima mano del giocatore passa al turno successivo, altrimenti indica al giocatore di passare alla mano successiva
-        if(manoCorrente + 1 == mani.size()) model.setTurnoPartita(model.getTurnoPartita() + 1);
-        else setManoCorrenteIndex(manoCorrente + 1);
+        if(manoCorrenteIndex + 1 == mani.size()) model.setTurnoPartita(model.getTurnoPartita() + 1);
+        else setManoCorrenteIndex(manoCorrenteIndex + 1);
     }
     
 	/**
@@ -156,16 +172,7 @@ public abstract class Giocatore
      */
     public Mano getManoCorrente() 
 	{
-		return mani.get(manoCorrente);
-	}
-    
-	/**
-	 * metodo per riconoscere la condizione di split della mano corrente del giocatore
-	 * @return true se la mano può essere splittata, false altrimenti
-	 */
-	public boolean canSplit()
-	{
-		return getManoCorrente().canSplit();
+		return mani.get(manoCorrenteIndex);
 	}
 	
 	/**
@@ -175,6 +182,6 @@ public abstract class Giocatore
     {
         mani.clear();
         mani.add(new Mano());
-        manoCorrente = 0;
+        manoCorrenteIndex = 0;
     }
 }
