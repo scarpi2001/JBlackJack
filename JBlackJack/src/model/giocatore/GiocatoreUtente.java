@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.FileUtils;
+import model.ModelManager;
 import model.Partita;
+import model.carte.Carta;
 import model.carte.Mano;
 import model.carte.Mazzo;
 
@@ -42,6 +44,11 @@ public class GiocatoreUtente extends Giocatore
 	private int maniVinte;
 	
 	/**
+	 * numero di mani pareggiate dall'utente
+	 */
+	private int maniPareggiate;
+	
+	/**
 	 * numero di mani perse dall'utente
 	 */
 	private int maniPerse;
@@ -50,11 +57,6 @@ public class GiocatoreUtente extends Giocatore
 	 * livello di esperienza dell'utente
 	 */
 	private int livello;
-	
-	/**
-	 * numero di partite giocate
-	 */
-	private int partite;
 	
 	//COSTRUTTORE
 	private GiocatoreUtente(){}
@@ -101,8 +103,19 @@ public class GiocatoreUtente extends Giocatore
 	public void setManiVinte(int maniVinte) 
 	{
 		this.maniVinte = maniVinte;
+		FileUtils.aggiornaCampoFile(getFilePath(), "maniVinte", Integer.toString(maniVinte));
 	}
 
+	public int getManiPareggiate() 
+	{
+		return maniPareggiate;
+	}
+	public void setManiPareggiate(int maniPareggiate)
+	{
+		this.maniPareggiate = maniPareggiate;
+		FileUtils.aggiornaCampoFile(getFilePath(), "maniPareggiate", Integer.toString(maniPareggiate));
+	}
+	
 	public int getManiPerse() 
 	{
 		return maniPerse;
@@ -110,6 +123,7 @@ public class GiocatoreUtente extends Giocatore
 	public void setManiPerse(int maniPerse)
 	{
 		this.maniPerse = maniPerse;
+		FileUtils.aggiornaCampoFile(getFilePath(), "maniPerse", Integer.toString(maniPerse));
 	}
 
 	public int getLivello()
@@ -150,6 +164,9 @@ public class GiocatoreUtente extends Giocatore
                     break;
                 case "maniVinte":
                     setManiVinte(Integer.parseInt(value));
+                    break;
+                case "maniPareggiate":
+                    setManiPerse(Integer.parseInt(value));
                     break;
                 case "maniPerse":
                     setManiPerse(Integer.parseInt(value));
@@ -194,6 +211,7 @@ public class GiocatoreUtente extends Giocatore
         contenuto.add("username:" + username);
         contenuto.add("chips:1000");
         contenuto.add("maniGiocate:0");
+        contenuto.add("maniPareggiate:0");
         contenuto.add("maniVinte:0");
         contenuto.add("maniPerse:0");
         contenuto.add("livello:0");
@@ -224,13 +242,24 @@ public class GiocatoreUtente extends Giocatore
 	}
 	
 	//PARTITA
+	/**
+	 * sovrascrive il metodo gioca,
+	 * non facendo nulla, in un certo senso aspetta l'input dell'utente,
+	 * perchè l'utente gioca attraverso l'input dei pulsanti
+	 */
 	@Override
+	public void gioca()
+	{    
+		
+	}
+	
 	/**
 	 * implementazione del metodo scommetti per l'utente
 	 * toglie le chips scommesse al totale
 	 * poi nel caso di vittoria, ci pensa la partita a ridare le chips corrette
 	 * e indica alla partita che è finita la fase iniziale (fase di bet)
 	 */
+	@Override
     public void scommetti(int scommessa)
     {
     	setChips(getChips() - scommessa);
@@ -238,14 +267,34 @@ public class GiocatoreUtente extends Giocatore
     	Partita.getInstance().setInizio(false);
     }
     
-	@Override
 	/**
-	 * sovrascrive il metodo gioca,
-	 * non facendo nulla, in un certo senso aspetta l'input dell'utente,
-	 * perchè l'utente gioca attraverso l'input dei pulsanti
+	 * implementazione del metodo split per l'utente
 	 */
-	public void gioca()
-	{    
+	
+	@Override
+	public void split()
+	{
+		ModelManager model = ModelManager.getInstance();
+		Mano manoCorrente = getManoCorrente();
 		
+		GiocatoreUtente.getInstance().setChips(GiocatoreUtente.getInstance().getChips() - model.getScommessaUtentePartita());
+		
+        Carta carta1 = manoCorrente.getCarte().get(0);
+        Carta carta2 = manoCorrente.getCarte().get(1);
+
+        manoCorrente.reset();
+        manoCorrente.addCarta(carta1);
+        manoCorrente.addCarta(model.getMazzoPartita().carta());
+        manoCorrente.setTerminata(manoTerminata());
+        
+        Mano nuovaMano = new Mano();
+        nuovaMano.addCarta(carta2);
+        nuovaMano.addCarta(model.getMazzoPartita().carta());
+        nuovaMano.setTerminata(manoTerminata());
+        
+        getMani().add(nuovaMano); 
+
+        System.out.println("split");
+        model.updateObservers();
 	}
 }

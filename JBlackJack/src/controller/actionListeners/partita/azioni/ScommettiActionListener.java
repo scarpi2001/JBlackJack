@@ -24,24 +24,31 @@ public class ScommettiActionListener implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
+		ModelManager model = ModelManager.getInstance();
 		String scommessaString = fieldScommessa.getText();
 		
 		try 
 		{
-            //provo a convertire la stringa in intero
+			//provo a convertire la stringa in intero
             int scommessa = Integer.parseInt(scommessaString);
 
-            if (scommessa > 0) 
-            {
-                ModelManager.getInstance().getGiocatoreCorrente().scommetti(scommessa);  
-                Controller.getInstance().distribuisciCarte();
-                Controller.getInstance().gameloop();                    
-            } 
-            else 
+            if (model.getChipsUtente() - scommessa <= 0) 
             {
             	fieldScommessa.setText("");
-                View.showError("La scommessa non può essere negativa");
+            	View.showError("non hai abbastanza chips da scommettere, torna al menu principale per ricaricare le tue chips");
+            	return;
             }
+            	
+            if(scommessa <= 0) 
+            {
+            	fieldScommessa.setText("");
+                View.showError("La scommessa non può essere negativa o nulla");
+                return;
+            }
+
+            model.getGiocatoreCorrente().scommetti(scommessa);  
+        	Controller.getInstance().distribuisciCarte();
+        	Controller.getInstance().gameloop();    	                    
         } 
         catch (NumberFormatException ex) 
         {

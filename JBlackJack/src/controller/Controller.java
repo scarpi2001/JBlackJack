@@ -41,7 +41,7 @@ public class Controller
 		if (instance == null) instance = new Controller();
 		return instance;
 	}
-    
+	
     //METODI MENU  
     /**
 	 * inizializza il menu 
@@ -57,18 +57,24 @@ public class Controller
             boolean isValid = false;
             while (!isValid) 
             {
-                String username = View.showUsernameInput(true);
+                String username = View.showUsernameInput();
+
                 //se clicco su OK
                 if (username != null) 
                 {
-                    if (!username.isEmpty()) 
-                    {
-                    	model.creaUtente(username, "src/resources/data/utenti.txt", "src/resources/data/dati_utenti/" + username + "_dati.txt");
-                        isValid = true;
-                    } 
+                	if (username.strip().isEmpty()) 
+        			{
+        				View.showError("l'username non può essere vuoto!");
+                    } 	
+                	else if(username.length() > 20)
+        			{
+        				View.showError("l'username supera la lunghezza massima di 20 caratteri");
+        			}   			
                     else 
                     {
-                        View.showError("l'username non può essere vuoto!");
+                    	model.creaUtente(username, "src/resources/data/utenti.txt", "src/resources/data/dati_utenti/" + username + "_dati.txt");
+                    	model.setUtente("src/resources/data/dati_utenti/" + username + "_dati.txt", "src/resources/data/ultimo_utente.txt");
+                        isValid = true;
                     }
                 }
             }
@@ -89,18 +95,15 @@ public class Controller
 		//se il giocatore è un bot, dopo che ha giocato, la mano è sicuramente terminata
 		if (giocatore instanceof GiocatoreBot)
 		{
-			//passo al turno successivo 
-			giocatore.manoSuccessiva();
-			//e controllo se la partita è finita, se lo è chiamo la logica di fine partita che alla fine rigiocherà, se non lo è rigioco subito,
+			giocatore.manoSuccessiva();			
 			if(model.FinePartita()) finePartita();
 			else gameloop();
 		}
 		
-		//se il giocatore è un utente e la sua mano è terminata
 		if(giocatore instanceof GiocatoreUtente && giocatore.isManoTerminata())
 		{
+			//rigioca, giocherà la mano successiva o il giocatore successivo
             giocatore.manoSuccessiva();   
-            //rigioca, giocherà la mano successiva o il giocatore successivo
             gameloop();
 	    }
 	}
@@ -139,5 +142,4 @@ public class Controller
 			giocatore.hit();                
 		}
 	}
-	
 }

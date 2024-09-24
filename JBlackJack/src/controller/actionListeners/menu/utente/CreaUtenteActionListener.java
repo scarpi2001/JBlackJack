@@ -14,14 +14,13 @@ public class CreaUtenteActionListener implements ActionListener
 	public void actionPerformed(ActionEvent e) 
 	{    
     	ModelManager model = ModelManager.getInstance();
-		String username = View.showUsernameInput(false);
+		String username = View.showUsernameInput();
 
-		//se clicco su OK
 		if (username != null) 
 		{
 			//controlla la validita dell'input 
 			//(se il campo non è vuoto, il nome non è troppo lungo e non è gia stato preso allora crea l'utente, altrimenti manda un errore)
-			if (username.isEmpty()) 
+			if (username.strip().isEmpty()) 
 			{
 				View.showError("l'username non può essere vuoto!");
 				return;			

@@ -157,9 +157,11 @@ public class Partita
     
     /**
      * confronta ogni mano con la mano del dealer e ne decreta lo stato (vinta, persa, pareggiata)
+     * inoltre se il giocatore è l'utente fa un serie di modifiche ai suoi dati in base al risultato
      */
     public void checkRisultati()
 	{	
+    	ModelManager model = ModelManager.getInstance(); 
 		List<Giocatore> giocatori = getGiocatori();
 		Giocatore dealer = giocatori.get(giocatori.size() - 1);
 		Mano manoDealer = dealer.getMani().get(0);
@@ -175,24 +177,32 @@ public class Partita
 					if(manoDealer.isBusted() || mano.getConteggio() > conteggioDealer) 
 					{
 						mano.setStato(Mano.StatoMano.VINTA);
-						//se la mano è vinta e il giocatore è l'utente
 						if(giocatore instanceof GiocatoreUtente)
 						{
 							//riaggiungi il doppio della scommessa che l'utente aveva fatto all'inizio
-							GiocatoreUtente utente = GiocatoreUtente.getInstance();
-							utente.setChips(utente.getChips() + scommessaUtente * 2);
+							model.setChipsUtente(model.getChipsUtente() + scommessaUtente * 2);
+							model.setManiVinteUtente(model.getManiVinteUtente() + 1);
+							model.setManiGiocateUtente(model.getManiGiocateUtente() + 1);
 						}
 					}
-					else if(mano.getConteggio() < conteggioDealer) mano.setStato(Mano.StatoMano.PERSA);
+					else if(mano.getConteggio() < conteggioDealer) 
+					{
+						mano.setStato(Mano.StatoMano.PERSA);
+						if(giocatore instanceof GiocatoreUtente)
+						{
+							model.setManiPerseUtente(model.getManiPerseUtente() + 1);
+							model.setManiGiocateUtente(model.getManiGiocateUtente() + 1);
+						}
+					}
 					else 
 					{
 						mano.setStato(Mano.StatoMano.PAREGGIATA);
-						//se la mano è pareggiata e il giocatore è l'utente
 						if(giocatore instanceof GiocatoreUtente)
 						{
 							//riaggiungi la stessa scommessa che l'utente aveva fatto all'inizio
-							GiocatoreUtente utente = GiocatoreUtente.getInstance();
-							utente.setChips(utente.getChips() + scommessaUtente);
+							model.setChipsUtente(model.getChipsUtente() + scommessaUtente);
+							model.setManiPareggiateUtente(model.getManiPareggiateUtente() + 1);
+							model.setManiGiocateUtente(model.getManiGiocateUtente() + 1);
 						}
 					}
 				}
@@ -208,6 +218,7 @@ public class Partita
     	setTurno(0);
     	giocatori.clear();
     	inizio = true;
+    	scommessaUtente = 0;
     }
     
     /**

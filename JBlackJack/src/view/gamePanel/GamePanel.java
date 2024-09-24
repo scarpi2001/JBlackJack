@@ -90,7 +90,7 @@ public class GamePanel extends JPanel
 			setActionsPanelVisible(true); 
 		}
 			
-		
+		//se l'utente può splittare ed è il suo turno
 		if(model.getGiocatoriPartita().size() != 0 && model.getTurnoPartita() == 0 && model.getGiocatoreCorrente().canSplit()) setSplitVisible(true); 
 		else setSplitVisible(false); 
 		
@@ -106,7 +106,7 @@ public class GamePanel extends JPanel
 		        numeroMano++; 
 		        System.out.println(mano.getConteggio());
 		        
-		        if(!(giocatore instanceof GiocatoreDealer))System.out.println(giocatore.getManoCorrente().getStato());		        
+		        if(!(giocatore instanceof GiocatoreDealer))System.out.println(mano.getStato());		        
 		    }
 		}
 		System.out.println("");

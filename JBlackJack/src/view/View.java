@@ -79,20 +79,11 @@ public class View extends JFrame implements Observer
     
     /**
      * metodo statico di utilità della view per mostrare un popup nel quale inserire l'username dell'utente che si vuole creare
-     * @param primo booleano che mi informa se sto creando il primo utente 
      * @return l'username inserito nel prompt
      */
-    public static String showUsernameInput(boolean primo) 
+    public static String showUsernameInput() 
     {
-    	if(primo) 
-    	{
-    		return JOptionPane.showInputDialog(null, "Per continuare, inserisci un username", "Creazione primo utente", JOptionPane.PLAIN_MESSAGE);
-    	}
-    	else
-    	{
-    		return JOptionPane.showInputDialog(null, "Inserire un username", "Creazione utente", JOptionPane.PLAIN_MESSAGE);
-    	}
-        
+    	return JOptionPane.showInputDialog(null, "Inserire un username", "Creazione utente", JOptionPane.PLAIN_MESSAGE);      
     }
     
     /**

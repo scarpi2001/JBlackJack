@@ -1,14 +1,9 @@
 package model;
 
-
-import model.carte.Mano;
 import model.carte.Mazzo;
 import model.giocatore.Giocatore;
-import model.giocatore.GiocatoreBot;
-import model.giocatore.GiocatoreDealer;
 import model.giocatore.GiocatoreUtente;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
@@ -87,13 +82,18 @@ public class ModelManager extends Observable
 		partita.setTurno(turno);
 	}
 	
+	public int getScommessaUtentePartita()
+	{
+		return partita.getScommessaUtente();
+	}
+	
 	//GETTERS E SETTERS DELL'UTENTE
 	public String getUsernameUtente()
 	{
 		return utente.getUsername();
 	}
 	
-	public String geteFilePathUtent()
+	public String getFilePathUtent()
 	{
 		return utente.getFilePath();
 	}
@@ -101,6 +101,10 @@ public class ModelManager extends Observable
 	public int getChipsUtente()
 	{
 		return utente.getChips();
+	}
+	public void setChipsUtente(int chips)
+	{
+		utente.setChips(chips);
 	}
 	
 	public int getManiGiocateUtente()
@@ -116,11 +120,29 @@ public class ModelManager extends Observable
 	{
 		return utente.getManiVinte();
 	}
+	public void setManiVinteUtente(int maniGiocate)
+	{
+		utente.setManiVinte(maniGiocate);
+	}
+	
+	public int getManiPareggiateUtente()
+	{
+		return utente.getManiPareggiate();
+	}
+	public void setManiPareggiateUtente(int maniGiocate)
+	{
+		utente.setManiPareggiate(maniGiocate);
+	}
 	
 	public int getManiPerseUtente()
 	{
 		return utente.getManiPerse();
 	}
+	public void setManiPerseUtente(int maniGiocate)
+	{
+		utente.setManiPerse(maniGiocate);
+	}
+	
 	
 	public int getLivelloUtente()
 	{
@@ -189,6 +211,7 @@ public class ModelManager extends Observable
 	public String getUltimoUtente(String path) 
 	{
 		List<String> utenti = getUtenti(path);
+		if(utenti.size() == 0) return null;
 		return utenti.get(utenti.size() - 1);  
 	}
 	
@@ -227,6 +250,7 @@ public class ModelManager extends Observable
 	{
 		setTurnoPartita(0);
 		partita.setInizio(true);
+		System.out.println("nuovaPartita");
 		updateObservers();
 	}
 	

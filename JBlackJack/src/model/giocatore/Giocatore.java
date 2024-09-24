@@ -109,33 +109,16 @@ public abstract class Giocatore
     {
     	getManoCorrente().setTerminata(true);
     }
-    
+
     /**
-	 * metodo che permette al giocatore di "splittare" le 2 carte iniziali quando hanno lo stesso simbolo
-	 * in modo da giocare più mani nello stesso turno
-	 */
+     * metodo che permette ad un giocatore di "splittare" le 2 carte iniziali quando hanno lo stesso simbolo
+     * è stato implementato sul giocatoreUtente
+     * si trova in questa classe perchè in una futura implementazione del software
+     * è prevista anche lo split di altri giocatori
+     */
 	public void split()
 	{
-		ModelManager model = ModelManager.getInstance();
-		Mano manoCorrente = getManoCorrente();
 		
-        Carta carta1 = manoCorrente.getCarte().get(0);
-        Carta carta2 = manoCorrente.getCarte().get(1);
-
-        manoCorrente.reset();
-        manoCorrente.addCarta(carta1);
-        manoCorrente.addCarta(model.getMazzoPartita().carta());
-        manoCorrente.setTerminata(manoTerminata());
-        
-        Mano nuovaMano = new Mano();
-        nuovaMano.addCarta(carta2);
-        nuovaMano.addCarta(model.getMazzoPartita().carta());
-        nuovaMano.setTerminata(manoTerminata());
-        
-        getMani().add(nuovaMano); 
-
-        System.out.println("split");
-        model.updateObservers();
 	}
 	
 	/**
@@ -155,8 +138,6 @@ public abstract class Giocatore
     public void manoSuccessiva() 
     {
     	ModelManager model = ModelManager.getInstance();
-    	//conteggio mani: se il turno è il primo (quello dell'utente), aumenta il conteggio
-        if(this instanceof GiocatoreUtente) model.setManiGiocateUtente(model.getManiGiocateUtente() + 1);
         
         //se sono all'ultima mano del giocatore passa al turno successivo, altrimenti indica al giocatore di passare alla mano successiva
         if(manoCorrenteIndex + 1 == mani.size()) model.setTurnoPartita(model.getTurnoPartita() + 1);
