@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.FileUtils;
+import model.Partita;
 import model.carte.Mano;
 import model.carte.Mazzo;
 
@@ -80,6 +81,7 @@ public class GiocatoreUtente extends Giocatore
 	public void setChips(int chips)
 	{
 		this.chips = chips;
+		FileUtils.aggiornaCampoFile(getFilePath(), "chips", Integer.toString(chips));
 	}
 
 	public int getManiGiocate() 
@@ -222,6 +224,20 @@ public class GiocatoreUtente extends Giocatore
 	}
 	
 	//PARTITA
+	@Override
+	/**
+	 * implementazione del metodo scommetti per l'utente
+	 * toglie le chips scommesse al totale
+	 * poi nel caso di vittoria, ci pensa la partita a ridare le chips corrette
+	 * e indica alla partita che è finita la fase iniziale (fase di bet)
+	 */
+    public void scommetti(int scommessa)
+    {
+    	setChips(getChips() - scommessa);
+    	Partita.getInstance().setScommessaUtente(scommessa);
+    	Partita.getInstance().setInizio(false);
+    }
+    
 	@Override
 	/**
 	 * sovrascrive il metodo gioca,

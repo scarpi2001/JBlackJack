@@ -4,7 +4,7 @@ import javax.swing.*;
 
 public class GiocatorePanel extends JPanel
 {
-	private BetPanel betPanel;
+	private ScommettiPanel scommettiPanel;
 	private ActionsPanel actionsPanel;
 	  
     public GiocatorePanel() 
@@ -13,8 +13,8 @@ public class GiocatorePanel extends JPanel
         setOpaque(false);
         
         //startPanel (bet, quantità)
-        betPanel = new BetPanel();
-        add(betPanel);
+        scommettiPanel = new ScommettiPanel();
+        add(scommettiPanel);
         
         //actionsPanel (hit, stay, split)
         actionsPanel = new ActionsPanel();
@@ -24,7 +24,7 @@ public class GiocatorePanel extends JPanel
 
     public void setBetPanelVisible(boolean visible) 
     {
-    	betPanel.setVisible(visible);
+    	scommettiPanel.setVisible(visible);
     }
     
     public void setActionsPanelVisible(boolean visible) 

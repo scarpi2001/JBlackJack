@@ -46,6 +46,11 @@ public class Partita
 	 */
 	private boolean inizio;
 	
+	/**
+	 * scommessa dell'utente sulla partita in corso
+	 */
+	private int scommessaUtente;
+	
 	//COSTRUTTORE
 	private Partita()
 	{
@@ -97,6 +102,15 @@ public class Partita
 	public void setInizio(boolean inizio)
 	{
 		this.inizio = inizio;
+	}
+	
+	public int getScommessaUtente()
+	{
+		return scommessaUtente;
+	}
+	public void setScommessaUtente(int scommessaUtente)
+	{
+		this.scommessaUtente = scommessaUtente;
 	}
 	
 	//METODI
@@ -158,9 +172,29 @@ public class Partita
 				if(mano.getStato() == Mano.StatoMano.IN_CORSO)
 				{
 					//confronto ogni mano con quella del dealer
-					if(manoDealer.isBusted() || mano.getConteggio() > conteggioDealer) mano.setStato(Mano.StatoMano.VINTA);
+					if(manoDealer.isBusted() || mano.getConteggio() > conteggioDealer) 
+					{
+						mano.setStato(Mano.StatoMano.VINTA);
+						//se la mano è vinta e il giocatore è l'utente
+						if(giocatore instanceof GiocatoreUtente)
+						{
+							//riaggiungi il doppio della scommessa che l'utente aveva fatto all'inizio
+							GiocatoreUtente utente = GiocatoreUtente.getInstance();
+							utente.setChips(utente.getChips() + scommessaUtente * 2);
+						}
+					}
 					else if(mano.getConteggio() < conteggioDealer) mano.setStato(Mano.StatoMano.PERSA);
-					else mano.setStato(Mano.StatoMano.PAREGGIATA);
+					else 
+					{
+						mano.setStato(Mano.StatoMano.PAREGGIATA);
+						//se la mano è pareggiata e il giocatore è l'utente
+						if(giocatore instanceof GiocatoreUtente)
+						{
+							//riaggiungi la stessa scommessa che l'utente aveva fatto all'inizio
+							GiocatoreUtente utente = GiocatoreUtente.getInstance();
+							utente.setChips(utente.getChips() + scommessaUtente);
+						}
+					}
 				}
 			}
 		}

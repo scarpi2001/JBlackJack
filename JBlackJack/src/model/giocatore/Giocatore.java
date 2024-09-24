@@ -74,12 +74,18 @@ public abstract class Giocatore
      * ogni tipo di giocatore (utente, bot...) ha un modo di giocare
      */
     public abstract void gioca();
-    
-    public void bet()
-    {
-    	Partita.getInstance().setInizio(false);
-    }
 
+    /**
+     * metodo che permette ad un giocatore di scommettere,
+     * è stato implementato sul giocatoreUtente
+     * si trova in questa classe perchè in una futura implementazione del software
+     * è prevista anche la scommessa di altri giocatori
+     */
+    public void scommetti(int scommessa)
+    {
+    	
+    }
+    
     /**
 	 * aggiunge una carta alla mano corrente del giocatore, 
 	 * in base alle condizioni della mano la termina o meno
