@@ -8,8 +8,8 @@ import view.MyJLabel;
 
 public class DatiUtentePanel extends JPanel
 {
-	protected JLabel usernameLabel;
-	protected JLabel chipsLabel;
+	private JLabel usernameLabel;
+	private JLabel chipsLabel;
     
     public DatiUtentePanel() 
     {
@@ -25,6 +25,15 @@ public class DatiUtentePanel extends JPanel
         
         add(usernameLabel);
         add(chipsLabel);
+    }
+    
+    public JLabel getUsernameLabel()
+    {
+    	return usernameLabel;
+    }
+    public JLabel getChipsLabel()
+    {
+    	return chipsLabel;
     }
     
     public void aggiornaDatiUtente() 

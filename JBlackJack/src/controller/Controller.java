@@ -90,6 +90,8 @@ public class Controller
     /**
      * gestisce il flusso di una partita
      */
+    //il problema potrebbe essere che passo al turno successivo senza passare alla mano successiva
+    //succede solo quando la prima mano è bj
 	public void gameloop() 
 	{	 
 		Giocatore giocatore = model.getGiocatoreCorrente(); 
@@ -103,7 +105,7 @@ public class Controller
 		if (giocatore instanceof GiocatoreBot)
 		{
 			giocatore.manoSuccessiva();			
-			if(model.FinePartita()) finePartita();
+			if(model.isPartitaFinita()) finePartita();
 			else gameloop();
 		}	
 		//se è un utente e la mano è terminata passo alla mano successiva

@@ -241,9 +241,9 @@ public class ModelManager extends Observable
 		return partita.isPostBet();
 	}
 	
-	public boolean FinePartita()
+	public boolean isPartitaFinita()
 	{
-		return partita.fine();
+		return partita.isFinita();
 	}
 	
 	public void nuovaPartita()

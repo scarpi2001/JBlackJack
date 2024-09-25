@@ -9,7 +9,6 @@ import model.ModelManager;
 import model.Partita;
 import model.carte.Carta;
 import model.carte.Mano;
-import model.carte.Mazzo;
 
 /**
  * classe che rappresenta l'utente che utilizza l'applicazione
@@ -281,12 +280,12 @@ public class GiocatoreUtente extends Giocatore
         manoCorrente.reset();
         manoCorrente.addCarta(carta1);
         manoCorrente.addCarta(model.getMazzoPartita().carta());
-        manoCorrente.setTerminata(manoTerminata());
+        manoCorrente.checkTerminata();
         
         Mano nuovaMano = new Mano();
         nuovaMano.addCarta(carta2);
         nuovaMano.addCarta(model.getMazzoPartita().carta());
-        nuovaMano.setTerminata(manoTerminata());
+        nuovaMano.checkTerminata();
         
         getMani().add(nuovaMano); 
 

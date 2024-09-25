@@ -3,7 +3,6 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.carte.Mano;
 import model.carte.Mazzo;
 import model.giocatore.Giocatore;
 import model.giocatore.GiocatoreBot;
@@ -153,7 +152,7 @@ public class Partita
      * indica se la partita è finita
      * @return true se è finito, false altrimenti
      */
-    public boolean fine()
+    public boolean isFinita()
     {
     	return turno == getGiocatori().size();
     }   

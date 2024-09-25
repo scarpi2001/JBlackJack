@@ -36,8 +36,8 @@ public class DatiUtenteMenuPanel extends DatiUtentePanel
         ModelManager model = ModelManager.getInstance();
         if (model.getUsernameUtente() != null) 
         {
-            usernameLabel.setText("Username: " + model.getUsernameUtente());
-            chipsLabel.setText("Chips: " + model.getChipsUtente());
+            getUsernameLabel().setText("Username: " + model.getUsernameUtente());
+            getChipsLabel().setText("Chips: " + model.getChipsUtente());
             maniGiocateLabel.setText("Mani Giocate: " + model.getManiGiocateUtente());
             maniVinteLabel.setText("Mani Vinte: " + model.getManiVinteUtente());
             maniPareggiateLabel.setText("Mani Pareggiate: " + model.getManiPareggiateUtente());

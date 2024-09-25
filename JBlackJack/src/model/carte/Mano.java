@@ -146,6 +146,11 @@ public class Mano
     {
         return carte.size() == 2 && carte.get(0).getSimbolo() == carte.get(1).getSimbolo();
     }
+    
+    public void checkTerminata()
+    {
+    	if (blackjack || sballata) terminata = true;
+    }
 
     /**
 	 * metodo per resettare lo stato della mano

@@ -34,7 +34,6 @@ public class GiocatoreBot extends Giocatore
 	@Override
 	public void confrontaManoConDealer(Mano mano, Mano manoDealer)
     {
-    	ModelManager model = ModelManager.getInstance(); 
     	int conteggioDealer = manoDealer.getConteggio();
         int conteggioMano = mano.getConteggio();
 

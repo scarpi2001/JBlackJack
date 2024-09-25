@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.ModelManager;
-import model.Partita;
 import model.carte.Carta;
 import model.carte.Mano;
 
@@ -97,7 +96,7 @@ public abstract class Giocatore
     	Carta carta = model.getMazzoPartita().carta();
     	
     	getManoCorrente().addCarta(carta);
-    	getManoCorrente().setTerminata(manoTerminata());
+    	getManoCorrente().checkTerminata();
     	System.out.println("hit");
     	model.updateObservers();
     }
@@ -140,18 +139,19 @@ public abstract class Giocatore
     	ModelManager model = ModelManager.getInstance();
         
         //se sono all'ultima mano del giocatore passa al turno successivo, altrimenti indica al giocatore di passare alla mano successiva
-        if(manoCorrenteIndex + 1 == mani.size()) model.setTurnoPartita(model.getTurnoPartita() + 1);
-        else setManoCorrenteIndex(manoCorrenteIndex + 1);
+        if(manoCorrenteIndex + 1 == mani.size()) 
+        {
+        	model.setTurnoPartita(model.getTurnoPartita() + 1);
+        	System.out.println("turno succ");
+        }
+        else 
+        {
+        	setManoCorrenteIndex(manoCorrenteIndex + 1);
+        	System.out.println("mano succ");
+        }
+        
+        model.updateObservers();
     }
-    
-	/**
-	 * indica se la mano corrente è terminata per un blackjack o una sballata
-	 * @return true se la mano è terminata, false altrimenti
-	 */
-	public boolean manoTerminata()
-	{
-		return getManoCorrente().isBlackJack() || getManoCorrente().isBusted();
-	}
 	
     /**
      * metodo che ritorna la mano corrente del giocatore
