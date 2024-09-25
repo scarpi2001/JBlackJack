@@ -175,7 +175,7 @@ public abstract class Giocatore
     	
 		for (Mano mano : getMani())
         {
-            model.setManiGiocateUtente(model.getManiGiocateUtente() + 1);
+            if (this instanceof GiocatoreUtente) model.setManiGiocateUtente(model.getManiGiocateUtente() + 1);
 
             if (mano.getStato() == Mano.Stato.IN_CORSO) confrontaManoConDealer(mano, manoDealer);           
             else if (mano.getStato() == Mano.Stato.PERSA && this instanceof GiocatoreUtente) model.setManiPerseUtente(model.getManiPerseUtente() + 1);           
