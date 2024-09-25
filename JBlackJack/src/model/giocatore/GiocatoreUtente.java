@@ -166,7 +166,7 @@ public class GiocatoreUtente extends Giocatore
                     setManiVinte(Integer.parseInt(value));
                     break;
                 case "maniPareggiate":
-                    setManiPerse(Integer.parseInt(value));
+                    setManiPareggiate(Integer.parseInt(value));
                     break;
                 case "maniPerse":
                     setManiPerse(Integer.parseInt(value));
@@ -211,8 +211,8 @@ public class GiocatoreUtente extends Giocatore
         contenuto.add("username:" + username);
         contenuto.add("chips:1000");
         contenuto.add("maniGiocate:0");
-        contenuto.add("maniPareggiate:0");
         contenuto.add("maniVinte:0");
+        contenuto.add("maniPareggiate:0");
         contenuto.add("maniPerse:0");
         contenuto.add("livello:0");
 
@@ -264,7 +264,7 @@ public class GiocatoreUtente extends Giocatore
     {
     	setChips(getChips() - scommessa);
     	Partita.getInstance().setScommessaUtente(scommessa);
-    	Partita.getInstance().setInizio(false);
+    	Partita.getInstance().setPostBet(true);
     }
     
 	/**

@@ -6,6 +6,7 @@ import model.giocatore.GiocatoreBot;
 import model.giocatore.GiocatoreUtente;
 import view.View;
 
+@SuppressWarnings("deprecation")
 public class Controller 
 {
 	//CAMPI
@@ -29,7 +30,7 @@ public class Controller
      * costruttore del controller
      * crea le istanze di model e view e stabilisce la relazione di osservatore tra di loro.
      */    
-    private Controller() 
+	private Controller() 
     {
         model = ModelManager.getInstance();
         view = View.getInstance();
@@ -47,7 +48,7 @@ public class Controller
 	 * inizializza il menu 
 	 * e controlla la presenza di un utente precedentemente creato,
 	 * se non c'è chiede di crearlo
-	 * se è gia stato creato (quindi non sono al primo avvio) setta l'ultimo utente selezionato
+	 * se è gia stato creato (quindi non sono al primo avvio) imposta l'ultimo utente selezionato
 	 */
     public void initMenu() 
     {		
@@ -86,21 +87,27 @@ public class Controller
     }
     
     //METODI PARTITA
+    /**
+     * gestisce il flusso di una partita
+     */
 	public void gameloop() 
 	{	 
 		Giocatore giocatore = model.getGiocatoreCorrente(); 
 			
 		giocatore.gioca();
 		
+		//dopo aver giocato devo gestire il turno
 		//se il giocatore è un bot, dopo che ha giocato, la mano è sicuramente terminata
+		//(perchè o fa bj o sballa o fa stay)
+		//quindi passo alla mano successiva o turno successivo
 		if (giocatore instanceof GiocatoreBot)
 		{
 			giocatore.manoSuccessiva();			
 			if(model.FinePartita()) finePartita();
 			else gameloop();
-		}
-		
-		if(giocatore instanceof GiocatoreUtente && giocatore.isManoTerminata())
+		}	
+		//se è un utente e la mano è terminata passo alla mano successiva
+		else if(giocatore instanceof GiocatoreUtente && giocatore.isManoTerminata())
 		{
 			//rigioca, giocherà la mano successiva o il giocatore successivo
             giocatore.manoSuccessiva();   
@@ -113,8 +120,7 @@ public class Controller
 	 */
 	private void finePartita() 
 	{
-		//aggiorna le chips del giocatore, rivela punteggi. (dal model)
-		model.checkRisultatiPartita();
+		model.checkManiPartita();
 		model.nuovaPartita();
 	}
 	

@@ -120,27 +120,27 @@ public class ModelManager extends Observable
 	{
 		return utente.getManiVinte();
 	}
-	public void setManiVinteUtente(int maniGiocate)
+	public void setManiVinteUtente(int maniVinte)
 	{
-		utente.setManiVinte(maniGiocate);
+		utente.setManiVinte(maniVinte);
 	}
 	
 	public int getManiPareggiateUtente()
 	{
 		return utente.getManiPareggiate();
 	}
-	public void setManiPareggiateUtente(int maniGiocate)
+	public void setManiPareggiateUtente(int maniPareggiate)
 	{
-		utente.setManiPareggiate(maniGiocate);
+		utente.setManiPareggiate(maniPareggiate);
 	}
 	
 	public int getManiPerseUtente()
 	{
 		return utente.getManiPerse();
 	}
-	public void setManiPerseUtente(int maniGiocate)
+	public void setManiPerseUtente(int maniPerse)
 	{
-		utente.setManiPerse(maniGiocate);
+		utente.setManiPerse(maniPerse);
 	}
 	
 	
@@ -236,9 +236,9 @@ public class ModelManager extends Observable
 		partita.initGiocatori();
 	}
 	
-	public boolean InizioPartita()
+	public boolean isPartitaPostBet()
 	{
-		return partita.inizio();
+		return partita.isPostBet();
 	}
 	
 	public boolean FinePartita()
@@ -249,14 +249,15 @@ public class ModelManager extends Observable
 	public void nuovaPartita()
 	{
 		setTurnoPartita(0);
-		partita.setInizio(true);
+		partita.setPostBet(false);
 		System.out.println("nuovaPartita");
+		//devo aggiornare per i bottoni
 		updateObservers();
 	}
 	
-	public void checkRisultatiPartita()
+	public void checkManiPartita()
 	{	
-		partita.checkRisultati();
+		partita.checkMani();
 		System.out.println("checkRis");
 		updateObservers();
 	}

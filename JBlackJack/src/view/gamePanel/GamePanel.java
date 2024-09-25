@@ -78,16 +78,16 @@ public class GamePanel extends JPanel
 		topbar.aggiornaDatiUtente();
 		repaint();
 		
-		//se sono a inizio partita vedo bet e passa, se no vedo le azioni
-		if(model.InizioPartita()) 
+		//se la partita è in fase di post-bet vedo le azioni, se no vedo il pulsante bet 
+		if(model.isPartitaPostBet()) 
 		{
-			setBetPanelVisible(true); 
-			setActionsPanelVisible(false); 
+			setBetPanelVisible(false); 
+			setActionsPanelVisible(true); 			
 		}
 		else 
 		{
-			setBetPanelVisible(false); 
-			setActionsPanelVisible(true); 
+			setBetPanelVisible(true); 
+			setActionsPanelVisible(false); 
 		}
 			
 		//se l'utente può splittare ed è il suo turno

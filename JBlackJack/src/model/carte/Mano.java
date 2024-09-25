@@ -11,7 +11,7 @@ public class Mano
 	/**
 	 * enum degli stati di una mano di blackjack
 	 */
-	public enum StatoMano
+	public enum Stato
 	{
 		VINTA, PERSA, PAREGGIATA, IN_CORSO;
 	}
@@ -45,7 +45,7 @@ public class Mano
 	/**
 	 * indica lo stato della mano (in corso, vinta, persa, pareggiata)
 	 */
-	private StatoMano statoMano;
+	private Stato stato;
     
     /**
      * conteggio del valore totale della mano
@@ -55,7 +55,7 @@ public class Mano
     public Mano()
     {
         carte = new ArrayList<>();
-        statoMano = StatoMano.IN_CORSO;
+        stato = Stato.IN_CORSO;
     }
     
     //GETTERS E SETTER
@@ -93,13 +93,13 @@ public class Mano
         return carte;
     }
     
-    public StatoMano getStato()
+    public Stato getStato()
     {
-    	return statoMano;
+    	return stato;
     }
-    public void setStato(StatoMano statoMano)
+    public void setStato(Stato Stato)
     {
-    	this.statoMano = statoMano;
+    	this.stato = Stato;
     }
     
     //METODI
@@ -134,7 +134,7 @@ public class Mano
         else if (conteggio > 21)
         {
             sballata = true;
-            statoMano = StatoMano.PERSA;
+            stato = Stato.PERSA;
         }
     }
 
@@ -157,7 +157,7 @@ public class Mano
         blackjack = false;
         soft = false;
         terminata = false;
-        statoMano = Mano.StatoMano.IN_CORSO;
+        stato = Stato.IN_CORSO;
         conteggio = 0;
     }
 }

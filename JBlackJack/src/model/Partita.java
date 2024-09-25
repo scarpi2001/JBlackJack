@@ -42,9 +42,9 @@ public class Partita
 	private List<Giocatore> giocatori;
 	
 	/**
-	 * flag che indica se la partita è all'inizio (pre-bet)
+	 * flag che indica se la partita è in fase di "post bet" (la scommessa è stata fatta dall'utente)
 	 */
-	private boolean inizio;
+	private boolean postBet;
 	
 	/**
 	 * scommessa dell'utente sulla partita in corso
@@ -54,7 +54,6 @@ public class Partita
 	//COSTRUTTORE
 	private Partita()
 	{
-		inizio = true;
 		giocatori = new ArrayList<>();
 	}
 	public static Partita getInstance()
@@ -99,9 +98,13 @@ public class Partita
 		this.turno = turno;
 	}
 	
-	public void setInizio(boolean inizio)
+    public boolean isPostBet()
+    {
+    	return postBet;
+    } 
+	public void setPostBet(boolean postBet)
 	{
-		this.inizio = inizio;
+		this.postBet = postBet;
 	}
 	
 	public int getScommessaUtente()
@@ -136,16 +139,7 @@ public class Partita
 		}	
 		giocatori.add(new GiocatoreDealer());
 	}
-	
-	/**
-     * indica se la partita è all'inizio
-     * @return true se è all'inizio, false altrimenti
-     */
-    public boolean inizio()
-    {
-    	return inizio;
-    }   
-    
+	     
 	/**
      * indica se la partita è finita
      * @return true se è finito, false altrimenti
@@ -157,9 +151,9 @@ public class Partita
     
     /**
      * confronta ogni mano con la mano del dealer e ne decreta lo stato (vinta, persa, pareggiata)
-     * inoltre se il giocatore è l'utente fa un serie di modifiche ai suoi dati in base al risultato
+     * se il giocatore è l'utente fa un serie di modifiche ai suoi dati in base al risultato
      */
-    public void checkRisultati()
+    public void checkMani()
 	{	
     	ModelManager model = ModelManager.getInstance(); 
 		List<Giocatore> giocatori = getGiocatori();
@@ -171,41 +165,41 @@ public class Partita
 		{
 			for(Mano mano : giocatore.getMani())
 			{
-				if(mano.getStato() == Mano.StatoMano.IN_CORSO)
+				if(giocatore instanceof GiocatoreUtente) model.setManiGiocateUtente(model.getManiGiocateUtente() + 1);
+				
+				if(mano.getStato() == Mano.Stato.IN_CORSO)
 				{
 					//confronto ogni mano con quella del dealer
 					if(manoDealer.isBusted() || mano.getConteggio() > conteggioDealer) 
 					{
-						mano.setStato(Mano.StatoMano.VINTA);
+						mano.setStato(Mano.Stato.VINTA);
 						if(giocatore instanceof GiocatoreUtente)
 						{
-							//riaggiungi il doppio della scommessa che l'utente aveva fatto all'inizio
+							//restituisci all'utente il doppio della scommessa che aveva fatto all'inizio
 							model.setChipsUtente(model.getChipsUtente() + scommessaUtente * 2);
-							model.setManiVinteUtente(model.getManiVinteUtente() + 1);
-							model.setManiGiocateUtente(model.getManiGiocateUtente() + 1);
+							model.setManiVinteUtente(model.getManiVinteUtente() + 1);							
 						}
 					}
 					else if(mano.getConteggio() < conteggioDealer) 
 					{
-						mano.setStato(Mano.StatoMano.PERSA);
+						mano.setStato(Mano.Stato.PERSA);
 						if(giocatore instanceof GiocatoreUtente)
 						{
-							model.setManiPerseUtente(model.getManiPerseUtente() + 1);
-							model.setManiGiocateUtente(model.getManiGiocateUtente() + 1);
+							model.setManiPerseUtente(model.getManiPerseUtente() + 1);							
 						}
 					}
 					else 
 					{
-						mano.setStato(Mano.StatoMano.PAREGGIATA);
+						mano.setStato(Mano.Stato.PAREGGIATA);
 						if(giocatore instanceof GiocatoreUtente)
 						{
-							//riaggiungi la stessa scommessa che l'utente aveva fatto all'inizio
+							//restituisci all'utente la stessa scommessa che aveva fatto all'inizio
 							model.setChipsUtente(model.getChipsUtente() + scommessaUtente);
-							model.setManiPareggiateUtente(model.getManiPareggiateUtente() + 1);
-							model.setManiGiocateUtente(model.getManiGiocateUtente() + 1);
+							model.setManiPareggiateUtente(model.getManiPareggiateUtente() + 1);							
 						}
 					}
 				}
+				else if (mano.getStato() == Mano.Stato.PERSA && giocatore instanceof GiocatoreUtente) model.setManiPerseUtente(model.getManiPerseUtente() + 1);				
 			}
 		}
 	}
@@ -217,8 +211,8 @@ public class Partita
     {		
     	setTurno(0);
     	giocatori.clear();
-    	inizio = true;
     	scommessaUtente = 0;
+    	postBet = false;
     }
     
     /**
