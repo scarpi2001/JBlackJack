@@ -248,10 +248,7 @@ public class GiocatoreUtente extends Giocatore
 	 * perchè l'utente gioca attraverso l'input dei pulsanti
 	 */
 	@Override
-	public void gioca()
-	{    
-		
-	}
+	public void gioca() {}
 	
 	/**
 	 * implementazione del metodo scommetti per l'utente
@@ -270,7 +267,6 @@ public class GiocatoreUtente extends Giocatore
 	/**
 	 * implementazione del metodo split per l'utente
 	 */
-	
 	@Override
 	public void split()
 	{
@@ -297,4 +293,38 @@ public class GiocatoreUtente extends Giocatore
         System.out.println("split");
         model.updateObservers();
 	}
+	
+	/**
+	 * sovrascrive il metodo confrontaManoConDealer,
+	 * confronta la singola mano dell'utente con quella del dealer,
+	 * aggiorna lo stato della mano e i dati dell'utente
+	 * @param mano La mano dell'utente
+	 * @param manoDealer La mano del dealer
+	 */
+	@Override
+	public void confrontaManoConDealer(Mano mano, Mano manoDealer)
+    {
+
+    	int scommessaUtente = ModelManager.getInstance().getScommessaUtentePartita();
+    	int conteggioDealer = manoDealer.getConteggio();
+        int conteggioMano = mano.getConteggio();
+
+        if (manoDealer.isBusted() || conteggioMano > conteggioDealer) 
+        {
+            mano.setStato(Mano.Stato.VINTA);
+            setChips(getChips() + scommessaUtente * 2);
+            setManiVinte(getManiVinte() + 1);      
+        } 
+        else if (conteggioMano < conteggioDealer)
+        {
+            mano.setStato(Mano.Stato.PERSA);
+            setManiPerse(getManiPerse() + 1);
+        } 
+        else
+        {
+            mano.setStato(Mano.Stato.PAREGGIATA);
+            setChips(getChips() + scommessaUtente);
+            setManiPareggiate(getManiPareggiate() + 1);       
+        }
+    }
 }

@@ -120,7 +120,7 @@ public class Controller
 	 */
 	private void finePartita() 
 	{
-		model.checkManiPartita();
+		model.aggiornaStats();
 		model.nuovaPartita();
 	}
 	

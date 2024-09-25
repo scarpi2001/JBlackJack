@@ -162,6 +162,34 @@ public abstract class Giocatore
 		return mani.get(manoCorrenteIndex);
 	}
 	
+    /**
+     * confronta le mani del giocatore con quella del dealer,
+     * e aggiorna lo stato delle mani
+     */
+	public void aggiornaStats()
+	{
+		ModelManager model = ModelManager.getInstance(); 
+		List<Giocatore> giocatori = model.getGiocatoriPartita();
+    	Giocatore dealer = giocatori.get(giocatori.size() - 1);
+    	Mano manoDealer = dealer.getMani().get(0);
+    	
+		for (Mano mano : getMani())
+        {
+            model.setManiGiocateUtente(model.getManiGiocateUtente() + 1);
+
+            if (mano.getStato() == Mano.Stato.IN_CORSO) confrontaManoConDealer(mano, manoDealer);           
+            else if (mano.getStato() == Mano.Stato.PERSA && this instanceof GiocatoreUtente) model.setManiPerseUtente(model.getManiPerseUtente() + 1);           
+        }
+	}
+    
+	/**
+	 * confronta la singola mano del giocatore con quella del dealer,
+	 * @param mano La mano del giocatore
+	 * @param manoDealer La mano del dealer
+	 */
+	public abstract void confrontaManoConDealer(Mano mano, Mano manoDealer);
+
+    
 	/**
 	 * metodo per resettare lo stato del giocatore
 	 */	

@@ -117,6 +117,15 @@ public class Partita
 	}
 	
 	//METODI
+    /**
+     * restituisce il giocatore che deve giocare il turno
+     * @return il giocatore corrente
+     */
+    public Giocatore getGiocatoreCorrente()
+	{
+		return getGiocatori().get(turno);
+	}
+    
 	/**
 	 * inizializza il mazzo
 	 */
@@ -150,57 +159,14 @@ public class Partita
     }   
     
     /**
-     * confronta ogni mano con la mano del dealer e ne decreta lo stato (vinta, persa, pareggiata)
-     * se il giocatore è l'utente fa un serie di modifiche ai suoi dati in base al risultato
+     * aggiorna lo stato delle mani dei giocatori
+     * se il giocatore è un utente ne aggiorna anche i dati
      */
-    public void checkMani()
-	{	
-    	ModelManager model = ModelManager.getInstance(); 
-		List<Giocatore> giocatori = getGiocatori();
-		Giocatore dealer = giocatori.get(giocatori.size() - 1);
-		Mano manoDealer = dealer.getMani().get(0);
-		int conteggioDealer = manoDealer.getConteggio();
-		
-		for(Giocatore giocatore : getGiocatori())
+    public void aggiornaStatsGiocatori()
+	{	  	
+		for(Giocatore giocatore : giocatori)
 		{
-			for(Mano mano : giocatore.getMani())
-			{
-				if(giocatore instanceof GiocatoreUtente) model.setManiGiocateUtente(model.getManiGiocateUtente() + 1);
-				
-				if(mano.getStato() == Mano.Stato.IN_CORSO)
-				{
-					//confronto ogni mano con quella del dealer
-					if(manoDealer.isBusted() || mano.getConteggio() > conteggioDealer) 
-					{
-						mano.setStato(Mano.Stato.VINTA);
-						if(giocatore instanceof GiocatoreUtente)
-						{
-							//restituisci all'utente il doppio della scommessa che aveva fatto all'inizio
-							model.setChipsUtente(model.getChipsUtente() + scommessaUtente * 2);
-							model.setManiVinteUtente(model.getManiVinteUtente() + 1);							
-						}
-					}
-					else if(mano.getConteggio() < conteggioDealer) 
-					{
-						mano.setStato(Mano.Stato.PERSA);
-						if(giocatore instanceof GiocatoreUtente)
-						{
-							model.setManiPerseUtente(model.getManiPerseUtente() + 1);							
-						}
-					}
-					else 
-					{
-						mano.setStato(Mano.Stato.PAREGGIATA);
-						if(giocatore instanceof GiocatoreUtente)
-						{
-							//restituisci all'utente la stessa scommessa che aveva fatto all'inizio
-							model.setChipsUtente(model.getChipsUtente() + scommessaUtente);
-							model.setManiPareggiateUtente(model.getManiPareggiateUtente() + 1);							
-						}
-					}
-				}
-				else if (mano.getStato() == Mano.Stato.PERSA && giocatore instanceof GiocatoreUtente) model.setManiPerseUtente(model.getManiPerseUtente() + 1);				
-			}
+			giocatore.aggiornaStats();
 		}
 	}
     
@@ -214,13 +180,4 @@ public class Partita
     	scommessaUtente = 0;
     	postBet = false;
     }
-    
-    /**
-     * restituisce il giocatore che deve giocare il turno
-     * @return il giocatore corrente
-     */
-    public Giocatore getGiocatoreCorrente()
-	{
-		return getGiocatori().get(turno);
-	}
 }

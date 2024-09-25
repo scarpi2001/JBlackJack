@@ -255,10 +255,10 @@ public class ModelManager extends Observable
 		updateObservers();
 	}
 	
-	public void checkManiPartita()
+	public void aggiornaStats()
 	{	
-		partita.checkMani();
-		System.out.println("checkRis");
+		partita.aggiornaStatsGiocatori();
+		System.out.println("aggiornaStats");
 		updateObservers();
 	}
 	

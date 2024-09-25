@@ -1,7 +1,7 @@
 username:sca
 chips:990
-maniGiocate:5
-maniVinte:1
-maniPareggiate:1
-maniPerse:3
+maniGiocate:8
+maniVinte:2
+maniPareggiate:2
+maniPerse:4
 livello:0
