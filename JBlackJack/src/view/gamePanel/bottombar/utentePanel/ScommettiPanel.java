@@ -1,4 +1,6 @@
-package view.gamePanel.bottombar.giocatorePanel;
+package view.gamePanel.bottombar.utentePanel;
+
+import java.awt.Dimension;
 
 import javax.swing.*;
 import controller.actionListeners.partita.azioni.ScommettiActionListener;
@@ -20,6 +22,7 @@ public class ScommettiPanel extends JPanel
         //bottone scommetti
         buttonScommetti = new JButton("Scommetti");
         buttonScommetti.addActionListener(new ScommettiActionListener(fieldScommessa));
+        buttonScommetti.setPreferredSize(new Dimension(120, 40)); 
         add(buttonScommetti);
 	}  
 }

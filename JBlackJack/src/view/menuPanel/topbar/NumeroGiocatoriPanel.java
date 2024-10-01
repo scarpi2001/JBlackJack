@@ -21,7 +21,7 @@ public class NumeroGiocatoriPanel extends JPanel
         add(giocatoriLabel);
         
         //select numero giocatori
-        Integer[] numeroGiocatori = {1, 2, 3, 4};
+        Integer[] numeroGiocatori = {1, 2, 3};
         comboBoxGiocatori = new JComboBox<>(numeroGiocatori);
         comboBoxGiocatori.addActionListener(new SetGiocatoriActionListener(comboBoxGiocatori));
         add(comboBoxGiocatori);

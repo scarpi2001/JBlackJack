@@ -1,13 +1,13 @@
-package view.gamePanel.bottombar.giocatorePanel;
+package view.gamePanel.bottombar.utentePanel;
 
 import javax.swing.*;
 
-public class GiocatorePanel extends JPanel
+public class UtentePanel extends JPanel
 {
 	private ScommettiPanel scommettiPanel;
 	private ActionsPanel actionsPanel;
 	  
-    public GiocatorePanel() 
+    public UtentePanel() 
     {
     	setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setOpaque(false);

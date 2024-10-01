@@ -74,7 +74,7 @@ public class Carta
     	this.simbolo = simbolo;
     	this.seme = seme;
         valore = simbolo.getValore();    
-        immagine = "src/resources/images/carte/" + seme + "_" + simbolo + ".jpg";
+        immagine = "src/resources/images/carte/" + seme + "_" + simbolo + ".png";
     }
     
     //METODI

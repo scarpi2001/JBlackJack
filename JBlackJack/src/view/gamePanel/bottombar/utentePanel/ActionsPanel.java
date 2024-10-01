@@ -1,6 +1,8 @@
-package view.gamePanel.bottombar.giocatorePanel;
+package view.gamePanel.bottombar.utentePanel;
 
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -19,25 +21,29 @@ public class ActionsPanel extends JPanel
 	
 	public ActionsPanel() 
 	{
-		setLayout(new FlowLayout(FlowLayout.LEFT, 10, 0));
-		setOpaque(false);
-	        
-		//hit
+        setLayout(new GridLayout(3, 1, 10, 10)); 
+        setOpaque(false);
+
+        // Hit
         buttonHit = new JButton("Hit");
+        buttonHit.setPreferredSize(new Dimension(80, 40)); 
         buttonHit.addActionListener(new HitActionListener());
         add(buttonHit);
-        
-        //stay
+
+        // Stay
         buttonStay = new JButton("Stay");
+        buttonStay.setPreferredSize(new Dimension(80, 40)); 
         buttonStay.addActionListener(new StayActionListener());
         add(buttonStay);
-        
-        //split
+
+        // Split
         buttonSplit = new JButton("Split");
-        buttonSplit.setVisible(false);
+        buttonSplit.setPreferredSize(new Dimension(80, 40)); 
+        buttonSplit.setVisible(false); 
         buttonSplit.addActionListener(new SplitActionListener());
         add(buttonSplit);
-	}  
+    }
+
 	
     public void setSplitVisible(boolean visible) 
     {

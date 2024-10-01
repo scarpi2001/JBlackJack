@@ -3,12 +3,14 @@ package view.gamePanel.bottombar;
 import java.awt.*;
 import javax.swing.*;
 
-import view.gamePanel.bottombar.giocatorePanel.GiocatorePanel;
+import model.ModelManager;
+import view.gamePanel.bottombar.utentePanel.UtentePanel;
 
 public class BottomBarGamePanel extends JPanel
 {
-    private GiocatorePanel giocatorePanel;
-
+    private UtentePanel utentePanel;
+    private CartePanel cartePanel;
+    
     public BottomBarGamePanel() 
     {	
     	setLayout(new GridBagLayout());
@@ -16,28 +18,55 @@ public class BottomBarGamePanel extends JPanel
 
         GridBagConstraints gbc = new GridBagConstraints();
         
-        //panel giocatore (per ogni giocatore ci deve essere un panel che si affianca al precedente)
-        giocatorePanel = new GiocatorePanel();
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.weightx = 1.0;
-        gbc.gridx = 0;
-        gbc.gridy = 0;
+        // Panel giocatore
+        utentePanel = new UtentePanel();
+        gbc.fill = GridBagConstraints.VERTICAL; 
+        gbc.weightx = 0.1; 
+        gbc.gridx = 0; 
+        gbc.gridy = 0; 
         gbc.anchor = GridBagConstraints.LAST_LINE_START;
-        add(giocatorePanel, gbc);
+        add(utentePanel, gbc);
+
+        // Panel carte
+        cartePanel = new CartePanel(); 
+        gbc.fill = GridBagConstraints.BOTH; 
+        gbc.weightx = 0.9; 
+        gbc.gridx = 1; 
+        gbc.gridy = 0; 
+        gbc.anchor = GridBagConstraints.LAST_LINE_END; 
+        add(cartePanel, gbc); 
+    
     }
     
+	@Override
+	public void paintComponent(Graphics g)
+	{
+		ModelManager model = ModelManager.getInstance();
+		
+		super.paintComponent(g);
+		Graphics2D g2=(Graphics2D)g;
+		
+		//disegna cartePanel
+		cartePanel.repaint();
+	}
+	
+	public void updateCarte()
+	{
+		cartePanel.updateCarte();
+	}
+	
     public void setBetPanelVisible(boolean visible) 
     {
-    	giocatorePanel.setBetPanelVisible(visible);
+    	utentePanel.setBetPanelVisible(visible);
     }
     
     public void setActionsPanelVisible(boolean visible) 
     {
-    	giocatorePanel.setActionsPanelVisible(visible);
+    	utentePanel.setActionsPanelVisible(visible);
     }
     
     public void setSplitVisible(boolean visible) 
     {
-		giocatorePanel.setSplitVisible(visible);
+    	utentePanel.setSplitVisible(visible);
     }
 }

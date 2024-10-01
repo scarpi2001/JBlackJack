@@ -26,7 +26,7 @@ public class View extends JFrame implements Observer
 	{
 		setTitle(TITOLO);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setSize(950, 650);
+		setSize(1280, 720);
 		setLocationRelativeTo(null);
 		setLayout(new BorderLayout());
 		

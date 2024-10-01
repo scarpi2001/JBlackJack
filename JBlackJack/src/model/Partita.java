@@ -54,6 +54,7 @@ public class Partita
 	private Partita()
 	{
 		giocatori = new ArrayList<>();
+		numeroGiocatori = 1;
 	}
 	public static Partita getInstance()
 	{
