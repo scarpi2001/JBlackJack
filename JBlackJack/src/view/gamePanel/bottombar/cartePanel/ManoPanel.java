@@ -1,4 +1,4 @@
-package view.gamePanel.bottombar;
+package view.gamePanel.bottombar.cartePanel;
 
 import java.awt.*;
 
@@ -16,9 +16,15 @@ public class ManoPanel extends JPanel
 		setLayout(new FlowLayout(FlowLayout.LEFT)); 
         setOpaque(false);
         
+        int width = 100;
+        int height = 150;
+        
         for (Carta carta : mano.getCarte()) 
         {
-            JLabel cartaLabel = new JLabel(new ImageIcon(carta.getImmagine()));  
+            Image scalata = new ImageIcon(carta.getImmagine()).getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
+            ImageIcon iconaScalata = new ImageIcon(scalata);
+
+            JLabel cartaLabel = new JLabel(iconaScalata);  
             add(cartaLabel);
         }
     }

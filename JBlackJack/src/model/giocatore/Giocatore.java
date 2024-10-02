@@ -165,22 +165,9 @@ public abstract class Giocatore
     /**
      * confronta le mani del giocatore con quella del dealer,
      * e aggiorna lo stato delle mani
+     * l'utente fa molte più cose del bot, quindi ogni tipo di giocatore definisce il metodo a modo suo
      */
-	public void aggiornaStats()
-	{
-		ModelManager model = ModelManager.getInstance(); 
-		List<Giocatore> giocatori = model.getGiocatoriPartita();
-    	Giocatore dealer = giocatori.get(giocatori.size() - 1);
-    	Mano manoDealer = dealer.getMani().get(0);
-    	
-		for (Mano mano : getMani())
-        {
-            if (this instanceof GiocatoreUtente) model.setManiGiocateUtente(model.getManiGiocateUtente() + 1);
-
-            if (mano.getStato() == Mano.Stato.IN_CORSO) confrontaManoConDealer(mano, manoDealer);           
-            else if (mano.getStato() == Mano.Stato.PERSA && this instanceof GiocatoreUtente) model.setManiPerseUtente(model.getManiPerseUtente() + 1);           
-        }
-	}
+	public abstract void aggiornaStats();
     
 	/**
 	 * confronta la singola mano del giocatore con quella del dealer,

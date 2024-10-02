@@ -1,6 +1,0 @@
-username:luca
-chips:1000
-maniGiocate:0
-maniVinte:0
-maniPerse:0
-livello:0

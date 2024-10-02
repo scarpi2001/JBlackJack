@@ -1,5 +1,7 @@
 package model.giocatore;
 
+import java.util.List;
+
 import model.ModelManager;
 import model.carte.Mano;
 
@@ -23,6 +25,23 @@ public class GiocatoreBot extends Giocatore
         }
         stay();
     }
+	
+    /**
+     * confronta le mani del giocatore con quella del dealer,
+     * e aggiorna lo stato delle mani
+     */
+	public void aggiornaStats()
+	{
+		ModelManager model = ModelManager.getInstance(); 
+		List<Giocatore> giocatori = model.getGiocatoriPartita();
+    	Giocatore dealer = giocatori.get(giocatori.size() - 1);
+    	Mano manoDealer = dealer.getMani().get(0);
+    	
+		for (Mano mano : getMani())
+        {
+            if (mano.getStato() == Mano.Stato.IN_CORSO) confrontaManoConDealer(mano, manoDealer);                     
+        }
+	}
 	
 	/**
 	 * sovrascrive il metodo confrontaManoConDealer,

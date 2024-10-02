@@ -4,6 +4,7 @@ import java.awt.*;
 import javax.swing.*;
 
 import model.ModelManager;
+import view.gamePanel.bottombar.cartePanel.CartePanel;
 import view.gamePanel.bottombar.utentePanel.UtentePanel;
 
 public class BottomBarGamePanel extends JPanel

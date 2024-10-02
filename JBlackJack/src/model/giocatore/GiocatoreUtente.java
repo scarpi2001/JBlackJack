@@ -53,6 +53,11 @@ public class GiocatoreUtente extends Giocatore
 	private int maniPerse;
 	
 	/**
+	 * punti esperienza che definiscono il livello dell'utente
+	 */
+	private int esperienza;
+	
+	/**
 	 * livello di esperienza dell'utente
 	 */
 	private int livello;
@@ -132,6 +137,17 @@ public class GiocatoreUtente extends Giocatore
 	public void setLivello(int livello) 
 	{
 		this.livello = livello;
+		FileUtils.aggiornaCampoFile(getFilePath(), "livello", Integer.toString(livello));
+	}
+	
+	public int getEsperienza()
+	{
+		return esperienza;
+	}
+	public void setEsperienza(int esperienza) 
+	{
+		this.esperienza = esperienza;
+		FileUtils.aggiornaCampoFile(getFilePath(), "esperienza", Integer.toString(esperienza));
 	}
 	
 	//SET UTENTE
@@ -169,6 +185,9 @@ public class GiocatoreUtente extends Giocatore
                     break;
                 case "maniPerse":
                     setManiPerse(Integer.parseInt(value));
+                    break;
+                case "esperienza":
+                    setEsperienza(Integer.parseInt(value));
                     break;
                 case "livello":
                     setLivello(Integer.parseInt(value));
@@ -213,6 +232,7 @@ public class GiocatoreUtente extends Giocatore
         contenuto.add("maniVinte:0");
         contenuto.add("maniPareggiate:0");
         contenuto.add("maniPerse:0");
+        contenuto.add("esperienza:0");
         contenuto.add("livello:0");
 
         FileUtils.scriviFile(path, contenuto, false);
@@ -294,6 +314,30 @@ public class GiocatoreUtente extends Giocatore
 	}
 	
 	/**
+     * confronta le mani del giocatore con quella del dealer,
+     * e aggiorna lo stato delle mani
+     */
+	public void aggiornaStats()
+	{
+		ModelManager model = ModelManager.getInstance(); 
+		List<Giocatore> giocatori = model.getGiocatoriPartita();
+    	Giocatore dealer = giocatori.get(giocatori.size() - 1);
+    	Mano manoDealer = dealer.getMani().get(0);
+    	
+		for (Mano mano : getMani())
+        {
+            setManiGiocate(getManiGiocate() + 1);
+
+            if (mano.getStato() == Mano.Stato.IN_CORSO) confrontaManoConDealer(mano, manoDealer);           
+            else if (mano.getStato() == Mano.Stato.PERSA && this instanceof GiocatoreUtente)
+            {
+                setManiPerse(getManiPerse() + 1);
+                setEsperienza(esperienza + Partita.getInstance().getScommessaUtente()/2);
+            }           
+        }
+	}
+	
+	/**
 	 * sovrascrive il metodo confrontaManoConDealer,
 	 * confronta la singola mano dell'utente con quella del dealer,
 	 * aggiorna lo stato della mano e i dati dell'utente
@@ -307,23 +351,38 @@ public class GiocatoreUtente extends Giocatore
     	int scommessaUtente = ModelManager.getInstance().getScommessaUtentePartita();
     	int conteggioDealer = manoDealer.getConteggio();
         int conteggioMano = mano.getConteggio();
-
+        
         if (manoDealer.isBusted() || conteggioMano > conteggioDealer) 
         {
             mano.setStato(Mano.Stato.VINTA);
             setChips(getChips() + scommessaUtente * 2);
-            setManiVinte(getManiVinte() + 1);      
+            setManiVinte(getManiVinte() + 1);  
+            setEsperienza(esperienza + Partita.getInstance().getScommessaUtente() * 2);
         } 
         else if (conteggioMano < conteggioDealer)
         {
             mano.setStato(Mano.Stato.PERSA);
             setManiPerse(getManiPerse() + 1);
+            setEsperienza(esperienza + Partita.getInstance().getScommessaUtente()/2);
         } 
         else
         {
             mano.setStato(Mano.Stato.PAREGGIATA);
             setChips(getChips() + scommessaUtente);
-            setManiPareggiate(getManiPareggiate() + 1);       
+            setManiPareggiate(getManiPareggiate() + Partita.getInstance().getScommessaUtente());       
+            setEsperienza(esperienza + 5);
         }
+        
+        aggiornaLivello();
     }
+	
+	private void aggiornaLivello()
+	{
+	    while (esperienza >= 1000)
+	    {
+	    	//resetto esperienza ogni volta che salgo di livello
+	        esperienza -= 1000;  
+	        setLivello(livello + 1);
+	    }
+	}
 }

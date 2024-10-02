@@ -2,6 +2,7 @@ package model;
 
 import model.carte.Mazzo;
 import model.giocatore.Giocatore;
+import model.giocatore.GiocatoreDealer;
 import model.giocatore.GiocatoreUtente;
 
 import java.util.List;

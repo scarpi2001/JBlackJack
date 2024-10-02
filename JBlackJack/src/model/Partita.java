@@ -146,7 +146,7 @@ public class Partita
 		{	
 			giocatori.add(new GiocatoreBot());
 		}	
-		giocatori.add(new GiocatoreDealer());
+		giocatori.add(GiocatoreDealer.getInstance());
 	}
 	     
 	/**
@@ -171,12 +171,16 @@ public class Partita
 	}
     
     /**
-     * imposta il turno a 0 e svuota la lista di giocatori
+     * imposta il turno a 0, svuota la lista di giocatori e resetta lo stato di utente e dealer (gli unici giocatori "fissi")
      */
     public void back() 
     {		
     	setTurno(0);
+    	
     	giocatori.clear();
+    	GiocatoreUtente.getInstance().resetStato();
+    	GiocatoreDealer.getInstance().resetStato();
+    	
     	scommessaUtente = 0;
     	postBet = false;
     }

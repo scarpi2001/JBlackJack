@@ -1,7 +1,0 @@
-username:mario
-chips:861
-maniGiocate:26
-maniVinte:9
-maniPareggiate:0
-maniPerse:17
-livello:0

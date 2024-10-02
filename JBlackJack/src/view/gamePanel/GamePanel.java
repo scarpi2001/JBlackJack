@@ -19,7 +19,7 @@ public class GamePanel extends JPanel
 {
 	private Image background;
 	private BottomBarGamePanel bottombar;
-	private DealerPanel dealerpanel;
+	private CarteDealerPanel dealerpanel;
 	private TopBarGamePanel topbar;
 	
 	public GamePanel()
@@ -31,7 +31,7 @@ public class GamePanel extends JPanel
 		topbar.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 		add(topbar, BorderLayout.NORTH);
 		
-		dealerpanel = new DealerPanel(); 
+		dealerpanel = new CarteDealerPanel(); 
 		dealerpanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 		add(dealerpanel, BorderLayout.CENTER);
 		
@@ -70,6 +70,7 @@ public class GamePanel extends JPanel
 		ModelManager model = ModelManager.getInstance();
 		
 		topbar.aggiornaDatiUtente();
+		dealerpanel.updateCarte();
 		bottombar.updateCarte();
 		
 		//se la partita è in fase di post-bet vedo le azioni, se no vedo il pulsante bet 
@@ -87,9 +88,6 @@ public class GamePanel extends JPanel
 		//se l'utente può splittare ed è il suo turno
 		if(model.getGiocatoriPartita().size() != 0 && model.getTurnoPartita() == 0 && model.getGiocatoreCorrente().canSplit()) setSplitVisible(true); 
 		else setSplitVisible(false); 
-		
-		
-		
 		
 		
 		//DEBUG		
