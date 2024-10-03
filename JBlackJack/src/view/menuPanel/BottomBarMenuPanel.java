@@ -1,9 +1,9 @@
-package view.menuPanel.bottombar;
+package view.menuPanel;
 
 import javax.swing.*;
 
 import controller.actionListeners.menu.PlayActionListener;
-import view.gamePanel.topbar.DatiUtentePanel;
+import view.DatiUtentePanel;
 
 import java.awt.*;
 
@@ -23,7 +23,7 @@ public class BottomBarMenuPanel extends JPanel
         GridBagConstraints gbc = new GridBagConstraints();
         
         //panel per i dati dell'utente
-        datiUtenteMenuPanel = new DatiUtenteMenuPanel();
+        datiUtenteMenuPanel = new DatiUtentePanel();
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.weightx = 1.0;
         gbc.gridx = 0;

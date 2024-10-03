@@ -1,16 +1,16 @@
-package view.gamePanel.bottombar.utentePanel;
+package view.gamePanel.bottombar.actionsPanel;
 
 import java.awt.Dimension;
 
 import javax.swing.*;
 import controller.actionListeners.partita.azioni.ScommettiActionListener;
 
-public class ScommettiPanel extends JPanel
+public class PreBetPanel extends JPanel
 {
 	private JButton buttonScommetti;	
 	private JTextField fieldScommessa; 
 	
-	public ScommettiPanel() 
+	public PreBetPanel() 
 	{
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setOpaque(false);

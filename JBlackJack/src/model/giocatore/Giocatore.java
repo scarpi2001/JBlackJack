@@ -32,8 +32,9 @@ public abstract class Giocatore
 	//COSTRUTTORE
 	public Giocatore()
 	{
-		if(this instanceof GiocatoreDealer) username = "dealer";
-		else if(!(this instanceof GiocatoreUtente)) username = "bot";  	
+		//se sono un utente l'username non c'è bisogno di metterlo qui
+		if(this instanceof GiocatoreDealer) username = "Dealer";
+		else if(!(this instanceof GiocatoreUtente)) username = "Bot";  	
 		
 		mani = new ArrayList<>();
         mani.add(new Mano());  

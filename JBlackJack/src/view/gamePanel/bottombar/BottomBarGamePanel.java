@@ -4,13 +4,12 @@ import java.awt.*;
 import javax.swing.*;
 
 import model.ModelManager;
-import view.gamePanel.bottombar.cartePanel.CartePanel;
-import view.gamePanel.bottombar.utentePanel.UtentePanel;
+import view.gamePanel.bottombar.actionsPanel.ActionsPanel;
 
 public class BottomBarGamePanel extends JPanel
 {
-    private UtentePanel utentePanel;
-    private CartePanel cartePanel;
+    private ActionsPanel utentePanel;
+    private GiocatoriPanel giocatoriPanel;
     
     public BottomBarGamePanel() 
     {	
@@ -19,8 +18,8 @@ public class BottomBarGamePanel extends JPanel
 
         GridBagConstraints gbc = new GridBagConstraints();
         
-        // Panel giocatore
-        utentePanel = new UtentePanel();
+        //panel azioni
+        utentePanel = new ActionsPanel();
         gbc.fill = GridBagConstraints.VERTICAL; 
         gbc.weightx = 0.1; 
         gbc.gridx = 0; 
@@ -28,32 +27,20 @@ public class BottomBarGamePanel extends JPanel
         gbc.anchor = GridBagConstraints.LAST_LINE_START;
         add(utentePanel, gbc);
 
-        // Panel carte
-        cartePanel = new CartePanel(); 
+        //panel giocatori
+        giocatoriPanel = new GiocatoriPanel(); 
         gbc.fill = GridBagConstraints.BOTH; 
         gbc.weightx = 0.9; 
         gbc.gridx = 1; 
         gbc.gridy = 0; 
         gbc.anchor = GridBagConstraints.LAST_LINE_END; 
-        add(cartePanel, gbc); 
+        add(giocatoriPanel, gbc); 
     
     }
-    
-	@Override
-	public void paintComponent(Graphics g)
-	{
-		ModelManager model = ModelManager.getInstance();
-		
-		super.paintComponent(g);
-		Graphics2D g2=(Graphics2D)g;
-		
-		//disegna cartePanel
-		cartePanel.repaint();
-	}
 	
-	public void updateCarte()
+	public void updateGiocatori()
 	{
-		cartePanel.updateCarte();
+		giocatoriPanel.updateGiocatori();
 	}
 	
     public void setBetPanelVisible(boolean visible) 

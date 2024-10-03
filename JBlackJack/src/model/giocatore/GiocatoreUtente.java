@@ -369,8 +369,8 @@ public class GiocatoreUtente extends Giocatore
         {
             mano.setStato(Mano.Stato.PAREGGIATA);
             setChips(getChips() + scommessaUtente);
-            setManiPareggiate(getManiPareggiate() + Partita.getInstance().getScommessaUtente());       
-            setEsperienza(esperienza + 5);
+            setManiPareggiate(getManiPareggiate() + 1);       
+            setEsperienza(esperienza + Partita.getInstance().getScommessaUtente());
         }
         
         aggiornaLivello();

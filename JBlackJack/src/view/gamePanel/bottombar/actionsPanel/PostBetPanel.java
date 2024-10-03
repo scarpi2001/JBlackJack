@@ -1,4 +1,4 @@
-package view.gamePanel.bottombar.utentePanel;
+package view.gamePanel.bottombar.actionsPanel;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -13,13 +13,13 @@ import controller.actionListeners.partita.azioni.HitActionListener;
 import controller.actionListeners.partita.azioni.SplitActionListener;
 import controller.actionListeners.partita.azioni.StayActionListener;
 
-public class ActionsPanel extends JPanel
+public class PostBetPanel extends JPanel
 {
 	private JButton buttonHit;
 	private JButton buttonStay;
 	private JButton buttonSplit;
 	
-	public ActionsPanel() 
+	public PostBetPanel() 
 	{
         setLayout(new GridLayout(3, 1, 10, 10)); 
         setOpaque(false);

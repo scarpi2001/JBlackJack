@@ -1,23 +1,23 @@
-package view.gamePanel.bottombar.utentePanel;
+package view.gamePanel.bottombar.actionsPanel;
 
 import javax.swing.*;
 
-public class UtentePanel extends JPanel
+public class ActionsPanel extends JPanel
 {
-	private ScommettiPanel scommettiPanel;
-	private ActionsPanel actionsPanel;
+	private PreBetPanel scommettiPanel;
+	private PostBetPanel actionsPanel;
 	  
-    public UtentePanel() 
+    public ActionsPanel() 
     {
     	setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setOpaque(false);
         
         //startPanel (bet, quantità)
-        scommettiPanel = new ScommettiPanel();
+        scommettiPanel = new PreBetPanel();
         add(scommettiPanel);
         
         //actionsPanel (hit, stay, split)
-        actionsPanel = new ActionsPanel();
+        actionsPanel = new PostBetPanel();
         add(actionsPanel);
         actionsPanel.setVisible(false);
     }

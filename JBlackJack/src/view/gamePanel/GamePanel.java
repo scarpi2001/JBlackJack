@@ -9,8 +9,6 @@ import model.carte.Mano;
 import model.giocatore.Giocatore;
 import model.giocatore.GiocatoreDealer;
 import view.gamePanel.bottombar.BottomBarGamePanel;
-import view.gamePanel.topbar.TopBarGamePanel;
-
 
 /**
  * in questo panel si svolge la partita
@@ -18,9 +16,9 @@ import view.gamePanel.topbar.TopBarGamePanel;
 public class GamePanel extends JPanel
 {
 	private Image background;
-	private BottomBarGamePanel bottombar;
-	private CarteDealerPanel dealerpanel;
 	private TopBarGamePanel topbar;
+	private BodyPanel bodyPanel;
+	private BottomBarGamePanel bottombar;
 	
 	public GamePanel()
 	{	
@@ -31,9 +29,9 @@ public class GamePanel extends JPanel
 		topbar.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 		add(topbar, BorderLayout.NORTH);
 		
-		dealerpanel = new CarteDealerPanel(); 
-		dealerpanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-		add(dealerpanel, BorderLayout.CENTER);
+		bodyPanel = new BodyPanel(); 
+		bodyPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+		add(bodyPanel, BorderLayout.CENTER);
 		
 		bottombar = new BottomBarGamePanel(); 
 		bottombar.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
@@ -69,9 +67,6 @@ public class GamePanel extends JPanel
 	{	
 		ModelManager model = ModelManager.getInstance();
 		
-		topbar.aggiornaDatiUtente();
-		dealerpanel.updateCarte();
-		bottombar.updateCarte();
 		
 		//se la partita è in fase di post-bet vedo le azioni, se no vedo il pulsante bet 
 		if(model.isPartitaPostBet()) 
@@ -85,10 +80,13 @@ public class GamePanel extends JPanel
 			setActionsPanelVisible(false); 
 		}
 		
-		//se l'utente può splittare ed è il suo turno
+		//se l'utente può splittare ed è il suo turno vedo il pulsante split
 		if(model.getGiocatoriPartita().size() != 0 && model.getTurnoPartita() == 0 && model.getGiocatoreCorrente().canSplit()) setSplitVisible(true); 
 		else setSplitVisible(false); 
 		
+		topbar.aggiornaDatiUtente();
+		bodyPanel.updateDealer();
+		bottombar.updateGiocatori();
 		
 		//DEBUG		
 		for(Giocatore giocatore : model.getGiocatoriPartita())

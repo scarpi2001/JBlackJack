@@ -17,10 +17,11 @@ public class View extends JFrame implements Observer
 	public static final String TITOLO = "JBlackJack";
 	private static View instance;
 	
-    private MenuPanel menuPanel;
+	private JPanel cardPanel;
+	private CardLayout cardLayout;
+
+	private MenuPanel menuPanel;
     private GamePanel gamePanel;
-    private JPanel cardPanel;
-    private CardLayout cardLayout;
 	
 	private View()
 	{
