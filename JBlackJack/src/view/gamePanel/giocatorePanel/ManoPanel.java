@@ -4,26 +4,34 @@ import java.awt.*;
 import javax.swing.*;
 
 import model.carte.Mano;
+import model.giocatore.Giocatore;
+import model.giocatore.GiocatoreDealer;
 import view.MyJLabel;
 
 public class ManoPanel extends JPanel
 {	
-	public ManoPanel(Mano mano) 
+	public ManoPanel(Giocatore giocatore, Mano mano) 
     {
 		setLayout(new BorderLayout()); 
         setOpaque(false);
         
-        JLabel conteggioLabel = new MyJLabel.Builder().build();
-		conteggioLabel.setText(mano.getConteggio() + "");
-		add(conteggioLabel, BorderLayout.NORTH);
+        if(mano.getConteggio() != 0)
+        {        	
+        	JLabel conteggioLabel = new MyJLabel.Builder().build();
+        	conteggioLabel.setText(mano.getConteggio() + "");
+        	add(conteggioLabel, BorderLayout.NORTH);
+        }
 		
         add(new CartePanel(mano.getCarte()), BorderLayout.CENTER);
         
-        JLabel statoLabel = new MyJLabel.Builder().build();
-        statoLabel.setText(mano.getStato() + "");
-		add(statoLabel, BorderLayout.SOUTH);
+        if(!(giocatore instanceof GiocatoreDealer) && mano.getStato() != Mano.Stato.IN_CORSO)
+        {        	
+        	JLabel statoLabel = new MyJLabel.Builder().build();
+        	statoLabel.setText(mano.getStato() + "");
+        	add(statoLabel, BorderLayout.SOUTH);
+        }
         
         //debug
-        setBorder(BorderFactory.createLineBorder(Color.white, 2));
+        //setBorder(BorderFactory.createLineBorder(Color.white, 2));
     }
 }

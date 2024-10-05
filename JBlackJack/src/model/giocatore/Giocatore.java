@@ -13,7 +13,7 @@ import model.carte.Mano;
  */
 public abstract class Giocatore 
 {
-	//CAMPI
+	//CAMPI	
 	/**
 	 * nome del giocatore
 	 */
@@ -31,8 +31,8 @@ public abstract class Giocatore
 	
 	//COSTRUTTORE
 	public Giocatore()
-	{
-		//se sono un utente l'username non c'è bisogno di metterlo qui
+	{	
+     	//se sono un utente l'username non c'è bisogno di metterlo qui
 		if(this instanceof GiocatoreDealer) username = "Dealer";
 		else if(!(this instanceof GiocatoreUtente)) username = "Bot";  	
 		
@@ -99,7 +99,7 @@ public abstract class Giocatore
     	getManoCorrente().addCarta(carta);
     	getManoCorrente().checkTerminata();
     	System.out.println("hit");
-    	model.updateObservers();
+    	model.updateObservers("hit");
     }
 
     /**
@@ -151,7 +151,7 @@ public abstract class Giocatore
         	System.out.println("mano succ");
         }
         
-        model.updateObservers();
+        model.updateObservers("mano succ");
     }
 	
     /**

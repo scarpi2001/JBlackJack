@@ -178,6 +178,8 @@ public class Partita
     	setTurno(0);
     	
     	giocatori.clear();
+    	
+    	//anche se elimino tolgo tutti i giocatori lo stato di questi due rima e lo stesso
     	GiocatoreUtente.getInstance().resetStato();
     	GiocatoreDealer.getInstance().resetStato();
     	

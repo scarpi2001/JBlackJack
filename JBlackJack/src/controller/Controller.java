@@ -1,5 +1,8 @@
 package controller;
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import model.ModelManager;
 import model.giocatore.Giocatore;
 import model.giocatore.GiocatoreBot;
@@ -130,6 +133,7 @@ public class Controller
 	 * distribuisce le carte ai giocatori
 	 * simula la distribuzione di carte del blackjack (una alla volta)
 	 */
+	/*
 	public void distribuisciCarte() 
 	{    	
 		//resetta lo stato dei giocatori
@@ -142,12 +146,81 @@ public class Controller
 		for (Giocatore giocatore : model.getGiocatoriPartita()) 
 		{ 
 			giocatore.hit();
+			try {
+				Thread.sleep(1000); // Puoi modificare il valore per cambiare la durata della pausa
+			} catch (InterruptedException e) {
+				e.printStackTrace(); // Gestisci l'eccezione, se necessario
+			}
 		}
 		
 		//secondo giro
 		for (Giocatore giocatore : model.getGiocatoriPartita()) 
 		{
-			giocatore.hit();                
+			giocatore.hit(); 
+			try {
+				Thread.sleep(1000); // Puoi modificare il valore per cambiare la durata della pausa
+			} catch (InterruptedException e) {
+				e.printStackTrace(); // Gestisci l'eccezione, se necessario
+			}
 		}
 	}
+	*/
+	
+
+	public void distribuisciCarte()
+	{
+	    //resetta lo stato dei giocatori
+	    for (Giocatore giocatore : model.getGiocatoriPartita())
+	    {
+	        giocatore.resetStato();
+	    }
+	    
+	    //do subito la prima carta
+	    Giocatore primoGiocatore = model.getGiocatoriPartita().get(0);
+        primoGiocatore.hit();
+
+	    //imposta timer per rallentare distribuzione carte (partendo dal secondo giocatore)
+	    Timer timer = new Timer(1000, new ActionListener() 
+	    {
+	        private int index = 1;
+	        private int giro = 1;
+	
+	        @Override
+	        public void actionPerformed(ActionEvent e) 
+	        {	       
+	            if (giro == 1)
+	            {	           
+	                if (index < model.getGiocatoriPartita().size())
+	                {
+	                    Giocatore giocatore = model.getGiocatoriPartita().get(index);
+	                    giocatore.hit();
+	                    index++;
+	                } 
+	                else //passo al secondo giro
+	                {
+	                    
+	                    index = 0;
+	                    giro = 2;
+	                }
+	            } 
+	            else if (giro == 2) 
+	            {
+	                if (index < model.getGiocatoriPartita().size()) 
+	                {
+	                    Giocatore giocatore = model.getGiocatoriPartita().get(index);
+	                    giocatore.hit();
+	                    index++;
+	                } 
+	                else
+	                {
+	                    // Ferma il timer dopo il secondo giro
+	                    ((Timer) e.getSource()).stop();
+	                }
+	            }
+	        }
+	    });
+
+    // Avvia il timer
+    timer.start();
+   }
 }

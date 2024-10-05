@@ -11,7 +11,9 @@ import java.util.List;
 public class FileUtils
 {
 	/**
-	 * metodo per leggere il contenuto di un file
+	 * metodo per ottenere il contenuto di un file
+	 * restituisce il contenuto sotto forma di lista di stringhe
+	 * ogni elemento della lista è una riga del file
 	 * @param filePath path del file
 	 * @return lista di righe del file
 	 */
@@ -34,7 +36,7 @@ public class FileUtils
     }
 
     /**
-     * metodo per scrivere una lista di stringhe su un file
+     * scrive una lista di stringhe su un file
      * @param filePath il percorso del file 
      * @param contenuto la lista di stringhe da scrivere
      * @param append se true, aggiunge al file esistente, altrimenti sovrascrive.

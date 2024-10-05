@@ -151,10 +151,10 @@ public class ModelManager extends Observable
 	}
 	
 	//METODI MODEL
-	public void updateObservers()
+	public void updateObservers(String s)
 	{
 		setChanged();
-		notifyObservers();
+		notifyObservers(s);
 	}
 	
 	//METODI UTENTE
@@ -169,7 +169,7 @@ public class ModelManager extends Observable
 	{
 		utente.setDati(fileDatiUtentePath, fileUltimoUtentePath);        
 		System.out.println("setUtente");
-		updateObservers();
+		updateObservers("setUtente");
 	}
 	
 	/**
@@ -253,14 +253,14 @@ public class ModelManager extends Observable
 		partita.setPostBet(false);
 		System.out.println("nuovaPartita");
 		//devo aggiornare per i bottoni
-		updateObservers();
+		updateObservers("nuovaPartita");
 	}
 	
 	public void aggiornaStats()
 	{	
 		partita.aggiornaStatsGiocatori();
 		System.out.println("aggiornaStats");
-		updateObservers();
+		updateObservers("aggiornaStats");
 	}
 	
     public Giocatore getGiocatoreCorrente()
@@ -272,6 +272,6 @@ public class ModelManager extends Observable
     {
     	partita.back();
     	System.out.println("back");
-		updateObservers();
+		updateObservers("back");
     }
 }

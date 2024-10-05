@@ -63,7 +63,9 @@ public class GiocatoreUtente extends Giocatore
 	private int livello;
 	
 	//COSTRUTTORE
-	private GiocatoreUtente(){}
+	private GiocatoreUtente()
+	{
+	}
 	
 	public static GiocatoreUtente getInstance()
 	{
@@ -310,7 +312,7 @@ public class GiocatoreUtente extends Giocatore
         getMani().add(nuovaMano); 
 
         System.out.println("split");
-        model.updateObservers();
+        model.updateObservers("split");
 	}
 	
 	/**
