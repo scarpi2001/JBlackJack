@@ -20,12 +20,9 @@ public class GiocatoreBot extends Giocatore
 	@Override
     public void gioca() 
 	{	
-        while (getManoCorrente().getConteggio() < 17)
-        {
-        	hit(); 
-        }
-        stay();
-    }
+		if(getManoCorrente().getConteggio() < 17) hit();		
+		else stay();
+	}
 	
     /**
      * confronta le mani del giocatore con quella del dealer,

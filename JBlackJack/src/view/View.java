@@ -57,7 +57,9 @@ public class View extends JFrame implements Observer
 	public void update(Observable o, Object arg) 
 	{
 		System.out.println("view: update ricevuto");
-		menuPanel.updateMenuPanel();	
+		menuPanel.updateMenuPanel();
+		
+		if(arg == "hit" || arg == "split") AudioManager.getInstance().play("src/resources/audio/carta.wav", false);
 		gamePanel.updateGamePanel();
 	}
 

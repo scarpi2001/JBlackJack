@@ -40,7 +40,7 @@ public class AudioManager
 			{
 				//abbassa il volume del sottofondo
 				FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-                gainControl.setValue(-30.0f);
+                gainControl.setValue(-35.0f);
                 //ripeti in loop
 				clip.loop(Clip.LOOP_CONTINUOUSLY); 	
 			}	

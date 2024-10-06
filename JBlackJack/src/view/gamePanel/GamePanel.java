@@ -89,6 +89,7 @@ public class GamePanel extends JPanel
 		bottombar.updateGiocatori();
 		
 		//DEBUG		
+		/*
 		for(Giocatore giocatore : model.getGiocatoriPartita())
 		{
 			int numeroMano = 1;
@@ -104,6 +105,9 @@ public class GamePanel extends JPanel
 		        if(!(giocatore instanceof GiocatoreDealer))System.out.println(mano.getStato());		        
 		    }
 		}
+		System.out.println("");
+		*/
+		System.out.println(model.isCartaDealerScoperta());
 		System.out.println("");
     }
 }

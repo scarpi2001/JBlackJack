@@ -88,6 +88,16 @@ public class ModelManager extends Observable
 		return partita.getScommessaUtente();
 	}
 	
+	public boolean isCartaDealerScoperta()
+	{
+		return partita.isCartaDealerScoperta();
+	}
+	public void setCartaDealerScoperta(boolean cartaDealerScoperta)
+	{
+		partita.setCartaDealerScoperta(cartaDealerScoperta);
+		updateObservers("cartaScoperta");
+	}
+	
 	//GETTERS E SETTERS DELL'UTENTE
 	public String getUsernameUtente()
 	{
@@ -247,22 +257,14 @@ public class ModelManager extends Observable
 		return partita.isFinita();
 	}
 	
-	public void nuovaPartita()
+	public void finePartita()
 	{
-		setTurnoPartita(0);
-		partita.setPostBet(false);
-		System.out.println("nuovaPartita");
-		//devo aggiornare per i bottoni
-		updateObservers("nuovaPartita");
-	}
-	
-	public void aggiornaStats()
-	{	
 		partita.aggiornaStatsGiocatori();
-		System.out.println("aggiornaStats");
-		updateObservers("aggiornaStats");
+		partita.fine();
+		System.out.println("finePartita");
+		updateObservers("finePartita");
 	}
-	
+		
     public Giocatore getGiocatoreCorrente()
 	{
 		return partita.getGiocatoreCorrente();

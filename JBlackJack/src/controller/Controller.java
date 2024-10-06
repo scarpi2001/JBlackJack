@@ -1,8 +1,10 @@
 package controller;
 
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.Timer;
+
+import controller.actionListeners.partita.timers.TimerDistribuzioneActionListener;
+import controller.actionListeners.partita.timers.TimerGameLoopActionListener;
+
 import model.ModelManager;
 import model.giocatore.Giocatore;
 import model.giocatore.GiocatoreBot;
@@ -93,82 +95,38 @@ public class Controller
     /**
      * gestisce il flusso di una partita
      */
-    //il problema potrebbe essere che passo al turno successivo senza passare alla mano successiva
-    //succede solo quando la prima mano è bj
-	public void gameloop() 
-	{	 
-		Giocatore giocatore = model.getGiocatoreCorrente(); 
-			
-		giocatore.gioca();
-		
-		//dopo aver giocato devo gestire il turno
-		//se il giocatore è un bot, dopo che ha giocato, la mano è sicuramente terminata
-		//(perchè o fa bj o sballa o fa stay)
-		//quindi passo alla mano successiva o turno successivo
-		if (giocatore instanceof GiocatoreBot)
-		{
-			giocatore.manoSuccessiva();			
-			if(model.isPartitaFinita()) finePartita();
-			else gameloop();
-		}	
-		//se è un utente e la mano è terminata passo alla mano successiva
-		else if(giocatore instanceof GiocatoreUtente && giocatore.isManoTerminata())
-		{
-			//rigioca, giocherà la mano successiva o il giocatore successivo
-            giocatore.manoSuccessiva();   
+    public void gameloop() 
+    {
+        Giocatore giocatore = model.getGiocatoreCorrente();
+        giocatore.gioca();
+        
+        //dopo aver giocato, gestisco il turno
+        //se il giocatore è un bot, aspetto un secondo 
+        if (giocatore instanceof GiocatoreBot) 
+        {
+        	//se sono all'ultimo turno (turno dealer) scopri carta 
+        	if(model.getTurnoPartita() == model.getGiocatoriPartita().size() - 1) model.setCartaDealerScoperta(true);
+        	
+        	//uso un timer per ritardare l'esecuzione
+            Timer timer = new Timer(600, new TimerGameLoopActionListener(giocatore));      
+            timer.setRepeats(false);
+            timer.start();
+        } 
+        else if (giocatore instanceof GiocatoreUtente && giocatore.isManoTerminata()) 
+        {
+            giocatore.manoSuccessiva();
             gameloop();
-	    }
-	}
-
-	/**
-	 * gestisce la fine di una partita
-	 */
-	private void finePartita() 
-	{
-		model.aggiornaStats();
-		model.nuovaPartita();
-	}
+        }
+    }
 	
 	/**
 	 * distribuisce le carte ai giocatori
 	 * simula la distribuzione di carte del blackjack (una alla volta)
 	 */
-	/*
-	public void distribuisciCarte() 
-	{    	
-		//resetta lo stato dei giocatori
-		for (Giocatore giocatore : model.getGiocatoriPartita()) 
-		{ 
-			giocatore.resetStato();
-		}
-		
-		//primo giro
-		for (Giocatore giocatore : model.getGiocatoriPartita()) 
-		{ 
-			giocatore.hit();
-			try {
-				Thread.sleep(1000); // Puoi modificare il valore per cambiare la durata della pausa
-			} catch (InterruptedException e) {
-				e.printStackTrace(); // Gestisci l'eccezione, se necessario
-			}
-		}
-		
-		//secondo giro
-		for (Giocatore giocatore : model.getGiocatoriPartita()) 
-		{
-			giocatore.hit(); 
-			try {
-				Thread.sleep(1000); // Puoi modificare il valore per cambiare la durata della pausa
-			} catch (InterruptedException e) {
-				e.printStackTrace(); // Gestisci l'eccezione, se necessario
-			}
-		}
-	}
-	*/
-	
-
 	public void distribuisciCarte()
 	{
+		model.setCartaDealerScoperta(false);
+		
 	    //resetta lo stato dei giocatori
 	    for (Giocatore giocatore : model.getGiocatoriPartita())
 	    {
@@ -179,48 +137,8 @@ public class Controller
 	    Giocatore primoGiocatore = model.getGiocatoriPartita().get(0);
         primoGiocatore.hit();
 
-	    //imposta timer per rallentare distribuzione carte (partendo dal secondo giocatore)
-	    Timer timer = new Timer(1000, new ActionListener() 
-	    {
-	        private int index = 1;
-	        private int giro = 1;
-	
-	        @Override
-	        public void actionPerformed(ActionEvent e) 
-	        {	       
-	            if (giro == 1)
-	            {	           
-	                if (index < model.getGiocatoriPartita().size())
-	                {
-	                    Giocatore giocatore = model.getGiocatoriPartita().get(index);
-	                    giocatore.hit();
-	                    index++;
-	                } 
-	                else //passo al secondo giro
-	                {
-	                    
-	                    index = 0;
-	                    giro = 2;
-	                }
-	            } 
-	            else if (giro == 2) 
-	            {
-	                if (index < model.getGiocatoriPartita().size()) 
-	                {
-	                    Giocatore giocatore = model.getGiocatoriPartita().get(index);
-	                    giocatore.hit();
-	                    index++;
-	                } 
-	                else
-	                {
-	                    // Ferma il timer dopo il secondo giro
-	                    ((Timer) e.getSource()).stop();
-	                }
-	            }
-	        }
-	    });
-
-    // Avvia il timer
-    timer.start();
+	    //imposto timer per rallentare la distribuzione delle carte successive
+	    Timer timer = new Timer(600, new TimerDistribuzioneActionListener()); 
+	    timer.start();
    }
 }

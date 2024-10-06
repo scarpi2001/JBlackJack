@@ -41,7 +41,7 @@ public class Partita
 	private List<Giocatore> giocatori;
 	
 	/**
-	 * flag che indica se la partita è in fase di "post bet" (la scommessa è stata fatta dall'utente)
+	 * indica se la partita è in fase di "post bet" (la scommessa è stata fatta dall'utente)
 	 */
 	private boolean postBet;
 	
@@ -49,6 +49,11 @@ public class Partita
 	 * scommessa dell'utente sulla partita in corso
 	 */
 	private int scommessaUtente;
+	
+	/**
+	 * indica se la seconda carta del dealer è stata scoperta
+	 */
+	private boolean cartaDealerScoperta;
 	
 	//COSTRUTTORE
 	private Partita()
@@ -116,6 +121,15 @@ public class Partita
 		this.scommessaUtente = scommessaUtente;
 	}
 	
+	public boolean isCartaDealerScoperta()
+    {
+    	return cartaDealerScoperta;
+    } 
+	public void setCartaDealerScoperta(boolean cartaDealerScoperta)
+	{
+		this.cartaDealerScoperta = cartaDealerScoperta;
+	}
+	
 	//METODI
     /**
      * restituisce il giocatore che deve giocare il turno
@@ -157,6 +171,15 @@ public class Partita
     {
     	return turno == getGiocatori().size();
     }   
+    
+    /**
+     * prepara la partita a riniziare
+     */
+    public void fine()
+    {
+    	setTurno(0);
+		setPostBet(false);
+    }
     
     /**
      * aggiorna lo stato delle mani dei giocatori
