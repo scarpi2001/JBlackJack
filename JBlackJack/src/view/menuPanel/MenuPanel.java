@@ -3,6 +3,7 @@ package view.menuPanel;
 import java.awt.*;
 import javax.swing.*;
 
+import view.menuPanel.bottombar.BottomBarMenuPanel;
 import view.menuPanel.topbar.TopBarMenuPanel;
 
 /**

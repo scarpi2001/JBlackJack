@@ -7,9 +7,6 @@ import model.ModelManager;
 import model.giocatore.Giocatore;
 import view.gamePanel.giocatorePanel.GiocatorePanel;
 
-import javax.swing.Timer;
-import java.util.TimerTask;
-
 public class GiocatoriPanel extends JPanel
 { 	
 	public GiocatoriPanel() 

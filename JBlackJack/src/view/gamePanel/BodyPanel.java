@@ -1,6 +1,7 @@
 package view.gamePanel;
 
-import javax.swing.JPanel;
+import java.awt.*;
+import javax.swing.*;
 
 import model.ModelManager;
 import model.giocatore.Giocatore;

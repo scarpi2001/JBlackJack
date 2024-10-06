@@ -34,14 +34,14 @@ public class Mazzo
             }
         }
     	
-    	
-    	/*
-    	mazzo = new Carta[2];
+        /*
+    	mazzo = new Carta[5];
     	mazzo[0] = new Carta(Seme.CUORI, Simbolo.A);
     	mazzo[1] = new Carta(Seme.PICCHE, Simbolo.K);
-    	mazzo[2] = new Carta(Seme.CUORI, Simbolo.SETTE);
-    	mazzo[3] = new Carta(Seme.PICCHE, Simbolo.OTTO);
+    	mazzo[2] = new Carta(Seme.CUORI, Simbolo.CINQUE);
+    	mazzo[3] = new Carta(Seme.PICCHE, Simbolo.CINQUE);
     	mazzo[4] = new Carta(Seme.CUORI, Simbolo.CINQUE);
+    	
     	mazzo[5] = new Carta(Seme.PICCHE, Simbolo.K);
     	mazzo[6] = new Carta(Seme.PICCHE, Simbolo.Q);
     	mazzo[7] = new Carta(Seme.CUORI, Simbolo.A);

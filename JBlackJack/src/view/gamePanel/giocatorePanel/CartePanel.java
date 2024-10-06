@@ -17,8 +17,8 @@ public class CartePanel extends JPanel
 		setLayout(new FlowLayout(FlowLayout.LEFT)); 
         setOpaque(false);
         
-        int width = 100;
-        int height = 150;
+        int width = 85;
+        int height = 127;
         
         ModelManager model = ModelManager.getInstance();
         boolean isDealer = giocatore instanceof GiocatoreDealer;

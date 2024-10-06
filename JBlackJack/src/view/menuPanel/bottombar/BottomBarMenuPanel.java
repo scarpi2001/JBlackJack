@@ -1,10 +1,7 @@
-package view.menuPanel;
+package view.menuPanel.bottombar;
 
 import javax.swing.*;
-
-import controller.actionListeners.menu.PlayActionListener;
 import view.DatiUtentePanel;
-
 import java.awt.*;
 
 /**
@@ -12,8 +9,8 @@ import java.awt.*;
  */
 public class BottomBarMenuPanel extends JPanel 
 {
-    private JButton buttonGioca;
     private DatiUtentePanel datiUtenteMenuPanel;
+    private GiocaEsciPanel giocaEsciPanel;
 
     public BottomBarMenuPanel() 
     {	
@@ -26,22 +23,21 @@ public class BottomBarMenuPanel extends JPanel
         datiUtenteMenuPanel = new DatiUtentePanel();
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
         gbc.gridx = 0;
-        gbc.gridy = 0;
+        gbc.gridy = 1;
         gbc.anchor = GridBagConstraints.LAST_LINE_START;
         add(datiUtenteMenuPanel, gbc);
 
-        //bottone play
-        buttonGioca = new JButton("GIOCA");
-        buttonGioca.setPreferredSize(new Dimension(180, 60)); 
+        //pannello giocaEsci
+        giocaEsciPanel = new GiocaEsciPanel();  // Creiamo il pannello con i bottoni
         gbc.fill = GridBagConstraints.NONE;
-        gbc.weightx = 0.0;
-        gbc.gridx = 1;
-        gbc.gridy = 0;
-        gbc.anchor = GridBagConstraints.LAST_LINE_END;
-        
-        buttonGioca.addActionListener(new PlayActionListener());
-        add(buttonGioca, gbc);
+        gbc.weightx = 0.0;   // Non si espande orizzontalmente
+        gbc.weighty = 0.0;   // Non si espande verticalmente
+        gbc.gridx = 1;       // Colonna destra
+        gbc.gridy = 1;       // Seconda riga (in basso)
+        gbc.anchor = GridBagConstraints.LAST_LINE_END;  // Posizionato in basso a destra
+        add(giocaEsciPanel, gbc);
 
     }
     
