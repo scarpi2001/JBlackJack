@@ -4,10 +4,6 @@ import java.awt.*;
 import javax.swing.*;
 
 import model.ModelManager;
-import model.carte.Carta;
-import model.carte.Mano;
-import model.giocatore.Giocatore;
-import model.giocatore.GiocatoreDealer;
 import view.gamePanel.bottombar.BottomBarGamePanel;
 
 /**

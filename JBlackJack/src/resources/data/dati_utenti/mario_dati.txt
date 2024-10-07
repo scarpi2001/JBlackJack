@@ -1,8 +1,0 @@
-username:mario
-chips:1000
-maniGiocate:0
-maniVinte:0
-maniPareggiate:0
-maniPerse:0
-esperienza:0
-livello:0
