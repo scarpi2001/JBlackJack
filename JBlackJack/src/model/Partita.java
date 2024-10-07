@@ -151,7 +151,7 @@ public class Partita
      */
     public Giocatore getGiocatoreCorrente()
 	{
-		return getGiocatori().get(turno);
+		return getGiocatori().get(getTurno());
 	}
     
 	/**
@@ -159,8 +159,8 @@ public class Partita
 	 */
 	public void initMazzo()
 	{
-		mazzo = new Mazzo();
-		mazzo.mix();
+		setMazzo(new Mazzo());
+		getMazzo().mix();
 	}
 	
 	/**
@@ -169,12 +169,12 @@ public class Partita
 	 */
 	public void initGiocatori()
 	{	
-		giocatori.add(GiocatoreUtente.getInstance());
-		for(int i = 0; i < numeroGiocatori - 1; i++)
+		getGiocatori().add(GiocatoreUtente.getInstance());
+		for(int i = 0; i < getNumeroGiocatori() - 1; i++)
 		{	
-			giocatori.add(new GiocatoreBot());
+			getGiocatori().add(new GiocatoreBot());
 		}	
-		giocatori.add(GiocatoreDealer.getInstance());
+		getGiocatori().add(GiocatoreDealer.getInstance());
 	}
 	     
 	/**
@@ -183,7 +183,7 @@ public class Partita
      */
     public boolean isFinita()
     {
-    	return turno == getGiocatori().size();
+    	return getTurno() == getGiocatori().size();
     }   
     
     /**
@@ -193,6 +193,7 @@ public class Partita
     {
     	setTurno(0);
 		setPostBet(false);
+		setDistribuzione(false);
     }
     
     /**
@@ -201,7 +202,7 @@ public class Partita
      */
     public void aggiornaStatsGiocatori()
 	{	  	
-		for(Giocatore giocatore : giocatori)
+		for(Giocatore giocatore : getGiocatori())
 		{
 			giocatore.aggiornaStats();
 		}
@@ -212,15 +213,16 @@ public class Partita
      */
     public void back() 
     {		
-    	setTurno(0);
-    	
-    	giocatori.clear();
+    	setTurno(0);  	
+    	getGiocatori().clear();
     	
     	//anche se elimino tolgo tutti i giocatori lo stato di questi due rima e lo stesso
     	GiocatoreUtente.getInstance().resetStato();
     	GiocatoreDealer.getInstance().resetStato();
     	
-    	scommessaUtente = 0;
-    	postBet = false;
+    	setScommessaUtente(0);
+    	setPostBet(false);
+    	setDistribuzione(false);
+    	setCartaDealerScoperta(false);
     }
 }

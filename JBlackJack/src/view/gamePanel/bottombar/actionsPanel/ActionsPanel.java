@@ -1,5 +1,6 @@
 package view.gamePanel.bottombar.actionsPanel;
 
+import java.awt.*;
 import javax.swing.*;
 
 public class ActionsPanel extends JPanel
@@ -9,16 +10,17 @@ public class ActionsPanel extends JPanel
 	  
     public ActionsPanel() 
     {
-    	setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+    	setLayout(new BorderLayout());
         setOpaque(false);
         
         //prebet (bet, quantità)
         preBetPanel = new PreBetPanel();
-        add(preBetPanel);
+        preBetPanel.setMaximumSize(new Dimension(300, 100));
+        add(preBetPanel, BorderLayout.SOUTH);
         
         //postbet (hit, stay, split)
         postBetPanel = new PostBetPanel();
-        add(postBetPanel);
+        add(postBetPanel, BorderLayout.CENTER);
         postBetPanel.setVisible(false);
     }
 

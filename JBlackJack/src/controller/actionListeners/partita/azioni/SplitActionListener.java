@@ -8,7 +8,7 @@ import model.ModelManager;
 import view.View;
 
 /**
- * classe che definisce l'evento di "hit" (cioè la richiesta di una carta al dealer) che deve accadere al click di un componente swing
+ * definisce l'evento di "split" che deve accadere al click di un componente swing
  */
 public class SplitActionListener implements ActionListener
 {
@@ -20,7 +20,7 @@ public class SplitActionListener implements ActionListener
 	{	
 		ModelManager model = ModelManager.getInstance();
 		
-		if (model.getChipsUtente() - model.getScommessaUtentePartita() <= 0) 
+		if (model.getChipsUtente() - model.getScommessaUtentePartita() < 0) 
         {
         	View.showError("non hai abbastanza chips per splittare");
         	return;

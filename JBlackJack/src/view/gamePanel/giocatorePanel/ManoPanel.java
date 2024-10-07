@@ -48,7 +48,7 @@ public class ManoPanel extends JPanel
         //stato
         if(!(giocatore instanceof GiocatoreDealer) && mano.getStato() != Mano.Stato.IN_CORSO)
         {    
-        	JLabel statoLabel = new MyJLabel.Builder().build();
+        	JLabel statoLabel = new MyJLabel.Builder().font(new Font("Arial", Font.BOLD, 16)).build();
         	if(giocatore instanceof GiocatoreUtente && mano.getStato() == Mano.Stato.VINTA)
         	{        		
         		statoLabel.setText("Mano " + mano.getStato().toString().toLowerCase() + ", vincita: " + model.getScommessaUtentePartita()*2);

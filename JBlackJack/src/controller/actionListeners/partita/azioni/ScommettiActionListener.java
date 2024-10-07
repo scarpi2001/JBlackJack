@@ -10,7 +10,7 @@ import model.ModelManager;
 import view.View;
 
 /**
- * classe che definisce l'evento di "bet" che deve accadere al click di un componente swing
+ * definisce l'evento di scommessa che deve accadere al click di un componente swing
  */
 public class ScommettiActionListener implements ActionListener
 {
@@ -32,10 +32,10 @@ public class ScommettiActionListener implements ActionListener
 			//provo a convertire la stringa in intero
             int scommessa = Integer.parseInt(scommessaString);
 
-            if (model.getChipsUtente() - scommessa <= 0) 
+            if (model.getChipsUtente() - scommessa < 0) 
             {
             	fieldScommessa.setText("");
-            	View.showError("non hai abbastanza chips da scommettere, torna al menu principale per ricaricare le tue chips");
+            	View.showError("non hai abbastanza chips da scommettere, torna al menu per ricaricarle");
             	return;
             }
             	

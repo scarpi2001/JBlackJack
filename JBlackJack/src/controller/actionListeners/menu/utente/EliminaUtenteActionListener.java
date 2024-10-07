@@ -8,7 +8,7 @@ import model.ModelManager;
 import view.View;
 
 /**
- * classe che definisce l'evento di eliminazione dell'utente che deve accadere al click di un componente swing
+ * definisce l'evento di eliminazione dell'utente che deve accadere al click di un componente swing
  */
 public class EliminaUtenteActionListener implements ActionListener
 {

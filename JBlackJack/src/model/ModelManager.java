@@ -9,7 +9,8 @@ import java.util.List;
 import java.util.Observable;
 
 /**
- * classe che rappresenta il model
+ * classe principale del package model 
+ * ad essa è affidata la gestione dello stato della partia e dell'utente
  */
 @SuppressWarnings("deprecation")
 public class ModelManager extends Observable 

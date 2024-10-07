@@ -177,7 +177,6 @@ public abstract class Giocatore
 	 */
 	public abstract void confrontaManoConDealer(Mano mano, Mano manoDealer);
 
-    
 	/**
 	 * metodo per resettare lo stato del giocatore
 	 */	

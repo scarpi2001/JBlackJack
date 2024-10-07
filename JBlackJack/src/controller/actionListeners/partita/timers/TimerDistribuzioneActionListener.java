@@ -7,11 +7,22 @@ import javax.swing.Timer;
 import controller.Controller;
 import model.ModelManager;
 import model.giocatore.Giocatore;
+import model.giocatore.GiocatoreUtente;
 
+/**
+ * si occupa di gestire la distribuzione iniziale delle carte che deve avvenire alla fine di un timer
+ */
 public class TimerDistribuzioneActionListener implements ActionListener
 {
-
+	/**
+	 * rappresenta l'indice del giocatore a cui viene distribuita la carta.
+	 */
 	private int index = 1;
+	
+	/**
+	 * rappresenta il giro di distribuzione
+	 * la distribuzione è suddivisa in due giri
+	 */
     private int giro = 1;
     
 	@Override
@@ -39,10 +50,15 @@ public class TimerDistribuzioneActionListener implements ActionListener
                 Giocatore giocatore = model.getGiocatoriPartita().get(index);
                 giocatore.hit();
                 
-                //ricontrollo se ho terminato la mano (per un eventuale bj)
-                if (giocatore.isManoTerminata())
+                //ricontrollo se ho terminato la mano 
+                //questo controllo è necessario perchè il timer è asincrono
+                //quindi il passaggio alla mano successiva (che viene fatto nel gameloop) nel caso di un bj verrebbe saltato 
+                //perchè nel momento in cui dovrebbe essere invocato, la mano non è ancora bj e quindi non è ancora terminata
+                if (giocatore instanceof GiocatoreUtente && giocatore.isManoTerminata())
                 {
+                	model.setDistribuzionePartita(false);
                     ((Timer)e.getSource()).stop();
+
                     Controller.getInstance().gameloop();  
                     return;
                 }
@@ -51,9 +67,7 @@ public class TimerDistribuzioneActionListener implements ActionListener
             } 
             else
             {
-            	//ho finito di distribuire 
             	model.setDistribuzionePartita(false);
-                //fermo il timer dopo il secondo giro
                 ((Timer)e.getSource()).stop();
             }
         }

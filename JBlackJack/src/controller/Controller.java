@@ -6,12 +6,14 @@ import controller.actionListeners.partita.timers.TimerDistribuzioneActionListene
 import controller.actionListeners.partita.timers.TimerGameLoopActionListener;
 
 import model.ModelManager;
-import model.giocatore.Giocatore;
-import model.giocatore.GiocatoreBot;
-import model.giocatore.GiocatoreUtente;
+import model.giocatore.*;
 import view.View;
 
 @SuppressWarnings("deprecation")
+/**
+ * classe principale del package controller
+ * gestisce l'inizializzazione del menu e il flusso della partita
+ */
 public class Controller 
 {
 	//CAMPI
@@ -33,7 +35,7 @@ public class Controller
     //COSTRUTTORE
     /**
      * costruttore del controller
-     * crea le istanze di model e view e stabilisce la relazione di osservatore tra di loro.
+     * crea le istanze di model e view e stabilisce la relazione di osservazione tra di loro.
      */    
 	private Controller() 
     {
@@ -93,26 +95,26 @@ public class Controller
     
     //METODI PARTITA
     /**
-     * gestisce il flusso di una partita
+     * gestisce il flusso della partita
      */
     public void gameloop() 
     {
         Giocatore giocatore = model.getGiocatoreCorrente();
         giocatore.gioca();
+            
+        //se il giocatore è il dealer 
+        if(giocatore instanceof GiocatoreDealer) model.setCartaDealerScoperta(true);
         
-        //dopo aver giocato, gestisco il turno
-        //se il giocatore è un bot, aspetto un secondo 
+        //se il giocatore è un bot o il dealer (il dealer è un bot)
         if (giocatore instanceof GiocatoreBot) 
-        {
-        	//se sono all'ultimo turno (turno dealer) scopri carta 
-        	if(model.getTurnoPartita() == model.getGiocatoriPartita().size() - 1) model.setCartaDealerScoperta(true);
-        	
-        	//uso un timer per ritardare l'esecuzione
-            Timer timer = new Timer(600, new TimerGameLoopActionListener(giocatore));      
+        {        	
+            Timer timer = new Timer(700, new TimerGameLoopActionListener(giocatore));      
             timer.setRepeats(false);
             timer.start();
         } 
-        else if (giocatore instanceof GiocatoreUtente && giocatore.isManoTerminata()) 
+        
+        //se il giocatore è l'utente e la sua mano è terminata
+        if (giocatore instanceof GiocatoreUtente && giocatore.isManoTerminata()) 
         {
             giocatore.manoSuccessiva();
             gameloop();
@@ -120,18 +122,16 @@ public class Controller
     }
 	
 	/**
-	 * distribuisce le carte ai giocatori
+	 * distribuisce le carte ai giocatori 
 	 * simula la distribuzione di carte del blackjack (una alla volta)
 	 */
 	public void distribuisciCarte()
 	{	
 	    //resetta lo stato dei giocatori
-	    for (Giocatore giocatore : model.getGiocatoriPartita())
-	    {
-	        giocatore.resetStato();
-	    }
-	    
+	    for (Giocatore giocatore : model.getGiocatoriPartita()) giocatore.resetStato();
+	      
 	    //inizio a distribuire
+	    model.setCartaDealerScoperta(false);
 	    model.setDistribuzionePartita(true);
 	    
 	    //do subito la prima carta
@@ -139,7 +139,7 @@ public class Controller
         primoGiocatore.hit();
 
 	    //imposto timer per rallentare la distribuzione delle carte successive
-	    Timer timer = new Timer(600, new TimerDistribuzioneActionListener()); 
+	    Timer timer = new Timer(700, new TimerDistribuzioneActionListener()); 
 	    timer.start();	  
    }
 }

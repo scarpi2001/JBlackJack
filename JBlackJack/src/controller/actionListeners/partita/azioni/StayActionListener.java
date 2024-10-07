@@ -7,7 +7,7 @@ import controller.Controller;
 import model.ModelManager;
 
 /**
- * classe che definisce l'evento di "stay" (cioè la richiesta al dealer, di fermarsi e non ricevere piu carte) che deve accadere al click di un componente swing
+ * definisce l'evento di "stay" (cioè la richiesta di fermarsi e non ricevere piu carte) che deve accadere al click di un componente swing
  */
 public class StayActionListener implements ActionListener 
 {

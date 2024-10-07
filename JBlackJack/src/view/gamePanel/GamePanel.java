@@ -26,7 +26,7 @@ public class GamePanel extends JPanel
 		add(topbar, BorderLayout.NORTH);
 		
 		bodyPanel = new BodyPanel(); 
-		bodyPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+		//bodyPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 		add(bodyPanel, BorderLayout.CENTER);
 		
 		bottombar = new BottomBarGamePanel(); 
@@ -68,11 +68,11 @@ public class GamePanel extends JPanel
 	{	
 		ModelManager model = ModelManager.getInstance();
 		
-		//se sto distribuendo le carte nessun pulsante è visibile 
+		//se sto distribuendo le carte oppure non è il turno del giocatore nessun pulsante è visibile 
 		if(model.getDistribuzionePartita() || model.getTurnoPartita() != 0) setActionsPanelVisible(false);
 		else setActionsPanelVisible(true);
 		
-		//se la partita è in fase di post-bet vedo le azioni, se no vedo il pulsante bet 
+		//se la partita è in fase di post-bet vedo hit stay e split, se no vedo il pulsante scommessa
 		if(model.isPartitaPostBet()) 
 		{
 			setPreBetPanelVisible(false); 
@@ -88,8 +88,12 @@ public class GamePanel extends JPanel
 		if(model.getGiocatoriPartita().size() != 0 && model.getTurnoPartita() == 0 && model.getGiocatoreCorrente().canSplit()) setSplitVisible(true); 
 		else setSplitVisible(false); 
 		
+		//aggiorna carte e dati utente
 		topbar.aggiornaDatiUtente();
 		bodyPanel.updateDealer();
 		bottombar.updateGiocatori();
+		
+		repaint();
+		revalidate();
     }
 }

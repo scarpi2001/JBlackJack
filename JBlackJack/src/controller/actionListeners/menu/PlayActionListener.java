@@ -6,7 +6,7 @@ import model.ModelManager;
 import view.View;
 
 /**
- * classe che definisce l'evento di avvio partita al click di un componente swing
+ * definisce l'evento di avvio partita al click di un componente swing
  */
 public class PlayActionListener implements ActionListener
 {

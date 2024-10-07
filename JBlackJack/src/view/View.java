@@ -9,7 +9,7 @@ import view.gamePanel.GamePanel;
 import view.menuPanel.MenuPanel;
 
 /**
- * classe che rappresenta la view, implementata tramite un JFrame
+ * rappresenta la view, implementata tramite un JFrame
  */
 @SuppressWarnings("deprecation")
 public class View extends JFrame implements Observer 
@@ -28,8 +28,8 @@ public class View extends JFrame implements Observer
 		setTitle(TITOLO);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
-		//setExtendedState(JFrame.MAXIMIZED_BOTH);
-	    //setUndecorated(true);
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
+	    setUndecorated(true);
 	    
 		setSize(1280, 720);
 		setLocationRelativeTo(null);

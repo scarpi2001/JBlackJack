@@ -2,13 +2,12 @@ package controller.actionListeners.menu;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JComboBox;
 
 import model.ModelManager;
 
 /**
- * classe che definisce l'evento di set del numero di giocatori che deve accadere al click di un componente swing
+ * definisce l'evento di set del numero di giocatori che deve accadere al click di un componente swing
  */
 public class SetGiocatoriActionListener implements ActionListener 
 {

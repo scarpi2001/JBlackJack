@@ -23,22 +23,22 @@ public class Mano
     private List<Carta> carte;
     
     /**
-     * flag che mi indica se la mano è "sballata" o no
+     * indica se la mano è "sballata" o no
      */
     private boolean sballata;
     
     /**
-     * flag che mi indica se la mano è un blackjack(21) o no
+     * indica se la mano è un blackjack(21) o no
      */
     private boolean blackjack;
     
     /**
-     * flag che mi indica se la mano è soft o hard
+     * indica se la mano è soft o no
      */
     private boolean soft;
     
 	/**
-	 * flag che indica se la mano che sta giocando il giocatore è terminata o no
+	 * indica se la mano è terminata o no
 	 */
 	private boolean terminata;
 	
