@@ -1,8 +1,0 @@
-username:mario
-chips:940
-maniGiocate:18
-maniVinte:4
-maniPareggiate:2
-maniPerse:12
-esperienza:74
-livello:0

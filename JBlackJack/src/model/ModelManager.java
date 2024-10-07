@@ -1,18 +1,17 @@
 package model;
 
-import model.carte.Mazzo;
-import model.giocatore.Giocatore;
-import model.giocatore.GiocatoreDealer;
-import model.giocatore.GiocatoreUtente;
-
 import java.util.List;
 import java.util.Observable;
 
+import model.carte.Mazzo;
+import model.giocatore.Giocatore;
+import model.giocatore.GiocatoreUtente;
+
+@SuppressWarnings("deprecation")
 /**
  * classe principale del package model 
  * ad essa è affidata la gestione dello stato della partia e dell'utente
  */
-@SuppressWarnings("deprecation")
 public class ModelManager extends Observable 
 {
 	//CAMPI
@@ -171,13 +170,6 @@ public class ModelManager extends Observable
 		return utente.getLivello();
 	}
 	
-	//METODI MODEL
-	public void updateObservers(String s)
-	{
-		setChanged();
-		notifyObservers(s);
-	}
-	
 	//METODI UTENTE
 	/**
 	 * aggiorna i dati dell’utente prendendoli dal file fileDatiUtentePath,
@@ -287,4 +279,11 @@ public class ModelManager extends Observable
     	System.out.println("back");
 		updateObservers("back");
     }
+    
+    //UPDATE OBSERVERS
+  	public void updateObservers(String s)
+  	{
+  		setChanged();
+  		notifyObservers(s);
+  	}
 }

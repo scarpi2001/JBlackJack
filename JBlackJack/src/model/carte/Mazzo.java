@@ -10,7 +10,7 @@ import model.carte.Carta.Simbolo;
 public class Mazzo 
 {
 	/**
-	 * lista di carte che rappresenta il mazzo
+	 * lista di carte che compone il mazzo
 	 */
     private Carta[] mazzo;
     
@@ -71,7 +71,7 @@ public class Mazzo
      * distribuisce carte fino a che il mazzo non finisce,
      * una volta finito, il mazzo viene rimescolato 
      * e la distribuzione di carte riparte dall'inizio del mazzo
-     * @return un oggetto di tipo Carta (una carta dal mazzo)
+     * @return una carta dal mazzo
      */
     public Carta carta() 
     {
@@ -81,7 +81,6 @@ public class Mazzo
         } 
         else 
         {
-        	System.out.println("mazzo finito");
             this.mix();
             this.cartaCorrente = 0;
             return this.mazzo[this.cartaCorrente++];

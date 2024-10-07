@@ -32,7 +32,6 @@ public abstract class Giocatore
 	//COSTRUTTORE
 	public Giocatore()
 	{	
-     	//se sono un utente l'username non c'è bisogno di metterlo qui
 		if(this instanceof GiocatoreDealer) username = "Dealer";
 		else if(!(this instanceof GiocatoreUtente)) username = "Bot";  	
 		
@@ -81,14 +80,10 @@ public abstract class Giocatore
      * si trova in questa classe perchè in una futura implementazione del software
      * è prevista anche la scommessa di altri giocatori
      */
-    public void scommetti(int scommessa)
-    {
-    	
-    }
+    public void scommetti(int scommessa){}
     
     /**
 	 * aggiunge una carta alla mano corrente del giocatore, 
-	 * in base alle condizioni della mano la termina o meno
 	 * e aggiorna gli osservatori del model
 	 */
     public void hit() 
@@ -97,7 +92,6 @@ public abstract class Giocatore
     	Carta carta = model.getMazzoPartita().carta();
     	
     	getManoCorrente().addCarta(carta);
-    	getManoCorrente().checkTerminata();
     	System.out.println("hit");
     	model.updateObservers("hit");
     }
@@ -111,15 +105,13 @@ public abstract class Giocatore
     }
 
     /**
-     * metodo che permette ad un giocatore di "splittare" le 2 carte iniziali quando hanno lo stesso simbolo
+     * permette ad un giocatore di "splittare" la mano iniziale in due mani
+     * se le carte che compongono la mano iniziale hanno lo stesso simbolo
      * è stato implementato sul giocatoreUtente
      * si trova in questa classe perchè in una futura implementazione del software
-     * è prevista anche lo split di altri giocatori
+     * è previsto anche lo split di altri giocatori
      */
-	public void split()
-	{
-		
-	}
+	public void split(){}
 	
 	/**
 	 * metodo per riconoscere la condizione di split della mano corrente del giocatore
@@ -165,15 +157,15 @@ public abstract class Giocatore
 	
     /**
      * confronta le mani del giocatore con quella del dealer,
-     * e aggiorna lo stato delle mani
-     * l'utente fa molte più cose del bot, quindi ogni tipo di giocatore definisce il metodo a modo suo
+     * e aggiorna lo stato delle mani (nel caso dell'utente anche i dati)
+     * 
      */
 	public abstract void aggiornaStats();
     
 	/**
 	 * confronta la singola mano del giocatore con quella del dealer,
-	 * @param mano La mano del giocatore
-	 * @param manoDealer La mano del dealer
+	 * @param mano la mano del giocatore
+	 * @param manoDealer la mano del dealer
 	 */
 	public abstract void confrontaManoConDealer(Mano mano, Mano manoDealer);
 

@@ -5,8 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Classe di utilità per operazioni di lettura e scrittura di file di testo,
- * specificamente progettata per essere utilizzata all'interno del modello.
+ * classe di utilità per operazioni di lettura e scrittura di file di testo
  */
 public class FileUtils
 {

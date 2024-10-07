@@ -1,14 +1,13 @@
 package model.giocatore;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import model.ModelManager;
 import model.carte.Mano;
 
 /**
- * classe che rappresenta un giocatore bot,
- * non essendo comandato dall'utente gioca "a modo suo"
+ * rappresenta un giocatore bot,
+ * segue determinate regole di gioco
  */
 public class GiocatoreBot extends Giocatore
 {

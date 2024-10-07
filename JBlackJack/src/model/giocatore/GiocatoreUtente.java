@@ -63,10 +63,7 @@ public class GiocatoreUtente extends Giocatore
 	private int livello;
 	
 	//COSTRUTTORE
-	private GiocatoreUtente()
-	{
-	}
-	
+	private GiocatoreUtente(){}
 	public static GiocatoreUtente getInstance()
 	{
 		if (instance == null) instance = new GiocatoreUtente();
@@ -203,9 +200,9 @@ public class GiocatoreUtente extends Giocatore
 	
 	//CREAZIONE UTENTE
 	/**
-	 * metodo per creare un utente
-	 * salva l'username inserito nel file fileUtentiPath
-	 * e crea il file con il nome fileDatiUtentePath dedicato all'utente appena creato
+	 * crea un utente,
+	 * salvando l'username inserito nel file fileUtentiPath
+	 * e creando il file con il nome fileDatiUtentePath dedicato all'utente appena creato
 	 * @param username nome dell'utente
 	 * @param fileUtentiPath path del file degli utenti
 	 * @param fileDatiUtentePath path del file dell'utente da creare
@@ -220,7 +217,7 @@ public class GiocatoreUtente extends Giocatore
         creaFileUtente(username, fileDatiUtentePath);
 	} 	
 	/**
-	 * metodo privato che crea il file del nuovo utente inserendo i dati necessari al suo interno"
+	 * crea il file del nuovo utente inserendo i dati necessari al suo interno
 	 * @param username l'username dell'utente legato al file
 	 * @param path path del file da creare
 	 * @return se l'operazione di creazione del file e di inserimento dati va a buon fine restituisce true altrimenti false
@@ -242,9 +239,9 @@ public class GiocatoreUtente extends Giocatore
 	
 	//ELIMINAZIONE UTENTE
 	/**
-	 * metodo per eliminare l'utente 
-	 * elimina l'utente dal file degli utenti 
-	 * elimina il file dell'utente
+	 * elimina l'utente 
+	 * eliminandolo dal file degli utenti 
+	 * ed eliminando il file dell'utente
 	 * @param username l'username dell'utente da eliminare
 	 * @param fileUtentiPath path del file degli utenti
 	 * @param fileDatiUtentePath path del file dell'utente da eliminare
@@ -287,6 +284,8 @@ public class GiocatoreUtente extends Giocatore
     
 	/**
 	 * implementazione del metodo split per l'utente
+	 * permette ad un giocatore di "splittare" la mano iniziale in due mani
+     * se le carte che compongono la mano iniziale hanno lo stesso simbolo
 	 */
 	@Override
 	public void split()
@@ -294,7 +293,7 @@ public class GiocatoreUtente extends Giocatore
 		ModelManager model = ModelManager.getInstance();
 		Mano manoCorrente = getManoCorrente();
 		
-		GiocatoreUtente.getInstance().setChips(GiocatoreUtente.getInstance().getChips() - model.getScommessaUtentePartita());
+		setChips(getChips() - model.getScommessaUtentePartita());
 		
         Carta carta1 = manoCorrente.getCarte().get(0);
         Carta carta2 = manoCorrente.getCarte().get(1);
@@ -302,12 +301,10 @@ public class GiocatoreUtente extends Giocatore
         manoCorrente.reset();
         manoCorrente.addCarta(carta1);
         manoCorrente.addCarta(model.getMazzoPartita().carta());
-        manoCorrente.checkTerminata();
         
         Mano nuovaMano = new Mano();
         nuovaMano.addCarta(carta2);
         nuovaMano.addCarta(model.getMazzoPartita().carta());
-        nuovaMano.checkTerminata();
         
         getMani().add(nuovaMano); 
 
@@ -343,8 +340,8 @@ public class GiocatoreUtente extends Giocatore
 	 * sovrascrive il metodo confrontaManoConDealer,
 	 * confronta la singola mano dell'utente con quella del dealer,
 	 * aggiorna lo stato della mano e i dati dell'utente
-	 * @param mano La mano dell'utente
-	 * @param manoDealer La mano del dealer
+	 * @param mano la mano dell'utente
+	 * @param manoDealer la mano del dealer
 	 */
 	@Override
 	public void confrontaManoConDealer(Mano mano, Mano manoDealer)
@@ -359,32 +356,35 @@ public class GiocatoreUtente extends Giocatore
             mano.setStato(Mano.Stato.VINTA);
             setChips(getChips() + scommessaUtente * 2);
             setManiVinte(getManiVinte() + 1);  
-            setEsperienza(esperienza + Partita.getInstance().getScommessaUtente() * 2);
+            setEsperienza(getEsperienza() + Partita.getInstance().getScommessaUtente() * 2);
         } 
         else if (conteggioMano < conteggioDealer)
         {
             mano.setStato(Mano.Stato.PERSA);
             setManiPerse(getManiPerse() + 1);
-            setEsperienza(esperienza + Partita.getInstance().getScommessaUtente()/2);
+            setEsperienza(getEsperienza() + Partita.getInstance().getScommessaUtente()/2);
         } 
         else
         {
             mano.setStato(Mano.Stato.PAREGGIATA);
             setChips(getChips() + scommessaUtente);
             setManiPareggiate(getManiPareggiate() + 1);       
-            setEsperienza(esperienza + Partita.getInstance().getScommessaUtente());
+            setEsperienza(getEsperienza() + Partita.getInstance().getScommessaUtente());
         }
         
         aggiornaLivello();
     }
 	
+	/**
+	 * aggiorna il livello dell'utente in base all'esperienza
+	 */
 	private void aggiornaLivello()
 	{
-	    while (esperienza >= 1000)
+	    if (getEsperienza() >= 1000)
 	    {
 	    	//resetto esperienza ogni volta che salgo di livello
-	        esperienza -= 1000;  
-	        setLivello(livello + 1);
+	    	setEsperienza(getEsperienza() - 1000);
+	        setLivello(getLivello() + 1);
 	    }
 	}
 }

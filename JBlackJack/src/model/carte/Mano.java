@@ -18,7 +18,7 @@ public class Mano
 	
 	//CAMPI
 	/**
-	 * lista di carte di cui è composta la mano
+	 * lista di carte che compongono la mano
 	 */
     private List<Carta> carte;
     
@@ -63,78 +63,94 @@ public class Mano
     {
         return conteggio;
     }
+    private void setConteggio(int conteggio) 
+    {
+        this.conteggio = conteggio;
+    }
 
     public boolean isBusted()
     {
         return sballata;
+    }
+    private void setBusted(boolean sballata) 
+    {
+        this.sballata = sballata;
     }
 
     public boolean isBlackJack() 
     {
         return blackjack;
     }
-    
+    private void setBlackJack(boolean blackjack) 
+    {
+        this.blackjack = blackjack;
+    }
+
     public boolean isTerminata()
     {
-    	return terminata;
+        return terminata;
     }
     public void setTerminata(boolean terminata)
     {
-    	this.terminata = terminata;
+        this.terminata = terminata;
     }
-    
+
     public boolean isSoft()
     {
-    	return soft;
+        return soft;
     }
-    
+    private void setSoft(boolean soft)
+    {
+        this.soft = soft;
+    }
+
     public List<Carta> getCarte() 
     {
         return carte;
     }
-    
+
     public Stato getStato()
     {
-    	return stato;
+        return stato;
     }
-    public void setStato(Stato Stato)
+    public void setStato(Stato stato)
     {
-    	this.stato = Stato;
+        this.stato = stato;
     }
     
     //METODI
     /**
-	 * metodo per aggiungere una carta alla mano
-	 * riconosce lo stato di "sballata" e di "blackjack"
+	 * aggiunge una carta alla mano, modificando il conteggio
+	 * se necessario attribuisce alla mano lo stato di "sballata" o di "blackjack"
 	 * @param carta la carta da aggiugere
 	 */
     public void addCarta(Carta carta) 
     {
-        carte.add(carta);
-        conteggio += carta.getValore();
+        getCarte().add(carta);
+        setConteggio(getConteggio() + carta.getValore());
 
-        //se ho beccato il primo asso, lo faccio valere 11 invece che 1, entrando in una "soft hand"
-        if (conteggio <= 11 && carta.isAsso()) 
+        if (getConteggio() <= 11 && carta.isAsso()) 
         {
-            conteggio += 10;
-            soft = true;
+            setConteggio(getConteggio() + 10);
+            setSoft(true);
         }
-        //se sono in una "soft hand" e ho "sballato" il primo asso torna a valere 1 invece che 11 ed esco dalla "soft hand" (hard hand)
-        if (soft && conteggio > 21) 
+
+        if (isSoft() && getConteggio() > 21) 
         {
-            soft = false;
-            conteggio -= 10;
+            setSoft(false);
+            setConteggio(getConteggio() - 10);
         }
-                 
-        //check se la mano è sballata oppure se ha fatto blackjack
-        if (conteggio == 21) 
+        
+        if (getConteggio() == 21) 
         {
-            blackjack = true;
+        	setTerminata(true);
+            setBlackJack(true);
         }
-        else if (conteggio > 21)
+        else if (getConteggio() > 21)
         {
-            sballata = true;
-            stato = Stato.PERSA;
+        	setTerminata(true);
+            setBusted(true);
+            setStato(Stato.PERSA);
         }
     }
 
@@ -144,12 +160,7 @@ public class Mano
 	 */
     public boolean canSplit() 
     {
-        return carte.size() == 2 && carte.get(0).getSimbolo() == carte.get(1).getSimbolo();
-    }
-    
-    public void checkTerminata()
-    {
-    	if (blackjack || sballata) terminata = true;
+        return getCarte().size() == 2 && getCarte().get(0).getSimbolo() == getCarte().get(1).getSimbolo();
     }
 
     /**
@@ -157,12 +168,12 @@ public class Mano
 	 */	
     public void reset()
     {
-        carte.clear();
-        sballata = false;
-        blackjack = false;
-        soft = false;
-        terminata = false;
-        stato = Stato.IN_CORSO;
-        conteggio = 0;
+        getCarte().clear();
+        setBusted(false);
+        setBlackJack(false);
+        setSoft(false);
+        setTerminata(false);
+        setStato(Stato.IN_CORSO);
+        setConteggio(0);
     }
 }

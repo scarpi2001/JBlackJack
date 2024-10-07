@@ -1,6 +1,5 @@
 package view.gamePanel;
 
-import java.awt.*;
 import javax.swing.*;
 
 import model.ModelManager;
