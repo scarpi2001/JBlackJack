@@ -28,8 +28,8 @@ public class View extends JFrame implements Observer
 		setTitle(TITOLO);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
-		setExtendedState(JFrame.MAXIMIZED_BOTH);
-	    setUndecorated(true);
+		//setExtendedState(JFrame.MAXIMIZED_BOTH);
+	    //setUndecorated(true);
 	    
 		setSize(1280, 720);
 		setLocationRelativeTo(null);

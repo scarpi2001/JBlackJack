@@ -55,6 +55,11 @@ public class Partita
 	 */
 	private boolean cartaDealerScoperta;
 	
+	/**
+	 * indica se sto distribuendo le carte
+	 */
+	private boolean distribuzione;
+	
 	//COSTRUTTORE
 	private Partita()
 	{
@@ -128,6 +133,15 @@ public class Partita
 	public void setCartaDealerScoperta(boolean cartaDealerScoperta)
 	{
 		this.cartaDealerScoperta = cartaDealerScoperta;
+	}
+	
+	public void setDistribuzione(boolean distribuzione)
+	{
+		this.distribuzione = distribuzione;
+	}
+	public boolean getDistribuzione()
+	{
+		return distribuzione;
 	}
 	
 	//METODI

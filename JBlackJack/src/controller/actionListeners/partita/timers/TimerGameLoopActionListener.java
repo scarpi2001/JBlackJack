@@ -22,11 +22,13 @@ public class TimerGameLoopActionListener implements ActionListener
     public void actionPerformed(ActionEvent e) 
     { 		
 		ModelManager model = ModelManager.getInstance();
+		//model.setDistribuzionePartita(true);
         if(giocatore.isManoTerminata()) giocatore.manoSuccessiva();
     	
         if(model.isPartitaFinita()) model.finePartita();
         else Controller.getInstance().gameloop();
 
         ((Timer) e.getSource()).stop();
+       // model.setDistribuzionePartita(false);
     }
 }

@@ -124,14 +124,15 @@ public class Controller
 	 * simula la distribuzione di carte del blackjack (una alla volta)
 	 */
 	public void distribuisciCarte()
-	{
-		model.setCartaDealerScoperta(false);
-		
+	{	
 	    //resetta lo stato dei giocatori
 	    for (Giocatore giocatore : model.getGiocatoriPartita())
 	    {
 	        giocatore.resetStato();
 	    }
+	    
+	    //inizio a distribuire
+	    model.setDistribuzionePartita(true);
 	    
 	    //do subito la prima carta
 	    Giocatore primoGiocatore = model.getGiocatoriPartita().get(0);
@@ -139,6 +140,6 @@ public class Controller
 
 	    //imposto timer per rallentare la distribuzione delle carte successive
 	    Timer timer = new Timer(600, new TimerDistribuzioneActionListener()); 
-	    timer.start();
+	    timer.start();	  
    }
 }

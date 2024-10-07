@@ -4,36 +4,36 @@ import javax.swing.*;
 
 public class ActionsPanel extends JPanel
 {
-	private PreBetPanel scommettiPanel;
-	private PostBetPanel actionsPanel;
+	private PreBetPanel preBetPanel;
+	private PostBetPanel postBetPanel;
 	  
     public ActionsPanel() 
     {
     	setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setOpaque(false);
         
-        //startPanel (bet, quantità)
-        scommettiPanel = new PreBetPanel();
-        add(scommettiPanel);
+        //prebet (bet, quantità)
+        preBetPanel = new PreBetPanel();
+        add(preBetPanel);
         
-        //actionsPanel (hit, stay, split)
-        actionsPanel = new PostBetPanel();
-        add(actionsPanel);
-        actionsPanel.setVisible(false);
+        //postbet (hit, stay, split)
+        postBetPanel = new PostBetPanel();
+        add(postBetPanel);
+        postBetPanel.setVisible(false);
     }
 
-    public void setBetPanelVisible(boolean visible) 
+    public void setPreBetPanelVisible(boolean visible) 
     {
-    	scommettiPanel.setVisible(visible);
+    	preBetPanel.setVisible(visible);
     }
     
-    public void setActionsPanelVisible(boolean visible) 
+    public void setPostBetPanelVisible(boolean visible) 
     {
-    	actionsPanel.setVisible(visible);
+    	postBetPanel.setVisible(visible);
     }
     
     public void setSplitVisible(boolean visible) 
     {
-    	actionsPanel.setSplitVisible(visible);
+    	postBetPanel.setSplitVisible(visible);
     }
 }

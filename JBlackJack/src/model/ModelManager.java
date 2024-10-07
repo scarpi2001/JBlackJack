@@ -98,6 +98,16 @@ public class ModelManager extends Observable
 		updateObservers("cartaScoperta");
 	}
 	
+	public void setDistribuzionePartita(boolean distribuzione)
+	{
+		partita.setDistribuzione(distribuzione);
+		updateObservers("distribuzione: " + distribuzione);
+	}
+	public boolean getDistribuzionePartita()
+	{
+		return partita.getDistribuzione();
+	}
+	
 	//GETTERS E SETTERS DELL'UTENTE
 	public String getUsernameUtente()
 	{

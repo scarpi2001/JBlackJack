@@ -6,7 +6,7 @@ import view.gamePanel.bottombar.actionsPanel.ActionsPanel;
 
 public class BottomBarGamePanel extends JPanel
 {
-    private ActionsPanel utentePanel;
+    private ActionsPanel actionsPanel;
     private GiocatoriPanel giocatoriPanel;
     
     public BottomBarGamePanel() 
@@ -17,13 +17,13 @@ public class BottomBarGamePanel extends JPanel
         GridBagConstraints gbc = new GridBagConstraints();
         
         //panel azioni
-        utentePanel = new ActionsPanel();
+        actionsPanel = new ActionsPanel();
         gbc.fill = GridBagConstraints.VERTICAL; 
         gbc.weightx = 0.1; 
         gbc.gridx = 0; 
         gbc.gridy = 0; 
         gbc.anchor = GridBagConstraints.LAST_LINE_START;
-        add(utentePanel, gbc);
+        add(actionsPanel, gbc);
 
         //panel giocatori
         giocatoriPanel = new GiocatoriPanel(); 
@@ -36,23 +36,28 @@ public class BottomBarGamePanel extends JPanel
     
     }
 	
-	public void updateGiocatori()
-	{
-		giocatoriPanel.updateGiocatori();
-	}
-	
-    public void setBetPanelVisible(boolean visible) 
-    {
-    	utentePanel.setBetPanelVisible(visible);
-    }
-    
     public void setActionsPanelVisible(boolean visible) 
     {
-    	utentePanel.setActionsPanelVisible(visible);
+    	actionsPanel.setVisible(visible);
+    }
+    
+    public void setPreBetPanelVisible(boolean visible) 
+    {
+    	actionsPanel.setPreBetPanelVisible(visible);
+    }
+    
+    public void setPostBetPanelVisible(boolean visible) 
+    {
+    	actionsPanel.setPostBetPanelVisible(visible);
     }
     
     public void setSplitVisible(boolean visible) 
     {
-    	utentePanel.setSplitVisible(visible);
+    	actionsPanel.setSplitVisible(visible);
+    }
+    
+    public void updateGiocatori()
+    {
+    	giocatoriPanel.updateGiocatori();
     }
 }

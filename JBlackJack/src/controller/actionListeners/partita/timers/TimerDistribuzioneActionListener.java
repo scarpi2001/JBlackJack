@@ -51,6 +51,8 @@ public class TimerDistribuzioneActionListener implements ActionListener
             } 
             else
             {
+            	//ho finito di distribuire 
+            	model.setDistribuzionePartita(false);
                 //fermo il timer dopo il secondo giro
                 ((Timer)e.getSource()).stop();
             }

@@ -44,14 +44,19 @@ public class GamePanel extends JPanel
 		g2.drawImage(background, 0, 0, getWidth(), getHeight(), this);	
 	}
 	
-	public void setBetPanelVisible(boolean visible) 
-    {
-		bottombar.setBetPanelVisible(visible);
-    }
-	
 	public void setActionsPanelVisible(boolean visible) 
     {
-		bottombar.setActionsPanelVisible(visible);
+    	bottombar.setActionsPanelVisible(visible);
+    }
+	
+	public void setPreBetPanelVisible(boolean visible) 
+    {
+		bottombar.setPreBetPanelVisible(visible);
+    }
+	
+	public void setPostBetPanelVisible(boolean visible) 
+    {
+		bottombar.setPostBetPanelVisible(visible);
     }
 	
 	public void setSplitVisible(boolean visible) 
@@ -63,17 +68,20 @@ public class GamePanel extends JPanel
 	{	
 		ModelManager model = ModelManager.getInstance();
 		
+		//se sto distribuendo le carte nessun pulsante è visibile 
+		if(model.getDistribuzionePartita() || model.getTurnoPartita() != 0) setActionsPanelVisible(false);
+		else setActionsPanelVisible(true);
 		
 		//se la partita è in fase di post-bet vedo le azioni, se no vedo il pulsante bet 
 		if(model.isPartitaPostBet()) 
 		{
-			setBetPanelVisible(false); 
-			setActionsPanelVisible(true); 			
+			setPreBetPanelVisible(false); 
+			setPostBetPanelVisible(true); 			
 		}
 		else 
 		{
-			setBetPanelVisible(true); 
-			setActionsPanelVisible(false); 
+			setPreBetPanelVisible(true); 
+			setPostBetPanelVisible(false); 
 		}
 		
 		//se l'utente può splittare ed è il suo turno vedo il pulsante split
@@ -83,27 +91,5 @@ public class GamePanel extends JPanel
 		topbar.aggiornaDatiUtente();
 		bodyPanel.updateDealer();
 		bottombar.updateGiocatori();
-		
-		//DEBUG		
-		/*
-		for(Giocatore giocatore : model.getGiocatoriPartita())
-		{
-			int numeroMano = 1;
-			for (Mano mano : giocatore.getMani()) 
-			{
-		        for (Carta carta : mano.getCarte()) 
-		        {
-		            System.out.println(giocatore.getUsername() + ", mano n°:" + numeroMano + ", carta: " + carta.getImmagine() + " " + "soft hand: " + mano.isSoft());     
-		        }
-		        numeroMano++; 
-		        System.out.println(mano.getConteggio());
-		        
-		        if(!(giocatore instanceof GiocatoreDealer))System.out.println(mano.getStato());		        
-		    }
-		}
-		System.out.println("");
-		*/
-		System.out.println(model.isCartaDealerScoperta());
-		System.out.println("");
     }
 }
