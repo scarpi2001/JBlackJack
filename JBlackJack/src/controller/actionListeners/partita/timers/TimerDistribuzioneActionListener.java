@@ -7,6 +7,7 @@ import javax.swing.Timer;
 import controller.Controller;
 import model.ModelManager;
 import model.giocatore.Giocatore;
+import model.giocatore.GiocatoreDealer;
 import model.giocatore.GiocatoreUtente;
 
 /**
@@ -20,7 +21,7 @@ public class TimerDistribuzioneActionListener implements ActionListener
 	private int index = 1;
 	
 	/**
-	 * rappresenta il giro di distribuzione
+	 * rappresenta il giro di distribuzione, 
 	 * la distribuzione è suddivisa in due giri
 	 */
     private int giro = 1;
@@ -50,11 +51,12 @@ public class TimerDistribuzioneActionListener implements ActionListener
                 Giocatore giocatore = model.getGiocatoriPartita().get(index);
                 giocatore.hit();
                 
-                //ricontrollo se ho terminato la mano 
-                //questo controllo è necessario perchè il timer è asincrono
-                //quindi il passaggio alla mano successiva (che viene fatto nel gameloop) nel caso di un bj verrebbe saltato 
-                //perchè nel momento in cui dovrebbe essere invocato, la mano non è ancora bj e quindi non è ancora terminata
-                if (giocatore instanceof GiocatoreUtente && giocatore.isManoTerminata())
+                //ricontrollo se l'utente ha terminato la mano 
+                //questo controllo è necessario farlo dentro il timer perchè è asincrono
+                //di norma ci penserebbe il gameloop ma se lo chiamo subito questa distribuzione asincrona
+                //i controlli necessari vengono fatti prima che la distribuzione finisce 
+                //e l'utente non passa alla mano successiva se fa bj             
+                if (giocatore instanceof GiocatoreDealer && GiocatoreUtente.getInstance().isManoTerminata())
                 {
                 	model.setDistribuzionePartita(false);
                     ((Timer)e.getSource()).stop();

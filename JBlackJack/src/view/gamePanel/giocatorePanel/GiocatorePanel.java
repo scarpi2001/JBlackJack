@@ -7,7 +7,7 @@ import model.giocatore.Giocatore;
 import view.MyJLabel;
 
 /**
- * pannello di un giocatore della partita
+ * pannello di un giocatore della partita,
  * composto dalla label del nome dell'username del giocatore e dal pannello che contiene le mani 
  */
 public class GiocatorePanel extends JPanel

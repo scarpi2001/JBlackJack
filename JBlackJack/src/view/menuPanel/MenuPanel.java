@@ -7,7 +7,7 @@ import view.menuPanel.bottombar.BottomBarMenuPanel;
 import view.menuPanel.topbar.TopBarMenuPanel;
 
 /**
- * pannello del menu dell'applicazione
+ * pannello del menu dell'applicazione, 
  * è composto da una topbar e da una bottombar
  */
 public class MenuPanel extends JPanel

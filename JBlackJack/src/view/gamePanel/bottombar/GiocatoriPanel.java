@@ -8,8 +8,8 @@ import model.giocatore.Giocatore;
 import view.gamePanel.giocatorePanel.GiocatorePanel;
 
 /**
- * pannello contenente i pannelli dei giocatori
- * quando viene aggiornato toglie i pannelli e li ricrea
+ * pannello contenente i pannelli dei giocatori,
+ * quando viene aggiornato toglie i pannelli e li ricrea,
  * in questo modo l'aggiornamento si adatta facilmente al cambiamento del numero dei giocatori
  */
 public class GiocatoriPanel extends JPanel

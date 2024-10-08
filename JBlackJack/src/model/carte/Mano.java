@@ -120,7 +120,7 @@ public class Mano
     
     //METODI
     /**
-	 * aggiunge una carta alla mano, modificando il conteggio
+	 * aggiunge una carta alla mano, modificando il conteggio, 
 	 * se necessario attribuisce alla mano lo stato di "sballata" o di "blackjack"
 	 * @param carta la carta da aggiugere
 	 */
@@ -155,7 +155,7 @@ public class Mano
     }
 
     /**
-	 * metodo per riconoscere la condizione di split della mano
+	 * metodo per riconoscere la condizione di split della mano, 
 	 * @return true se la mano è splittabile, false altrimenti
 	 */
     public boolean canSplit() 

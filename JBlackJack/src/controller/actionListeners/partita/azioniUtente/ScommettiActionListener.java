@@ -47,8 +47,7 @@ public class ScommettiActionListener implements ActionListener
             }
 
             model.getGiocatoreCorrente().scommetti(scommessa);  
-        	Controller.getInstance().distribuisciCarte();
-        	Controller.getInstance().gameloop();    	                    
+        	Controller.getInstance().distribuisciCarte();                    
         } 
         catch (NumberFormatException ex) 
         {

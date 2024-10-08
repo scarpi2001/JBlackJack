@@ -8,7 +8,7 @@ import model.carte.Mano;
 import model.giocatore.Giocatore;
 
 /**
- * pannello delle mani di un giocatore della partita
+ * pannello delle mani di un giocatore della partita, 
  * contiene i pannelli delle mani del giocatore
  */
 public class ManiPanel extends JPanel

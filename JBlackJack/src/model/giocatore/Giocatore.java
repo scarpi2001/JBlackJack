@@ -8,7 +8,7 @@ import model.carte.Carta;
 import model.carte.Mano;
 
 /**
- * classe che rappresenta il giocatore
+ * classe che rappresenta il giocatore, 
  * può essere un utente reale oppure un bot
  */
 public abstract class Giocatore 
@@ -76,7 +76,7 @@ public abstract class Giocatore
 
     /**
      * metodo che permette ad un giocatore di scommettere,
-     * è stato implementato sul giocatoreUtente
+     * è stato implementato sul giocatoreUtente, 
      * si trova in questa classe perchè in una futura implementazione del software
      * è prevista anche la scommessa di altri giocatori
      */
@@ -92,7 +92,6 @@ public abstract class Giocatore
     	Carta carta = model.getMazzoPartita().carta();
     	
     	getManoCorrente().addCarta(carta);
-    	System.out.println("hit");
     	model.updateObservers("hit");
     }
 
@@ -105,9 +104,9 @@ public abstract class Giocatore
     }
 
     /**
-     * permette ad un giocatore di "splittare" la mano iniziale in due mani
-     * se le carte che compongono la mano iniziale hanno lo stesso simbolo
-     * è stato implementato sul giocatoreUtente
+     * permette ad un giocatore di "splittare" la mano iniziale in due mani, 
+     * se le carte che compongono la mano iniziale hanno lo stesso simbolo, 
+     * è stato implementato sul giocatoreUtente, 
      * si trova in questa classe perchè in una futura implementazione del software
      * è previsto anche lo split di altri giocatori
      */
@@ -123,7 +122,7 @@ public abstract class Giocatore
 	}
     
     /**
-	 * passa alla mano successiva
+	 * passa alla mano successiva,  
 	 * aumenta il conteggio delle mani giocate se il giocatore è un utente
 	 * se non c'è una mano successiva passa al turno successivo
 	 */
@@ -132,18 +131,10 @@ public abstract class Giocatore
     	ModelManager model = ModelManager.getInstance();
         
         //se sono all'ultima mano del giocatore passa al turno successivo, altrimenti indica al giocatore di passare alla mano successiva
-        if(manoCorrenteIndex + 1 == mani.size()) 
-        {
-        	model.setTurnoPartita(model.getTurnoPartita() + 1);
-        	System.out.println("turno succ");
-        }
-        else 
-        {
-        	setManoCorrenteIndex(manoCorrenteIndex + 1);
-        	System.out.println("mano succ");
-        }
-        
-        model.updateObservers("mano succ");
+        if(getManoCorrenteIndex() + 1 == getMani().size()) model.setTurnoPartita(model.getTurnoPartita() + 1);       
+        else setManoCorrenteIndex(getManoCorrenteIndex() + 1);
+  
+        model.updateObservers();
     }
 	
     /**
@@ -152,7 +143,7 @@ public abstract class Giocatore
      */
     public Mano getManoCorrente() 
 	{
-		return mani.get(manoCorrenteIndex);
+		return getMani().get(getManoCorrenteIndex());
 	}
 	
     /**
@@ -174,8 +165,8 @@ public abstract class Giocatore
 	 */	
     public void resetStato() 
     {
-        mani.clear();
-        mani.add(new Mano());
-        manoCorrenteIndex = 0;
+        getMani().clear();
+        getMani().add(new Mano());
+        setManoCorrenteIndex(0);
     }
 }

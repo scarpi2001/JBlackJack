@@ -7,7 +7,7 @@ import model.ModelManager;
 import view.gamePanel.bottombar.BottomBarGamePanel;
 
 /**
- * pannello della partita
+ * pannello della partita, 
  * è composto da una topbar da un bodypanel e da una bottombar
  */
 public class GamePanel extends JPanel

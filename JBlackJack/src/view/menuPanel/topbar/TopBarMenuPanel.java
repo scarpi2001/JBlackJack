@@ -8,7 +8,7 @@ import model.ModelManager;
 
 
 /**
- * pannello per la topbar del menu
+ * pannello per la topbar del menu, 
  * è composto da un pannello per scegliere il numero di giocatori della partita
  * e da un pannello di gestione dell'utente
  */

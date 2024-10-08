@@ -10,8 +10,8 @@ import java.util.List;
 public class FileUtils
 {
 	/**
-	 * metodo per ottenere il contenuto di un file
-	 * restituisce il contenuto sotto forma di lista di stringhe
+	 * metodo per ottenere il contenuto di un file, 
+	 * restituisce il contenuto sotto forma di lista di stringhe, 
 	 * ogni elemento della lista è una riga del file
 	 * @param filePath path del file
 	 * @return lista di righe del file

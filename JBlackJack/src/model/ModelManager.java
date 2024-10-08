@@ -8,7 +8,7 @@ import model.giocatore.Giocatore;
 import model.giocatore.GiocatoreUtente;
 
 /**
- * classe principale del package model 
+ * classe principale del package model, 
  * ad essa è affidata la gestione dello stato della partia e dell'utente
  */
 @SuppressWarnings("deprecation")
@@ -60,125 +60,125 @@ public class ModelManager extends Observable
 	//GETTERS E SETTERS DELLA PARTITA
 	public Mazzo getMazzoPartita() 
 	{		
-		return partita.getMazzo();
+		return getPartita().getMazzo();
 	}
 	public void setMazzoPartita(Mazzo mazzo) 
 	{		
-		partita.setMazzo(mazzo);
+		getPartita().setMazzo(mazzo);
 	}
 	
 	public List<Giocatore> getGiocatoriPartita() 
 	{		
-		return partita.getGiocatori();
+		return getPartita().getGiocatori();
 	}
 	public void setGiocatoriPartita(List<Giocatore> giocatori) 
 	{		
-		partita.setGiocatori(giocatori);
+		getPartita().setGiocatori(giocatori);
 	}
 	
 	public int getNumeroGiocatoriPartita() 
 	{		
-		return partita.getNumeroGiocatori();
+		return getPartita().getNumeroGiocatori();
 	}
 	public void setNumeroGiocatoriPartita(int numeroGiocatori) 
 	{		
-		partita.setNumeroGiocatori(numeroGiocatori);
+		getPartita().setNumeroGiocatori(numeroGiocatori);
 	}
 	
 	public int getTurnoPartita() 
 	{		
-		return partita.getTurno();
+		return getPartita().getTurno();
 	}
 	public void setTurnoPartita(int turno) 
 	{		
-		partita.setTurno(turno);
+		getPartita().setTurno(turno);
 	}
 	
 	public int getScommessaUtentePartita()
 	{
-		return partita.getScommessaUtente();
+		return getPartita().getScommessaUtente();
 	}
 	
 	public boolean isCartaDealerScoperta()
 	{
-		return partita.isCartaDealerScoperta();
+		return getPartita().isCartaDealerScoperta();
 	}
 	public void setCartaDealerScoperta(boolean cartaDealerScoperta)
 	{
-		partita.setCartaDealerScoperta(cartaDealerScoperta);
-		updateObservers("cartaScoperta");
+		getPartita().setCartaDealerScoperta(cartaDealerScoperta);
+		updateObservers();
 	}
 	
 	public void setDistribuzionePartita(boolean distribuzione)
 	{
-		partita.setDistribuzione(distribuzione);
-		updateObservers("distribuzione: " + distribuzione);
+		getPartita().setDistribuzione(distribuzione);
+		updateObservers();
 	}
 	public boolean getDistribuzionePartita()
 	{
-		return partita.getDistribuzione();
+		return getPartita().getDistribuzione();
 	}
 	
 	//GETTERS E SETTERS DELL'UTENTE
 	public String getUsernameUtente()
 	{
-		return utente.getUsername();
+		return getUtente().getUsername();
 	}
 	
 	public String getFilePathUtente()
 	{
-		return utente.getFilePath();
+		return getUtente().getFilePath();
 	}
 	
 	public int getChipsUtente()
 	{
-		return utente.getChips();
+		return getUtente().getChips();
 	}
 	public void setChipsUtente(int chips)
 	{
-		utente.setChips(chips);
+		getUtente().setChips(chips);
 	}
 	
 	public int getManiGiocateUtente()
 	{
-		return utente.getManiGiocate();
+		return getUtente().getManiGiocate();
 	}
 	public void setManiGiocateUtente(int maniGiocate)
 	{
-		utente.setManiGiocate(maniGiocate);
+		getUtente().setManiGiocate(maniGiocate);
 	}
 	
 	public int getManiVinteUtente()
 	{
-		return utente.getManiVinte();
+		return getUtente().getManiVinte();
 	}
 	public void setManiVinteUtente(int maniVinte)
 	{
-		utente.setManiVinte(maniVinte);
+		getUtente().setManiVinte(maniVinte);
 	}
 	
 	public int getManiPareggiateUtente()
 	{
-		return utente.getManiPareggiate();
+		return getUtente().getManiPareggiate();
 	}
 	public void setManiPareggiateUtente(int maniPareggiate)
 	{
-		utente.setManiPareggiate(maniPareggiate);
+		getUtente().setManiPareggiate(maniPareggiate);
 	}
 	
 	public int getManiPerseUtente()
 	{
-		return utente.getManiPerse();
+		return getUtente().getManiPerse();
 	}
 	public void setManiPerseUtente(int maniPerse)
 	{
-		utente.setManiPerse(maniPerse);
+		getUtente().setManiPerse(maniPerse);
 	}
 	
 	
 	public int getLivelloUtente()
 	{
-		return utente.getLivello();
+		return getUtente().getLivello();
 	}
 	
 	//METODI UTENTE
@@ -302,7 +302,6 @@ public class ModelManager extends Observable
      */
     public void back()
     {
-    	System.out.println("back");
     	getPartita().back();
 		updateObservers();
     }

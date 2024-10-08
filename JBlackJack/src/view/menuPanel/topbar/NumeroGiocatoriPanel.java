@@ -8,7 +8,7 @@ import controller.actionListeners.menu.SetGiocatoriActionListener;
 import view.MyJLabel;
 
 /**
- * pannello per la scelta del numero di giocatori che partecipano alla partita
+ * pannello per la scelta del numero di giocatori che partecipano alla partita, 
  * è composto da una label e una combobx per la scelta del numero
  */
 public class NumeroGiocatoriPanel extends JPanel

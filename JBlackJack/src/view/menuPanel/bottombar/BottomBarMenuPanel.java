@@ -6,7 +6,7 @@ import view.DatiUtentePanel;
 import java.awt.*;
 
 /**
- * pannello per la bottomBar del menu
+ * pannello per la bottomBar del menu,
  * contiene un pannello per mostrare i dati dell'utente
  * e il pannello contenente i pulsanti gioca ed esci
  */

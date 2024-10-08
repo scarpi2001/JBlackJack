@@ -11,8 +11,8 @@ import model.giocatore.GiocatoreUtente;
 import view.MyJLabel;
 
 /**
- * pannello della mano di un giocatore della partita
- * contiene la label con il conteggio della mano
+ * pannello della mano di un giocatore della partita,
+ * contiene la label con il conteggio della mano,
  * il pannello con le carte che compongono la mano
  * e la label con lo stato della mano e l'eventuale vincita
  */
@@ -30,7 +30,7 @@ public class ManoPanel extends JPanel
         setOpaque(false);
              
         //conteggio
-        if(mano.getConteggio() != 0) add(createConteggioLabel(), BorderLayout.SOUTH);
+        if(mano.getConteggio() != 0) add(createConteggioLabel(), BorderLayout.NORTH);
         	
         //carte
         add(new CartePanel(giocatore, mano.getCarte()), BorderLayout.CENTER);

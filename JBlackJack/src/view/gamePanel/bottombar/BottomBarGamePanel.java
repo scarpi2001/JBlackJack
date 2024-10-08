@@ -6,7 +6,7 @@ import javax.swing.*;
 import view.gamePanel.bottombar.actionsPanel.ActionsPanel;
 
 /**
- * pannello per la bottomBar della partita
+ * pannello per la bottomBar della partita,
  * contiene il pannello con le azione eseguibili dall'utente
  * e il pannello contenente i giocatori della partita
  */

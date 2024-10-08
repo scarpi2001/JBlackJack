@@ -8,7 +8,7 @@ import model.giocatore.GiocatoreDealer;
 import view.gamePanel.giocatorePanel.GiocatorePanel;
 
 /**
- * pannello per il corpo della partita
+ * pannello per il corpo della partita, 
  * contiene il pannello del dealer
  */
 public class BodyGamePanel extends JPanel

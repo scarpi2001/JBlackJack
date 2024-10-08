@@ -2,20 +2,18 @@ package view.menuPanel.topbar;
 
 import javax.swing.*;
 import java.util.List;
+import java.awt.*;
+import java.awt.event.ActionListener;
 
 import controller.actionListeners.menu.utente.CreaUtenteActionListener;
 import controller.actionListeners.menu.utente.EliminaUtenteActionListener;
 import controller.actionListeners.menu.utente.SetUtenteActionListener;
 
-import java.awt.*;
-import java.awt.event.ActionListener;
-
-import model.FileUtils;
 import model.ModelManager;
 
 
 /**
- * panello per la gestione dell'utente nel menu
+ * panello per la gestione dell'utente nel menu,
  * al suo interno ci sono i bottoni per la creazione e l'eliminazione di un utente
  * e la combobox per selezionare l'utente
  */

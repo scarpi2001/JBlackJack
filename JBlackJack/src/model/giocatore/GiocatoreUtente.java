@@ -3,6 +3,7 @@ package model.giocatore;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 import model.FileUtils;
 import model.ModelManager;
@@ -11,11 +12,11 @@ import model.carte.Carta;
 import model.carte.Mano;
 
 /**
- * classe che rappresenta l'utente che utilizza l'applicazione
- * che è anche un giocatore
+ * classe che rappresenta l'utente che utilizza l'applicazione, 
+ * che è anche un giocatore, 
  * 
  * principalmente questa classe serve a differenziare l'utente (del quale devo salvare i dati)
- * e gli altri giocatori che sono bot 
+ * e gli altri giocatori che sono bot, 
  * 
  * è singleton perchè l'utente che usa l'applicazione è solo uno di quelli salvati
  */
@@ -160,44 +161,45 @@ public class GiocatoreUtente extends Giocatore
 	 */
 	public void setDati(String fileDatiUtentePath, String fileUltimoUtentePath)
 	{
-        setFilePath(fileDatiUtentePath);
-        List<String> lines = FileUtils.leggiFile(fileDatiUtentePath);
+	    setFilePath(fileDatiUtentePath);
+	    List<String> righe = FileUtils.leggiFile(fileDatiUtentePath);
 
-        for (String line : lines) {
-            String[] keyValue = line.split(":");
-            String key = keyValue[0].trim();
-            String value = keyValue[1].trim();
+	    righe.stream()
+	         .map(line -> line.split(":"))
+	         .forEach(keyValue -> {
+	             String key = keyValue[0].trim();
+	             String value = keyValue[1].trim();
+	             
+	             switch (key) {
+	                 case "username":
+	                     setUsername(value);
+	                     break;
+	                 case "chips":
+	                     setChips(Integer.parseInt(value));
+	                     break;
+	                 case "maniGiocate":
+	                     setManiGiocate(Integer.parseInt(value));
+	                     break;
+	                 case "maniVinte":
+	                     setManiVinte(Integer.parseInt(value));
+	                     break;
+	                 case "maniPareggiate":
+	                     setManiPareggiate(Integer.parseInt(value));
+	                     break;
+	                 case "maniPerse":
+	                     setManiPerse(Integer.parseInt(value));
+	                     break;
+	                 case "esperienza":
+	                     setEsperienza(Integer.parseInt(value));
+	                     break;
+	                 case "livello":
+	                     setLivello(Integer.parseInt(value));
+	                     break;
+	             }
+	         });
 
-            switch (key) {
-                case "username":
-                    setUsername(value);
-                    break;
-                case "chips":
-                    setChips(Integer.parseInt(value));
-                    break;
-                case "maniGiocate":
-                    setManiGiocate(Integer.parseInt(value));
-                    break;
-                case "maniVinte":
-                    setManiVinte(Integer.parseInt(value));
-                    break;
-                case "maniPareggiate":
-                    setManiPareggiate(Integer.parseInt(value));
-                    break;
-                case "maniPerse":
-                    setManiPerse(Integer.parseInt(value));
-                    break;
-                case "esperienza":
-                    setEsperienza(Integer.parseInt(value));
-                    break;
-                case "livello":
-                    setLivello(Integer.parseInt(value));
-                    break;
-            }
-        }
-
-        // Scrivi l'username nel file ultimo_utente.txt
-        FileUtils.scriviFile(fileUltimoUtentePath, getUsername(), false);
+	    // Scrivi l'username nel file ultimo_utente.txt
+	    FileUtils.scriviFile(fileUltimoUtentePath, getUsername(), false);
 	}
 	
 	//CREAZIONE UTENTE
@@ -226,22 +228,23 @@ public class GiocatoreUtente extends Giocatore
 	 */
 	private void creaFileUtente(String username, String path) 
 	{
-        List<String> contenuto = new ArrayList<>();
-        contenuto.add("username:" + username);
-        contenuto.add("chips:1000");
-        contenuto.add("maniGiocate:0");
-        contenuto.add("maniVinte:0");
-        contenuto.add("maniPareggiate:0");
-        contenuto.add("maniPerse:0");
-        contenuto.add("esperienza:0");
-        contenuto.add("livello:0");
+		List<String> contenuto = Stream.of(  
+	        "username:" + username,
+	        "chips:1000",
+	        "maniGiocate:0",
+	        "maniVinte:0",
+	        "maniPareggiate:0",
+	        "maniPerse:0",
+	        "esperienza:0",
+	        "livello:0"
+	        ).toList();
 
         FileUtils.scriviFile(path, contenuto, false);
 	}
 	
 	//ELIMINAZIONE UTENTE
 	/**
-	 * elimina l'utente 
+	 * elimina l'utente, 
 	 * eliminandolo dal file degli utenti 
 	 * ed eliminando il file dell'utente
 	 * @param username l'username dell'utente da eliminare
@@ -251,7 +254,7 @@ public class GiocatoreUtente extends Giocatore
 	//potrei estrapolare l'username da fileDatiUtentePath
 	public void eliminaUtente(String username, String fileUtentiPath, String fileDatiUtentePath)
 	{
-		List<String> utenti = new ArrayList<>(FileUtils.leggiFile(fileUtentiPath));
+		List<String> utenti = FileUtils.leggiFile(fileUtentiPath);
         utenti.remove(username);
    
         //sovrascrivo il file con la lista di utenti aggiornata
@@ -271,8 +274,8 @@ public class GiocatoreUtente extends Giocatore
 	public void gioca() {}
 	
 	/**
-	 * implementazione del metodo scommetti per l'utente
-	 * toglie le chips scommesse al totale
+	 * implementazione del metodo scommetti per l'utente, 
+	 * toglie le chips scommesse al totale, 
 	 * poi nel caso di vittoria, ci pensa la partita a ridare le chips corrette
 	 * e indica alla partita che è finita la fase iniziale (fase di bet)
 	 */
@@ -285,8 +288,8 @@ public class GiocatoreUtente extends Giocatore
     }
     
 	/**
-	 * implementazione del metodo split per l'utente
-	 * permette ad un giocatore di "splittare" la mano iniziale in due mani
+	 * implementazione del metodo split per l'utente, 
+	 * permette ad un giocatore di "splittare" la mano iniziale in due mani, 
      * se le carte che compongono la mano iniziale hanno lo stesso simbolo
 	 */
 	@Override
@@ -310,7 +313,6 @@ public class GiocatoreUtente extends Giocatore
         
         getMani().add(nuovaMano); 
 
-        System.out.println("split");
         model.updateObservers("split");
 	}
 	

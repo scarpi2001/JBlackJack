@@ -8,7 +8,7 @@ import javax.swing.*;
 import controller.actionListeners.partita.azioniUtente.ScommettiActionListener;
 
 /**
- * pannello che compare in fase di "pre bet"
+ * pannello che compare in fase di "pre bet",
  * contiene il campo di testo dove inserire la somma da scommettere
  * e il bottone per scommettere
  */

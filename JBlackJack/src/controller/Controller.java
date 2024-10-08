@@ -12,7 +12,7 @@ import model.giocatore.*;
 import view.View;
 
 /**
- * classe principale del package controller
+ * classe principale del package controller, 
  * gestisce l'inizializzazione del menu e il flusso della partita
  */
 @SuppressWarnings("deprecation")
@@ -36,7 +36,7 @@ public class Controller
 
     //COSTRUTTORE
     /**
-     * costruttore del controller
+     * costruttore del controller, 
      * crea le istanze di model e view e stabilisce la relazione di osservazione tra di loro.
      */    
 	private Controller() 
@@ -55,8 +55,8 @@ public class Controller
     //METODI MENU  
     /**
 	 * inizializza il menu 
-	 * e controlla la presenza di un utente precedentemente creato,
-	 * se non c'è chiede di crearlo
+	 * e controlla la presenza di un utente precedentemente creato, 
+	 * se non c'è chiede di crearlo, 
 	 * se è gia stato creato (quindi non sono al primo avvio) imposta l'ultimo utente selezionato
 	 */
     public void initMenu() 
@@ -135,7 +135,7 @@ public class Controller
     }
 	
 	/**
-	 * distribuisce le carte ai giocatori 
+	 * distribuisce le carte ai giocatori, 
 	 * simula la distribuzione di carte del blackjack (una alla volta)
 	 */
 	public void distribuisciCarte()

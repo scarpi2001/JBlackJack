@@ -4,7 +4,7 @@ import java.awt.*;
 import javax.swing.*;
 
 /**
- * pannello contenente i pannelli 
+ * pannello contenente i pannelli, 
  * di prebet e postbet con le azioni eseguibili dall'utente
  */
 public class ActionsPanel extends JPanel

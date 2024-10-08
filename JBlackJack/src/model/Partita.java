@@ -10,7 +10,7 @@ import model.giocatore.GiocatoreDealer;
 import model.giocatore.GiocatoreUtente;
 
 /**
- * rappresenta la partita
+ * rappresenta la partita,
  * è singleton perchè si gioca una partita alla volta
  */
 public class Partita 
@@ -165,7 +165,7 @@ public class Partita
 	}
 	
 	/**
-	 * inizializza la lista di giocatori che partecipano alla partita
+	 * inizializza la lista di giocatori che partecipano alla partita, 
 	 * inserisce prima l'utente, poi i bot, infine il dealer
 	 */
 	public void initGiocatori()
@@ -198,15 +198,12 @@ public class Partita
     }
     
     /**
-     * aggiorna lo stato delle mani dei giocatori
+     * aggiorna lo stato delle mani dei giocatori, 
      * se il giocatore è un utente ne aggiorna anche i dati
      */
     public void aggiornaStatsGiocatori()
 	{	  	
-		for(Giocatore giocatore : getGiocatori())
-		{
-			giocatore.aggiornaStats();
-		}
+		for(Giocatore giocatore : getGiocatori()) giocatore.aggiornaStats();		
 	}
     
     /**

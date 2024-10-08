@@ -9,9 +9,9 @@ import view.gamePanel.GamePanel;
 import view.menuPanel.MenuPanel;
 
 /**
- * rappresenta la view, implementata tramite un JFrame
- * è composto da due pannelli: menuPanel e gamePanel
- * è singleton perchè utilizzo una sola finestra
+ * rappresenta la view, implementata tramite un JFrame, 
+ * è composto da due pannelli: menuPanel e gamePanel, 
+ * è singleton perchè utilizzo una sola finestra, 
  * implementa observer perchè viene aggiunta agli osservatori del model
  */
 @SuppressWarnings("deprecation")

@@ -8,7 +8,7 @@ import controller.actionListeners.partita.azioniUtente.SplitActionListener;
 import controller.actionListeners.partita.azioniUtente.StayActionListener;
 
 /**
- * pannello che compare in fase di "post bet"
+ * pannello che compare in fase di "post bet",
  * contiene i bottoni hit stay e split
  */
 public class PostBetPanel extends JPanel
