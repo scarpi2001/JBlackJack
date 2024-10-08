@@ -15,7 +15,9 @@ import model.ModelManager;
 
 
 /**
- * panel che rappresenta la topBar del menu
+ * panello per la gestione dell'utente nel menu
+ * al suo interno ci sono i bottoni per la creazione e l'eliminazione di un utente
+ * e la combobox per selezionare l'utente
  */
 public class GestioneUtentePanel extends JPanel 
 {

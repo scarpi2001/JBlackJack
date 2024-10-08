@@ -5,6 +5,9 @@ import javax.swing.*;
 
 import model.ModelManager;
 
+/**
+ * pannello per mostrare i dati dell'utente
+ */
 public class DatiUtentePanel extends JPanel
 {
 	private JLabel usernameLabel;

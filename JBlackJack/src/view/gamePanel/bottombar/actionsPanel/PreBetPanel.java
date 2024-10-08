@@ -4,8 +4,14 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 
 import javax.swing.*;
-import controller.actionListeners.partita.azioni.ScommettiActionListener;
 
+import controller.actionListeners.partita.azioniUtente.ScommettiActionListener;
+
+/**
+ * pannello che compare in fase di "pre bet"
+ * contiene il campo di testo dove inserire la somma da scommettere
+ * e il bottone per scommettere
+ */
 public class PreBetPanel extends JPanel
 {
 	private JButton buttonScommetti;	

@@ -16,6 +16,8 @@ import model.carte.Mano;
  * 
  * principalmente questa classe serve a differenziare l'utente (del quale devo salvare i dati)
  * e gli altri giocatori che sono bot 
+ * 
+ * è singleton perchè l'utente che usa l'applicazione è solo uno di quelli salvati
  */
 public class GiocatoreUtente extends Giocatore
 {

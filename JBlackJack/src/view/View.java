@@ -10,6 +10,9 @@ import view.menuPanel.MenuPanel;
 
 /**
  * rappresenta la view, implementata tramite un JFrame
+ * è composto da due pannelli: menuPanel e gamePanel
+ * è singleton perchè utilizzo una sola finestra
+ * implementa observer perchè viene aggiunta agli osservatori del model
  */
 @SuppressWarnings("deprecation")
 public class View extends JFrame implements Observer 
@@ -17,12 +20,28 @@ public class View extends JFrame implements Observer
 	public static final String TITOLO = "JBlackJack";
 	private static View instance;
 	
+	/**
+	 * pannello utilizzato per lo switch dei pannelli del menu e della partita
+	 */
 	private JPanel cardPanel;
 	private CardLayout cardLayout;
 
+	/**
+	 * pannello del menu
+	 */
 	private MenuPanel menuPanel;
+	
+	/**
+	 * pannello della partita
+	 */
     private GamePanel gamePanel;
 	
+    /**
+     * imposta il titolo della finestra,
+     * l'apertura a schermo intero,
+     * utilizza un cardLayout per gestire i pannelli del menu e della partita
+     * e fa partire la clip audio di sottofondo
+     */
 	private View()
 	{
 		setTitle(TITOLO);
@@ -34,8 +53,6 @@ public class View extends JFrame implements Observer
 		setSize(1280, 720);
 		setLocationRelativeTo(null);
 		
-		setLayout(new BorderLayout());
-		
 		cardLayout = new CardLayout();
         cardPanel = new JPanel(cardLayout);
         
@@ -45,11 +62,10 @@ public class View extends JFrame implements Observer
         cardPanel.add(menuPanel, "Menu");
         cardPanel.add(gamePanel, "Game");
         
-        add(cardPanel, BorderLayout.CENTER);
+        add(cardPanel);
         
         AudioManager.getInstance().play("src/resources/audio/background.wav", true);
-        setVisible(true);
-        
+        setVisible(true);        
 	}
 	
 	public static View getInstance()
@@ -58,17 +74,18 @@ public class View extends JFrame implements Observer
 		return instance;
 	}
 	
+	/**
+	 * aggiorna la view quando riceve il comando dal model 
+	 */
 	@Override
 	public void update(Observable o, Object arg) 
 	{
-		System.out.println("view: update ricevuto");
-		menuPanel.updateMenuPanel();
+		menuPanel.aggiornaMenuPanel();
 		
-		if(arg == "hit" || arg == "split") AudioManager.getInstance().play("src/resources/audio/carta.wav", false);
-		gamePanel.updateGamePanel();
+		if(arg != null && (arg.equals("hit") || arg.equals("split"))) AudioManager.getInstance().play("src/resources/audio/carta.wav", false);		
+		gamePanel.aggiornaGamePanel();
 	}
 
-	
 	/**
 	 * metodo per mostrare il panel del menu
 	 */

@@ -10,6 +10,12 @@ import model.giocatore.GiocatoreDealer;
 import model.giocatore.GiocatoreUtente;
 import view.MyJLabel;
 
+/**
+ * pannello della mano di un giocatore della partita
+ * contiene la label con il conteggio della mano
+ * il pannello con le carte che compongono la mano
+ * e la label con lo stato della mano e l'eventuale vincita
+ */
 public class ManoPanel extends JPanel
 {	
 	private Giocatore giocatore;
@@ -22,51 +28,63 @@ public class ManoPanel extends JPanel
 		
 		setLayout(new BorderLayout()); 
         setOpaque(false);
-        
-        ModelManager model = ModelManager.getInstance();
-        
+             
         //conteggio
-        if(mano.getConteggio() != 0)
-        {        	
-        	JLabel conteggioLabel = new MyJLabel.Builder().build();
+        if(mano.getConteggio() != 0) add(createConteggioLabel(), BorderLayout.SOUTH);
         	
-        	if(giocatore instanceof GiocatoreDealer && !model.isCartaDealerScoperta())
-        	{
-        		if(mano.getCarte().size() > 0)conteggioLabel.setText(mano.getCarte().get(0).getValore() + "");
-        	}
-        	else
-        	{        		
-        		conteggioLabel.setText(mano.getConteggio() + "");      		
-        	}
-        	
-        	add(conteggioLabel, BorderLayout.NORTH);
-        }
-		
         //carte
         add(new CartePanel(giocatore, mano.getCarte()), BorderLayout.CENTER);
         
         //stato
-        if(!(giocatore instanceof GiocatoreDealer) && mano.getStato() != Mano.Stato.IN_CORSO)
-        {    
-        	JLabel statoLabel = new MyJLabel.Builder().font(new Font("Arial", Font.BOLD, 16)).build();
-        	if(giocatore instanceof GiocatoreUtente && mano.getStato() == Mano.Stato.VINTA)
-        	{        		
-        		statoLabel.setText("Mano " + mano.getStato().toString().toLowerCase() + ", vincita: " + model.getScommessaUtentePartita()*2);
-        	}
-        	else if(giocatore instanceof GiocatoreUtente && mano.getStato() == Mano.Stato.PAREGGIATA)
-        	{        		
-        		statoLabel.setText("Mano " + mano.getStato().toString().toLowerCase() + ", vincita: " + model.getScommessaUtentePartita());
-        	}
-        	else
-        	{        		
-        		statoLabel.setText("Mano " + mano.getStato().toString().toLowerCase());
-        	}
-        	add(statoLabel, BorderLayout.SOUTH);
-        }
+        if (!(giocatore instanceof GiocatoreDealer) && mano.getStato() != Mano.Stato.IN_CORSO) add(createStatoLabel(), BorderLayout.SOUTH);
         
         //indicatore turno
      	TurnoIndicatorPanel turnoIndicatorPanel = new TurnoIndicatorPanel();
      	add(turnoIndicatorPanel, BorderLayout.EAST);
+    }
+	
+	private JLabel createConteggioLabel() 
+	{
+		ModelManager model = ModelManager.getInstance();
+        JLabel conteggioLabel = new MyJLabel.Builder().build();
+        
+        if(giocatore instanceof GiocatoreDealer && !model.isCartaDealerScoperta())
+        {
+            if(mano.getCarte().size() > 0)
+            {
+                conteggioLabel.setText(mano.getCarte().get(0).getValore() + "");
+            }
+        } 
+        else
+        {
+            conteggioLabel.setText(mano.getConteggio() + "");   
+        }
+        
+        return conteggioLabel;
+    }
+
+    private JLabel createStatoLabel()
+    {
+        JLabel statoLabel = new MyJLabel.Builder().font(new Font("Arial", Font.BOLD, 16)).build();
+        statoLabel.setText(getTestoStatoLabel());
+        return statoLabel;
+    }
+    
+    private String getTestoStatoLabel()
+    {
+    	ModelManager model = ModelManager.getInstance();
+        if (giocatore instanceof GiocatoreUtente) 
+        {
+            if (mano.getStato() == Mano.Stato.VINTA)
+            {
+                return "Mano vinta, vincita: " + model.getScommessaUtentePartita() * 2;
+            } 
+            else if (mano.getStato() == Mano.Stato.PAREGGIATA) 
+            {
+                return "Mano pareggiata, vincita: " + model.getScommessaUtentePartita();
+            }
+        }
+        return "Mano " + mano.getStato().toString().toLowerCase();
     }
 	
 	//classe per disegnare la pallina del turno
@@ -81,7 +99,7 @@ public class ManoPanel extends JPanel
         @Override
         protected void paintComponent(Graphics g)
         {
-            super.paintComponent(g);
+            
             ModelManager model = ModelManager.getInstance();
 
             int turnoCorrente = model.getTurnoPartita();
@@ -92,6 +110,7 @@ public class ManoPanel extends JPanel
             //perchè controllo proprio che facciano riferimento allo stesso oggetto
             if (turnoCorrente == posizioneGiocatore && mano == giocatore.getManoCorrente())
             {
+            	super.paintComponent(g);
             	int size = Math.min(getWidth(), getHeight());
                 g.setColor(Color.GREEN); 
                 g.fillOval(0, 0, size, size);

@@ -10,7 +10,8 @@ import model.giocatore.GiocatoreDealer;
 import model.giocatore.GiocatoreUtente;
 
 /**
- * classe che rappresenta la partita
+ * rappresenta la partita
+ * è singleton perchè si gioca una partita alla volta
  */
 public class Partita 
 {
@@ -179,7 +180,7 @@ public class Partita
 	     
 	/**
      * indica se la partita è finita
-     * @return true se è finito, false altrimenti
+     * @return true se lo è, false altrimenti
      */
     public boolean isFinita()
     {
@@ -216,7 +217,7 @@ public class Partita
     	setTurno(0);  	
     	getGiocatori().clear();
     	
-    	//anche se elimino tolgo tutti i giocatori lo stato di questi due rima e lo stesso
+    	//anche se tolgo tutti i giocatori lo stato di questi due rimane lo stesso
     	GiocatoreUtente.getInstance().resetStato();
     	GiocatoreDealer.getInstance().resetStato();
     	

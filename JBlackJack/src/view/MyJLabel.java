@@ -12,40 +12,62 @@ public class MyJLabel extends JLabel
     private MyJLabel(Builder builder)
     {
         super(builder.text);
-        setForeground(builder.foreground);
+        setForeground(builder.background);
         setFont(builder.font);
     }
 
+    /**
+     * builder della classe MyJLabel
+     */
     public static class Builder 
     {
         private String text;
-        private Color foreground; 
+        private Color background; 
         private Font font; 
 
         public Builder() 
         {
-        	foreground = Color.WHITE;
+        	background = Color.WHITE;
         	font = new Font("Arial", Font.BOLD, 18);
         }
 
+        /**
+         * modifica il testo
+         * @param text testo
+         * @return istanza del builder con campo modificato
+         */
         public Builder text(String text)
         {
             this.text = text;
             return this;
         }
 
-        public Builder foreground(Color foreground)
+        /**
+         * modifica il background
+         * @param background background
+         * @return istanza del builder con campo modificato
+         */
+        public Builder background(Color background)
         {
-            this.foreground = foreground;
+            this.background = background;
             return this;
         }
 
+        /**
+         * modifica il font
+         * @param font font
+         * @return istanza del builder con campo modificato
+         */
         public Builder font(Font font) 
         {
             this.font = font;
             return this;
         }
 
+        /**
+         * ritorna l'istanza del builder
+         * @return l'istanza del builder
+         */
         public MyJLabel build() 
         {
             return new MyJLabel(this);

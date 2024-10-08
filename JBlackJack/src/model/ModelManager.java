@@ -7,11 +7,11 @@ import model.carte.Mazzo;
 import model.giocatore.Giocatore;
 import model.giocatore.GiocatoreUtente;
 
-@SuppressWarnings("deprecation")
 /**
  * classe principale del package model 
  * ad essa è affidata la gestione dello stato della partia e dell'utente
  */
+@SuppressWarnings("deprecation")
 public class ModelManager extends Observable 
 {
 	//CAMPI
@@ -44,6 +44,17 @@ public class ModelManager extends Observable
 	{
 		if (instance == null) instance = new ModelManager();
 		return instance;
+	}
+	
+	//GETTERS E SETTERS
+	public GiocatoreUtente getUtente()
+	{
+		return utente;
+	}
+	
+	public Partita getPartita()
+	{
+		return partita;
 	}
 	
 	//GETTERS E SETTERS DELLA PARTITA
@@ -114,7 +125,7 @@ public class ModelManager extends Observable
 		return utente.getUsername();
 	}
 	
-	public String getFilePathUtent()
+	public String getFilePathUtente()
 	{
 		return utente.getFilePath();
 	}
@@ -180,9 +191,8 @@ public class ModelManager extends Observable
 	 */
 	public void setUtente(String fileDatiUtentePath, String fileUltimoUtentePath)
 	{
-		utente.setDati(fileDatiUtentePath, fileUltimoUtentePath);        
-		System.out.println("setUtente");
-		updateObservers("setUtente");
+		getUtente().setDati(fileDatiUtentePath, fileUltimoUtentePath);        
+		updateObservers();
 	}
 	
 	/**
@@ -193,7 +203,7 @@ public class ModelManager extends Observable
 	 */
 	public void creaUtente(String username, String fileUtentiPath, String fileDatiUtentePath)
 	{
-		utente.creaUtente(username, fileUtentiPath, fileDatiUtentePath);
+		getUtente().creaUtente(username, fileUtentiPath, fileDatiUtentePath);
 	}
 	
 	/**
@@ -204,12 +214,11 @@ public class ModelManager extends Observable
 	 */
 	public void eliminaUtente(String username, String fileUtentiPath, String fileDatiUtentePath)
 	{
-		utente.eliminaUtente(username, fileUtentiPath, fileDatiUtentePath);
+		getUtente().eliminaUtente(username, fileUtentiPath, fileDatiUtentePath);
 	}
 	
 	/**
 	 * ottiene la lista di utenti
-	 * @param username username da controllare
 	 * @param path path del file degli utenti
 	 * @return la lista di utenti
 	 */
@@ -219,7 +228,7 @@ public class ModelManager extends Observable
 	}
 	
 	/**
-	 * ottiene l'ultimo utente selezionato
+	 * ottiene l'ultimo utente settato
 	 * @param path path del file che contiene l'username dell'ultimo utente selezionato
 	 */
 	public String getUltimoUtente(String path) 
@@ -246,41 +255,71 @@ public class ModelManager extends Observable
 	 */
 	public void initPartita()
 	{	
-		partita.initMazzo();
-		partita.initGiocatori();
+		getPartita().initMazzo();
+		getPartita().initGiocatori();
 	}
 	
+	/**
+	 * controlla che la partita sia in fase di "post bet"
+	 * @return true se lo, false altrimenti
+	 */
 	public boolean isPartitaPostBet()
 	{
-		return partita.isPostBet();
+		return getPartita().isPostBet();
 	}
 	
+	/**
+	 * controlla che la partita sia finita
+	 * (la partita finisce quando si supera il turno del dealer)
+	 * @return true se lo, false altrimenti
+	 */
 	public boolean isPartitaFinita()
 	{
-		return partita.isFinita();
+		return getPartita().isFinita();
 	}
 	
+	/**
+	 * definisce le azioni da compiere alla fine della partita
+	 */
 	public void finePartita()
 	{
-		partita.aggiornaStatsGiocatori();
-		partita.fine();
-		System.out.println("finePartita");
-		updateObservers("finePartita");
+		getPartita().aggiornaStatsGiocatori();
+		getPartita().fine();
+		updateObservers();
 	}
-		
+	
+	/**
+	 * ottiene il giocatore che sta giocando
+	 * @return il giocatore corrente
+	 */
     public Giocatore getGiocatoreCorrente()
 	{
-		return partita.getGiocatoreCorrente();
+		return getPartita().getGiocatoreCorrente();
 	}
     
+    /**
+     * torna al menu 
+     */
     public void back()
     {
-    	partita.back();
     	System.out.println("back");
-		updateObservers("back");
+    	getPartita().back();
+		updateObservers();
     }
     
     //UPDATE OBSERVERS
+    /**
+     * aggiorna gli osservatori senza passargli niente
+     */
+    public void updateObservers()
+  	{
+  		setChanged();
+  		notifyObservers();
+  	}
+    
+    /**
+     * aggiorna gli osservatori passandogli una stringa
+     */
   	public void updateObservers(String s)
   	{
   		setChanged();

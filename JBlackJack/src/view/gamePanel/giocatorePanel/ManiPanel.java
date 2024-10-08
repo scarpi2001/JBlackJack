@@ -7,6 +7,10 @@ import java.util.List;
 import model.carte.Mano;
 import model.giocatore.Giocatore;
 
+/**
+ * pannello delle mani di un giocatore della partita
+ * contiene i pannelli delle mani del giocatore
+ */
 public class ManiPanel extends JPanel
 { 	
 	public ManiPanel(Giocatore giocatore) 

@@ -8,7 +8,9 @@ import model.ModelManager;
 
 
 /**
- * panel che rappresenta la topBar del menu
+ * pannello per la topbar del menu
+ * è composto da un pannello per scegliere il numero di giocatori della partita
+ * e da un pannello di gestione dell'utente
  */
 public class TopBarMenuPanel extends JPanel 
 {
@@ -41,9 +43,6 @@ public class TopBarMenuPanel extends JPanel
         add(numeroGiocatoriPanel, gbc);
 	}
 	
-	/**
-	 * metodo per aggiornare la comboBox 
-	 */
 	public void aggiornaComboBox() 
 	{
 		gestioneUtentePanel.aggiornaComboBox();

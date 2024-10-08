@@ -1,19 +1,21 @@
 package controller;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.Timer;
 
 import controller.actionListeners.partita.timers.TimerDistribuzioneActionListener;
-import controller.actionListeners.partita.timers.TimerGameLoopActionListener;
 
 import model.ModelManager;
 import model.giocatore.*;
 import view.View;
 
-@SuppressWarnings("deprecation")
 /**
  * classe principale del package controller
  * gestisce l'inizializzazione del menu e il flusso della partita
  */
+@SuppressWarnings("deprecation")
 public class Controller 
 {
 	//CAMPI
@@ -100,21 +102,32 @@ public class Controller
     public void gameloop() 
     {
         Giocatore giocatore = model.getGiocatoreCorrente();
+        
+        //prima faccio giocare il giocatore corrente
         giocatore.gioca();
-            
-        //se il giocatore è il dealer 
-        if(giocatore instanceof GiocatoreDealer) model.setCartaDealerScoperta(true);
+             
+        if(giocatore instanceof GiocatoreDealer) model.setCartaDealerScoperta(true); //se è il dealer scopro la seconda carta
         
-        //se il giocatore è un bot o il dealer (il dealer è un bot)
+        //quando ha finito di giocare vedo se passare alla mano o al turno successivo, oppure se farlo rigiocare
         if (giocatore instanceof GiocatoreBot) 
-        {        	
-            Timer timer = new Timer(700, new TimerGameLoopActionListener(giocatore));      
-            timer.setRepeats(false);
-            timer.start();
-        } 
-        
-        //se il giocatore è l'utente e la sua mano è terminata
-        if (giocatore instanceof GiocatoreUtente && giocatore.isManoTerminata()) 
+        {       	
+        	Timer timer = new Timer(600, new ActionListener() 
+        	{
+        		@Override
+        	    public void actionPerformed(ActionEvent e) 
+        	    { 		
+        	        if(giocatore.isManoTerminata()) giocatore.manoSuccessiva();
+        	       
+        	        if(model.isPartitaFinita()) model.finePartita();
+        	        else gameloop();
+
+        	        ((Timer) e.getSource()).stop();
+        	    }
+        	});      
+        	timer.setRepeats(false);
+        	timer.start();
+        }                   
+        else if (giocatore instanceof GiocatoreUtente && giocatore.isManoTerminata())  
         {
             giocatore.manoSuccessiva();
             gameloop();
@@ -139,7 +152,7 @@ public class Controller
         primoGiocatore.hit();
 
 	    //imposto timer per rallentare la distribuzione delle carte successive
-	    Timer timer = new Timer(700, new TimerDistribuzioneActionListener()); 
+	    Timer timer = new Timer(600, new TimerDistribuzioneActionListener()); 
 	    timer.start();	  
    }
 }

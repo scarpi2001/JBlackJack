@@ -2,11 +2,14 @@ package view.menuPanel.bottombar;
 
 import javax.swing.*;
 import controller.actionListeners.menu.PlayActionListener;
-import controller.actionListeners.partita.azioni.HitActionListener;
-import controller.actionListeners.partita.azioni.SplitActionListener;
+import controller.actionListeners.partita.azioniUtente.HitActionListener;
+import controller.actionListeners.partita.azioniUtente.SplitActionListener;
 
 import java.awt.*;
 
+/**
+ * pannello che contiene i bottoni gioca ed esci
+ */
 public class GiocaEsciPanel extends JPanel 
 {
     private JButton buttonGioca;

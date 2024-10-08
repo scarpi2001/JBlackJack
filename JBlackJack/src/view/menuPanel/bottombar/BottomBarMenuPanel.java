@@ -2,10 +2,13 @@ package view.menuPanel.bottombar;
 
 import javax.swing.*;
 import view.DatiUtentePanel;
+
 import java.awt.*;
 
 /**
- * panel che rappresenta la bottomBar del menu
+ * pannello per la bottomBar del menu
+ * contiene un pannello per mostrare i dati dell'utente
+ * e il pannello contenente i pulsanti gioca ed esci
  */
 public class BottomBarMenuPanel extends JPanel 
 {
@@ -38,7 +41,6 @@ public class BottomBarMenuPanel extends JPanel
         gbc.gridy = 1;       // Seconda riga (in basso)
         gbc.anchor = GridBagConstraints.LAST_LINE_END;  // Posizionato in basso a destra
         add(giocaEsciPanel, gbc);
-
     }
     
     public void aggiornaDatiUtente() 

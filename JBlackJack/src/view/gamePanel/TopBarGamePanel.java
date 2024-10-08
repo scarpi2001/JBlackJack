@@ -6,6 +6,10 @@ import javax.swing.*;
 import controller.actionListeners.partita.BackActionListener;
 import view.DatiUtentePanel;
 
+/**
+ * pannello per la topbar della partita
+ * contiene il bottone per tornare indietro al menu e ilpannello per mostrare i dati utente
+ */
 public class TopBarGamePanel extends JPanel
 {
 	private JButton buttonBack;

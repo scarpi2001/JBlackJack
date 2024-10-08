@@ -1,8 +1,8 @@
 username:sca
-chips:579
-maniGiocate:232
-maniVinte:77
-maniPareggiate:55
-maniPerse:98
-esperienza:481
-livello:2
+chips:980
+maniGiocate:5
+maniVinte:3
+maniPareggiate:1
+maniPerse:1
+esperienza:39
+livello:0

@@ -7,13 +7,14 @@ import model.ModelManager;
 import view.gamePanel.bottombar.BottomBarGamePanel;
 
 /**
- * in questo panel si svolge la partita
+ * pannello della partita
+ * è composto da una topbar da un bodypanel e da una bottombar
  */
 public class GamePanel extends JPanel
 {
 	private Image background;
 	private TopBarGamePanel topbar;
-	private BodyPanel bodyPanel;
+	private BodyGamePanel bodyPanel;
 	private BottomBarGamePanel bottombar;
 	
 	public GamePanel()
@@ -25,8 +26,7 @@ public class GamePanel extends JPanel
 		topbar.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 		add(topbar, BorderLayout.NORTH);
 		
-		bodyPanel = new BodyPanel(); 
-		//bodyPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+		bodyPanel = new BodyGamePanel(); 
 		add(bodyPanel, BorderLayout.CENTER);
 		
 		bottombar = new BottomBarGamePanel(); 
@@ -64,7 +64,11 @@ public class GamePanel extends JPanel
 		bottombar.setSplitVisible(visible);
     }
 	
-	public void updateGamePanel() 
+	/**
+	 * gestisce la comparsa e la scomparsa dei bottoni in base allo stato del model 
+	 * inoltre aggiorna le carte e i dati dell'utente mostrati sul pannello
+	 */
+	public void aggiornaGamePanel() 
 	{	
 		ModelManager model = ModelManager.getInstance();
 		

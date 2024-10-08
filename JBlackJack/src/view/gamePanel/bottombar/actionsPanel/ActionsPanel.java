@@ -3,6 +3,10 @@ package view.gamePanel.bottombar.actionsPanel;
 import java.awt.*;
 import javax.swing.*;
 
+/**
+ * pannello contenente i pannelli 
+ * di prebet e postbet con le azioni eseguibili dall'utente
+ */
 public class ActionsPanel extends JPanel
 {
 	private PreBetPanel preBetPanel;
