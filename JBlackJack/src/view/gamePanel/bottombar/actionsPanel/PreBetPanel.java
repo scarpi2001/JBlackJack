@@ -5,7 +5,7 @@ import java.awt.GridLayout;
 
 import javax.swing.*;
 
-import controller.actionListeners.partita.azioniUtente.ScommettiActionListener;
+import controller.actionListeners.partita.azioni.ScommettiActionListener;
 
 /**
  * pannello che compare in fase di "pre bet",

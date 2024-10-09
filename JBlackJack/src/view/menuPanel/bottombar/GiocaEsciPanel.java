@@ -2,8 +2,8 @@ package view.menuPanel.bottombar;
 
 import javax.swing.*;
 import controller.actionListeners.menu.PlayActionListener;
-import controller.actionListeners.partita.azioniUtente.HitActionListener;
-import controller.actionListeners.partita.azioniUtente.SplitActionListener;
+import controller.actionListeners.partita.azioni.HitActionListener;
+import controller.actionListeners.partita.azioni.SplitActionListener;
 
 import java.awt.*;
 
