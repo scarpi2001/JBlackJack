@@ -6,9 +6,9 @@ import javax.swing.Timer;
 
 import controller.Controller;
 import model.ModelManager;
-import model.giocatore.Giocatore;
-import model.giocatore.GiocatoreDealer;
-import model.giocatore.GiocatoreUtente;
+import model.giocatori.Giocatore;
+import model.giocatori.GiocatoreDealer;
+import model.giocatori.GiocatoreUtente;
 
 /**
  * si occupa di gestire la distribuzione iniziale delle carte che deve avvenire alla fine di un timer

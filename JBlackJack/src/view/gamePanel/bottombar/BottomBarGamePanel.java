@@ -62,8 +62,8 @@ public class BottomBarGamePanel extends JPanel
     	actionsPanel.setSplitVisible(visible);
     }
     
-    public void updateGiocatori()
+    public void aggiornaGiocatori()
     {
-    	giocatoriPanel.updateGiocatori();
+    	giocatoriPanel.aggiornaGiocatori();
     }
 }

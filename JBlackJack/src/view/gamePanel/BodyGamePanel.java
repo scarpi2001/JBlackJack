@@ -3,8 +3,8 @@ package view.gamePanel;
 import javax.swing.*;
 
 import model.ModelManager;
-import model.giocatore.Giocatore;
-import model.giocatore.GiocatoreDealer;
+import model.giocatori.Giocatore;
+import model.giocatori.GiocatoreDealer;
 import view.gamePanel.giocatorePanel.GiocatorePanel;
 
 /**
@@ -18,7 +18,7 @@ public class BodyGamePanel extends JPanel
 		setOpaque(false);
     }
 	
-	public void updateDealer()
+	public void aggiornaDealer()
 	{
 		removeAll();
 		

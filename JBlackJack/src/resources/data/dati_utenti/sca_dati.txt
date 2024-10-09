@@ -1,8 +1,8 @@
 username:sca
-chips:983
-maniGiocate:28
-maniVinte:9
+chips:988
+maniGiocate:33
+maniVinte:12
 maniPareggiate:11
-maniPerse:8
-esperienza:161
+maniPerse:10
+esperienza:195
 livello:0

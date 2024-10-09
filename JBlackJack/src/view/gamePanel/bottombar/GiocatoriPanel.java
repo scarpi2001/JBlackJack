@@ -4,7 +4,7 @@ import java.awt.*;
 import javax.swing.*;
 
 import model.ModelManager;
-import model.giocatore.Giocatore;
+import model.giocatori.Giocatore;
 import view.gamePanel.giocatorePanel.GiocatorePanel;
 
 /**
@@ -20,7 +20,7 @@ public class GiocatoriPanel extends JPanel
         setOpaque(false);
     }
 	
-	public void updateGiocatori()
+	public void aggiornaGiocatori()
 	{
 		removeAll();
 		ModelManager model = ModelManager.getInstance();

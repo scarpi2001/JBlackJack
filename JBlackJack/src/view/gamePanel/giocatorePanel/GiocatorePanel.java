@@ -1,9 +1,12 @@
 package view.gamePanel.giocatorePanel;
 
 import java.awt.*;
+import java.util.List;
+
 import javax.swing.*;
 
-import model.giocatore.Giocatore;
+import model.carte.Mano;
+import model.giocatori.Giocatore;
 import view.MyJLabel;
 
 /**
@@ -21,7 +24,8 @@ public class GiocatorePanel extends JPanel
 		usernameLabel.setText(giocatore.getUsername());
 		add(usernameLabel, BorderLayout.NORTH);
 
-		ManiPanel maniPanel = new ManiPanel(giocatore);
+		List<Mano> mani = giocatore.getMani();
+		ManiPanel maniPanel = new ManiPanel(giocatore, mani);
 		add(maniPanel, BorderLayout.CENTER);
     } 
 }

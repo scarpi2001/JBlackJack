@@ -1,4 +1,4 @@
-package model.giocatore;
+package model.giocatori;
 
 import java.util.List;
 
@@ -36,6 +36,7 @@ public class GiocatoreBot extends Giocatore
     	
 		for (Mano mano : getMani())
         {
+			//posso usare == per il confronto (non ci possono essere più istanze per i campi enum, sono costanti)
             if (mano.getStato() == Mano.Stato.IN_CORSO) confrontaManoConDealer(mano, manoDealer);                     
         }
 	}

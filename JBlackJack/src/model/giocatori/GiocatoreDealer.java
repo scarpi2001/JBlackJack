@@ -1,4 +1,4 @@
-package model.giocatore;
+package model.giocatori;
 
 /**
  * rappresenta il dealer, che a sua volta è un bot

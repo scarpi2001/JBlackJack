@@ -1,0 +1,8 @@
+username:mario
+chips:1005
+maniGiocate:1
+maniVinte:1
+maniPareggiate:0
+maniPerse:0
+esperienza:10
+livello:0

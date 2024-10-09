@@ -5,6 +5,7 @@ import javax.swing.*;
 
 import model.ModelManager;
 import view.gamePanel.bottombar.BottomBarGamePanel;
+import view.gamePanel.topbar.TopBarGamePanel;
 
 /**
  * pannello della partita, 
@@ -94,8 +95,8 @@ public class GamePanel extends JPanel
 		
 		//aggiorna carte e dati utente
 		topbar.aggiornaDatiUtente();
-		bodyPanel.updateDealer();
-		bottombar.updateGiocatori();
+		bodyPanel.aggiornaDealer();
+		bottombar.aggiornaGiocatori();
 		
 		repaint();
 		revalidate();

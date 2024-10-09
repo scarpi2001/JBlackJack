@@ -6,8 +6,8 @@ import java.util.List;
 
 import model.ModelManager;
 import model.carte.Carta;
-import model.giocatore.Giocatore;
-import model.giocatore.GiocatoreDealer;
+import model.giocatori.Giocatore;
+import model.giocatori.GiocatoreDealer;
 
 /**
  * pannello delle carte di una mano di un giocatore della partita 

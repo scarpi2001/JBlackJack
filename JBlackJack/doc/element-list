@@ -8,7 +8,7 @@ controller.actionListeners.partita.azioniUtente
 controller.actionListeners.partita.timers
 model
 model.carte
-model.giocatore
+model.giocatori
 resources
 resources.audio
 resources.data
@@ -20,6 +20,7 @@ view.gamePanel
 view.gamePanel.bottombar
 view.gamePanel.bottombar.actionsPanel
 view.gamePanel.giocatorePanel
+view.gamePanel.topbar
 view.menuPanel
 view.menuPanel.bottombar
 view.menuPanel.topbar

@@ -5,9 +5,9 @@ import javax.swing.*;
 
 import model.ModelManager;
 import model.carte.Mano;
-import model.giocatore.Giocatore;
-import model.giocatore.GiocatoreDealer;
-import model.giocatore.GiocatoreUtente;
+import model.giocatori.Giocatore;
+import model.giocatori.GiocatoreDealer;
+import model.giocatori.GiocatoreUtente;
 import view.MyJLabel;
 
 /**

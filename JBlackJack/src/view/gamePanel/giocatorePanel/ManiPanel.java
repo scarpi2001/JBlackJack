@@ -5,7 +5,7 @@ import javax.swing.JPanel;
 import java.util.List;
 
 import model.carte.Mano;
-import model.giocatore.Giocatore;
+import model.giocatori.Giocatore;
 
 /**
  * pannello delle mani di un giocatore della partita, 
@@ -13,14 +13,14 @@ import model.giocatore.Giocatore;
  */
 public class ManiPanel extends JPanel
 { 	
-	public ManiPanel(Giocatore giocatore) 
+	public ManiPanel(Giocatore giocatore, List<Mano> mani) 
     {
 		setLayout(new FlowLayout(FlowLayout.LEFT, 15, 10)); 
         setOpaque(false);
         
         removeAll();
         
-        List<Mano> mani = giocatore.getMani();
+ 
 		for (Mano mano : mani) 
 		{	        
 			ManoPanel manoPanel = new ManoPanel(giocatore, mano);

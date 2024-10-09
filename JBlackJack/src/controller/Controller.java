@@ -8,7 +8,7 @@ import javax.swing.Timer;
 import controller.actionListeners.partita.timers.TimerDistribuzioneActionListener;
 
 import model.ModelManager;
-import model.giocatore.*;
+import model.giocatori.*;
 import view.View;
 
 /**

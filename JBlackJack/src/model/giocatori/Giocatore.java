@@ -1,4 +1,4 @@
-package model.giocatore;
+package model.giocatori;
 
 import java.util.ArrayList;
 import java.util.List;

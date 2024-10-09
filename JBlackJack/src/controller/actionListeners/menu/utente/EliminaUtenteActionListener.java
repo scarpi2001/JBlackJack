@@ -3,7 +3,6 @@ package controller.actionListeners.menu.utente;
 import java.awt.event.*;
 import java.util.List;
 
-import model.FileUtils;
 import model.ModelManager;
 import view.View;
 

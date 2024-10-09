@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Observable;
 
 import model.carte.Mazzo;
-import model.giocatore.Giocatore;
-import model.giocatore.GiocatoreUtente;
+import model.giocatori.Giocatore;
+import model.giocatori.GiocatoreUtente;
 
 /**
  * classe principale del package model, 

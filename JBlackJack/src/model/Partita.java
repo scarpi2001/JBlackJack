@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.carte.Mazzo;
-import model.giocatore.Giocatore;
-import model.giocatore.GiocatoreBot;
-import model.giocatore.GiocatoreDealer;
-import model.giocatore.GiocatoreUtente;
+import model.giocatori.Giocatore;
+import model.giocatori.GiocatoreBot;
+import model.giocatori.GiocatoreDealer;
+import model.giocatori.GiocatoreUtente;
 
 /**
  * rappresenta la partita,
