@@ -191,7 +191,7 @@ public class ModelManager extends Observable
 	 */
 	public void setUtente(String fileDatiUtentePath, String fileUltimoUtentePath)
 	{
-		getUtente().setDati(fileDatiUtentePath, fileUltimoUtentePath);        
+		getUtente().setUtente(fileDatiUtentePath, fileUltimoUtentePath);        
 		updateObservers();
 	}
 	
@@ -283,7 +283,6 @@ public class ModelManager extends Observable
 	 */
 	public void finePartita()
 	{
-		getPartita().aggiornaStatsGiocatori();
 		getPartita().fine();
 		updateObservers();
 	}

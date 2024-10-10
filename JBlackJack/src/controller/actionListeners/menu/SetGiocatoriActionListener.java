@@ -7,7 +7,7 @@ import javax.swing.JComboBox;
 import model.ModelManager;
 
 /**
- * definisce l'evento di set del numero di giocatori che deve accadere al click di un componente swing
+ * cambia il numero di giocatori che parecipano alla partita al click di una comboBox swing
  */
 public class SetGiocatoriActionListener implements ActionListener 
 {

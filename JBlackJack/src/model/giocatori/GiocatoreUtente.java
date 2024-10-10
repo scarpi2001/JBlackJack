@@ -159,7 +159,7 @@ public class GiocatoreUtente extends Giocatore
 	 * @param fileDatiUtentePath path del file che contiene i dati dell'utente
 	 * @param fileUltimoUtentePath path del file che conterrà l'username dell'utente selezionato
 	 */
-	public void setDati(String fileDatiUtentePath, String fileUltimoUtentePath)
+	public void setUtente(String fileDatiUtentePath, String fileUltimoUtentePath)
 	{
 	    setFilePath(fileDatiUtentePath);
 	    List<String> righe = FileUtils.leggiFile(fileDatiUtentePath);
@@ -170,7 +170,8 @@ public class GiocatoreUtente extends Giocatore
 	             String key = keyValue[0].trim();
 	             String value = keyValue[1].trim();
 	             
-	             switch (key) {
+	             switch (key) 
+	             {
 	                 case "username":
 	                     setUsername(value);
 	                     break;

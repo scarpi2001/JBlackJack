@@ -4,6 +4,7 @@ import java.awt.*;
 import javax.swing.*;
 
 import model.ModelManager;
+import view.gamePanel.bodyPanel.BodyGamePanel;
 import view.gamePanel.bottombar.BottomBarGamePanel;
 import view.gamePanel.topbar.TopBarGamePanel;
 

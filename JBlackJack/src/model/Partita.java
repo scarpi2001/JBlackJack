@@ -192,6 +192,7 @@ public class Partita
      */
     public void fine()
     {
+    	aggiornaStatsGiocatori();
     	setTurno(0);
 		setPostBet(false);
 		setDistribuzione(false);
@@ -201,7 +202,7 @@ public class Partita
      * aggiorna lo stato delle mani dei giocatori, 
      * se il giocatore è un utente ne aggiorna anche i dati
      */
-    public void aggiornaStatsGiocatori()
+    private void aggiornaStatsGiocatori()
 	{	  	
 		for(Giocatore giocatore : getGiocatori()) giocatore.aggiornaStats();		
 	}

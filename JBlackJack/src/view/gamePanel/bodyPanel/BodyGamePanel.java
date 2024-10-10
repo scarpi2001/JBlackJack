@@ -1,4 +1,4 @@
-package view.gamePanel;
+package view.gamePanel.bodyPanel;
 
 import javax.swing.*;
 
